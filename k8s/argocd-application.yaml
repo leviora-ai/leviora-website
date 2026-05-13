@@ -1,0 +1,31 @@
+# Standalone ArgoCD Application — separate pipeline from pandora-* platform stack.
+# Apply this once (outside of pandora-infra GitOps tree):
+#   kubectl apply -f k8s/argocd-application.yaml
+# After that, every push to main triggers GHA build → GHCR; argocd image-updater
+# (or manual `argocd app sync`) rolls the new tag.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: leviora-website
+  namespace: argocd
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: app=ghcr.io/leviora-ai/leviora-website
+    argocd-image-updater.argoproj.io/app.update-strategy: digest
+    argocd-image-updater.argoproj.io/app.allow-tags: regexp:^sha-[a-f0-9]{7,}$
+    argocd-image-updater.argoproj.io/write-back-method: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/leviora-ai/leviora-website
+    targetRevision: main
+    path: k8s
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: leviora-website
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true

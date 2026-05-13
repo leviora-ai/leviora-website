@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: leviora-website
+  namespace: leviora-website
+  labels:
+    app.kubernetes.io/name: leviora-website
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: leviora-website
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
+      protocol: TCP

@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Leviora — Operasyona Özel Yapay Zeka</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=Oxanium:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="leviora.css" />
+</head>
+<body>
+
+<!-- Inline logo symbol — cropped viewBox for display; asset file remains untouched original -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="leviora-logo-sym" viewBox="200 245 440 105">
+    <g fill="#4E2F91">
+      <path d="M348.57,274.35c0.56,0,0.97,0.2,1.21,0.59c0.24,0.4,0.37,0.86,0.37,1.38v27.77c0,1.2,0.08,2.31,0.25,3.33c0.17,1.02,0.48,1.9,0.93,2.65c0.45,0.75,1.05,1.34,1.81,1.75c0.75,0.41,1.69,0.62,2.82,0.62h18.35c0.56,0,0.97,0.2,1.21,0.59c0.24,0.4,0.37,0.86,0.37,1.38v4.46c0,0.53-0.12,0.99-0.37,1.38c-0.25,0.39-0.65,0.59-1.21,0.59h-18.63c-2.93,0-5.32-0.44-7.14-1.33c-1.83-0.88-3.24-2.12-4.23-3.7c-1-1.58-1.67-3.45-2.03-5.62c-0.36-2.16-0.54-4.52-0.54-7.08v-26.81c0-0.53,0.12-0.99,0.37-1.38c0.24-0.4,0.67-0.59,1.27-0.59H348.57z"/>
+      <path d="M416.08,274.35c0.23,0,0.54,0.11,0.96,0.34c0.41,0.23,0.62,0.77,0.62,1.64v4.4c0,0.87-0.21,1.41-0.62,1.64c-0.41,0.23-0.73,0.34-0.96,0.34h-32.46c-0.23,0-0.54-0.1-0.93-0.31c-0.4-0.21-0.59-0.74-0.59-1.61v-4.4c0-0.9,0.2-1.47,0.59-1.69c0.39-0.23,0.71-0.34,0.93-0.34H416.08z M390.56,307.37c0,1.92,0.5,3.26,1.5,4.01c1,0.75,2.36,1.13,4.09,1.13h19.87c0.6,0,1.03,0.19,1.27,0.56c0.24,0.38,0.37,0.83,0.37,1.36v4.52c0,0.53-0.12,0.98-0.37,1.35c-0.25,0.38-0.67,0.56-1.27,0.56h-20.04c-2.71,0-4.96-0.39-6.75-1.16c-1.79-0.77-3.21-1.87-4.26-3.3c-1.05-1.43-1.8-3.15-2.23-5.17c-0.43-2.01-0.65-4.26-0.65-6.75v-7.45c0-0.45,0.08-0.91,0.23-1.38c0.15-0.47,0.4-0.88,0.76-1.24c0.36-0.36,0.83-0.65,1.41-0.88c0.58-0.23,1.31-0.34,2.17-0.34h29.13c0.56,0,0.97,0.19,1.21,0.56c0.24,0.38,0.37,0.83,0.37,1.36v4.46c0,0.53-0.12,0.99-0.37,1.38c-0.25,0.4-0.65,0.59-1.21,0.59h-25.23V307.37z"/>
+      <path d="M472.41,274.32c0.34,0,0.67,0.12,0.99,0.37c0.32,0.25,0.42,0.52,0.31,0.82l-15.63,39.48c-0.34,0.83-0.73,1.6-1.16,2.31c-0.43,0.71-0.93,1.35-1.5,1.89c-0.56,0.55-1.22,0.97-1.98,1.27c-0.75,0.3-1.62,0.45-2.6,0.45c-1.58,0-2.95-0.49-4.09-1.47c-1.15-0.98-2.02-2.18-2.63-3.61l-16.17-40.33c-0.15-0.34-0.08-0.62,0.23-0.85c0.3-0.23,0.64-0.34,1.02-0.34h6.1c0.49,0,0.83,0.09,1.02,0.28c0.19,0.19,0.38,0.49,0.56,0.9l13.86,34.46v0.06l0.23-0.06l13.6-34.46c0.15-0.34,0.37-0.62,0.65-0.85c0.28-0.23,0.61-0.34,0.99-0.34H472.41z"/>
+      <path d="M485.23,274.35c0.23,0,0.55,0.11,0.96,0.34c0.41,0.23,0.62,0.77,0.62,1.64v42.62c0,0.87-0.21,1.41-0.62,1.64c-0.41,0.23-0.73,0.34-0.96,0.34h-5.19c-0.23,0-0.55-0.11-0.96-0.34c-0.42-0.23-0.62-0.77-0.62-1.64v-42.62c0-0.87,0.21-1.41,0.62-1.64c0.41-0.23,0.73-0.34,0.96-0.34H485.23z"/>
+      <path d="M521.81,274.35c2.93,0,5.31,0.44,7.14,1.33c1.83,0.88,3.25,2.11,4.26,3.67c1.02,1.56,1.69,3.43,2.03,5.59c0.34,2.16,0.51,4.53,0.51,7.08v11.18c0,2.56-0.17,4.92-0.51,7.08c-0.34,2.16-1.01,4.04-2,5.62c-1,1.58-2.41,2.81-4.23,3.7c-1.83,0.88-4.22,1.33-7.2,1.33h-13.77c-2.94,0-5.32-0.45-7.14-1.36s-3.24-2.14-4.23-3.72c-1-1.58-1.67-3.45-2-5.62c-0.34-2.16-0.51-4.51-0.51-7.03v-11.18c0-2.52,0.17-4.86,0.51-7.03c0.34-2.16,1.02-4.04,2.03-5.62c1.02-1.58,2.43-2.81,4.23-3.7c1.81-0.88,4.18-1.33,7.11-1.33H521.81z M527.34,291.05c0-1.17-0.04-2.26-0.11-3.27c-0.08-1.02-0.29-1.9-0.65-2.65c-0.36-0.75-0.93-1.35-1.72-1.78c-0.79-0.43-1.9-0.65-3.33-0.65h-13.21c-1.39,0-2.48,0.22-3.27,0.65c-0.79,0.43-1.38,1.03-1.75,1.78c-0.38,0.75-0.6,1.64-0.68,2.65c-0.08,1.02-0.11,2.11-0.11,3.27v13.15c0,1.17,0.04,2.26,0.11,3.27c0.07,1.02,0.3,1.89,0.68,2.62c0.38,0.73,0.96,1.32,1.75,1.75c0.79,0.43,1.88,0.65,3.27,0.65h13.21c1.43,0,2.54-0.22,3.33-0.65c0.79-0.43,1.36-1.02,1.72-1.75c0.36-0.73,0.57-1.61,0.65-2.62c0.07-1.02,0.11-2.11,0.11-3.27V291.05z"/>
+      <path d="M572.78,301.5c0.23,0.34,0.62,0.99,1.19,1.95c0.56,0.96,1.22,2.07,1.98,3.33c0.75,1.26,1.53,2.58,2.34,3.95c0.81,1.37,1.56,2.67,2.26,3.9c0.7,1.22,1.26,2.26,1.69,3.1c0.43,0.85,0.65,1.38,0.65,1.61c0,0.42-0.09,0.77-0.28,1.07c-0.19,0.3-0.53,0.45-1.02,0.45h-6.21c-0.45,0-0.81-0.08-1.07-0.25c-0.26-0.17-0.51-0.46-0.73-0.88l-10.22-18.06h-11.91v17.22c0,0.53-0.12,0.99-0.37,1.38c-0.25,0.39-0.65,0.59-1.21,0.59h-5.14c-0.56,0-0.98-0.2-1.24-0.59c-0.26-0.4-0.4-0.86-0.4-1.38v-23.65c0-0.53,0.12-0.98,0.37-1.36c0.24-0.38,0.67-0.56,1.27-0.56h24.56c0.86,0,1.55-0.14,2.06-0.42c0.51-0.28,0.89-0.67,1.16-1.16c0.26-0.49,0.44-1.05,0.54-1.69c0.09-0.64,0.14-1.32,0.14-2.03c0-0.71-0.05-1.39-0.14-2.03c-0.09-0.64-0.27-1.2-0.54-1.69c-0.26-0.49-0.65-0.88-1.16-1.16c-0.51-0.28-1.2-0.42-2.06-0.42h-24.56c-0.6,0-1.03-0.19-1.27-0.56c-0.25-0.38-0.37-0.83-0.37-1.36v-4.46c0-0.53,0.12-0.99,0.37-1.38c0.24-0.4,0.67-0.59,1.27-0.59h26.02c2.14,0,3.91,0.36,5.31,1.07c1.39,0.72,2.49,1.69,3.3,2.94c0.81,1.24,1.38,2.69,1.72,4.35c0.34,1.66,0.51,3.42,0.51,5.31c0,1.58-0.12,3.13-0.37,4.66c-0.25,1.52-0.7,2.9-1.35,4.12c-0.66,1.22-1.55,2.26-2.68,3.1C576.05,300.74,574.59,301.27,572.78,301.5z"/>
+      <path d="M608.85,274.32c1.02,0,1.89,0.15,2.62,0.45c0.73,0.3,1.37,0.71,1.92,1.21c0.54,0.51,1.02,1.12,1.41,1.83c0.4,0.72,0.76,1.51,1.1,2.37l15.86,38.52c0.15,0.38,0.23,0.7,0.23,0.96c0,0.38-0.12,0.68-0.37,0.9c-0.25,0.23-0.56,0.34-0.93,0.34h-6.04c-0.79,0-1.34-0.41-1.64-1.24l-14.05-35.06h-0.23l-7.34,18.46h7c0.75,0,1.3,0.38,1.64,1.13c0.11,0.26,0.29,0.67,0.54,1.21c0.24,0.55,0.49,1.1,0.73,1.67c0.24,0.56,0.45,1.1,0.62,1.61c0.17,0.51,0.25,0.89,0.25,1.16c0,0.53-0.17,0.96-0.51,1.3s-0.77,0.51-1.3,0.51h-12.36l-3.22,8.07c-0.3,0.79-0.83,1.19-1.58,1.19H587c-0.87,0-1.3-0.41-1.3-1.24c0-0.38,0.06-0.7,0.17-0.96l15.75-38.52c0.68-1.69,1.56-3.1,2.65-4.21C605.37,274.88,606.89,274.32,608.85,274.32z"/>
+    </g>
+    <g>
+      <linearGradient id="lev-g1" gradientUnits="userSpaceOnUse" x1="280.5077" y1="280.1573" x2="307.4181" y2="326.7675"><stop offset="0" stop-color="#4E2F91"/><stop offset="0.8113" stop-color="#7D499D"/></linearGradient>
+      <polygon fill="url(#lev-g1)" points="317.51,320.94 290.6,320.94 277.17,297.63 290.6,274.33"/>
+      <linearGradient id="lev-g2" gradientUnits="userSpaceOnUse" x1="260.3352" y1="245.218" x2="280.5075" y2="280.1575"><stop offset="0" stop-color="#8158A4"/><stop offset="0.9906" stop-color="#F0E2EF"/></linearGradient>
+      <polygon fill="url(#lev-g2)" points="290.6,274.33 263.69,274.33 250.27,251.03 277.15,251.03"/>
+      <linearGradient id="lev-g3" gradientUnits="userSpaceOnUse" x1="317.5073" y1="332.5931" x2="277.1717" y2="332.5931"><stop offset="0" stop-color="#8158A4"/><stop offset="0.9906" stop-color="#F0E2EF"/></linearGradient>
+      <polygon fill="url(#lev-g3)" points="317.51,320.94 304.08,344.24 277.17,344.24 290.6,320.94"/>
+      <linearGradient id="lev-g4" gradientUnits="userSpaceOnUse" x1="233.4325" y1="303.4886" x2="260.3552" y2="256.8572"><stop offset="0" stop-color="#4E2F91"/><stop offset="0.7987" stop-color="#7D499D"/></linearGradient>
+      <polygon fill="url(#lev-g4)" points="250.27,297.63 223.34,297.66 250.27,251.03 263.69,274.33"/>
+      <linearGradient id="lev-g5" gradientUnits="userSpaceOnUse" x1="213.2525" y1="338.4209" x2="233.4237" y2="303.4835"><stop offset="0" stop-color="#8158A4"/><stop offset="0.9906" stop-color="#F0E2EF"/></linearGradient>
+      <polygon fill="url(#lev-g5)" points="223.34,344.24 209.9,320.94 223.34,297.66 236.78,320.94"/>
+      <linearGradient id="lev-g6" gradientUnits="userSpaceOnUse" x1="277.1717" y1="332.5931" x2="223.338" y2="332.5931"><stop offset="0" stop-color="#4E2F91"/><stop offset="0.7736" stop-color="#7D499D"/></linearGradient>
+      <polygon fill="url(#lev-g6)" points="277.17,344.24 223.34,344.24 236.78,320.94 263.71,320.96"/>
+      <linearGradient id="lev-g7" gradientUnits="userSpaceOnUse" x1="223.3415" y1="309.2884" x2="290.6028" y2="309.2884"><stop offset="0" stop-color="#8158A4"/><stop offset="0.9906" stop-color="#F0E2EF"/></linearGradient>
+      <polygon fill="url(#lev-g7)" points="290.6,320.94 277.17,344.24 263.71,320.96 236.78,320.94 223.34,297.66 250.27,297.63 263.69,274.33 290.6,274.33 277.17,297.63"/>
+    </g>
+  </symbol>
+</svg>
+
+<!-- ============ NAV ============ -->
+<header class="nav" data-screen-label="Nav">
+  <a class="nav__logo" href="#top" aria-label="Leviora">
+    <svg class="logo-svg" viewBox="0 0 440 105" role="img" aria-label="Leviora"><use href="#leviora-logo-sym"/></svg>
+  </a>
+  <nav class="nav__links">
+    <a href="#neden">Neden Leviora</a>
+    <a href="#nasil">Nasıl çalışır</a>
+    <a href="#kurulum">Kurulum</a>
+    <a href="#iletisim">İletişim</a>
+  </nav>
+</header>
+
+<main id="top">
+
+<!-- ============ 1. HERO ============ -->
+<section class="hero" data-screen-label="01 Hero">
+  <div class="hero__grid">
+    <div class="hero__copy">
+      <div class="eyebrow">
+        <span class="dot" aria-hidden="true"></span>
+        Operasyona özel yapay zeka
+      </div>
+      <h1 class="hero__title">
+        Yapay zekaya<br />
+        operasyonunuzun<br />
+        <em>dilini</em> öğrettik.
+      </h1>
+      <p class="hero__sub">
+        Operasyonel gerçeklerinizle uyumlu çalışır.<br />
+        Genel AI değil — sizin operasyonunuza özel.
+      </p>
+      <div class="hero__cta">
+        <a class="btn btn--text" href="#nasil">Leviora nasıl çalışır?</a>
+      </div>
+    </div>
+
+    <!-- Mockup composition (chat + dashboard + alert) -->
+    <div class="hero__visual" aria-hidden="true">
+      <div class="mock mock--dash">
+        <div class="mock__bar">
+          <span class="mock__dot"></span><span class="mock__dot"></span><span class="mock__dot"></span>
+          <span class="mock__label">üretim · vardiya · gündüz</span>
+        </div>
+        <div class="mock__body">
+          <div class="mock__row">
+            <span class="mock__cell">HAT A</span>
+            <span class="mock__cell mock__cell--num">98.2%</span>
+            <div class="mock__spark"><svg viewBox="0 0 100 24" preserveAspectRatio="none"><polyline points="0,18 12,15 25,17 38,11 50,13 62,9 75,12 88,7 100,9"/></svg></div>
+          </div>
+          <div class="mock__row mock__row--alert">
+            <span class="mock__cell">HAT B</span>
+            <span class="mock__cell mock__cell--num">71.4%</span>
+            <div class="mock__spark"><svg viewBox="0 0 100 24" preserveAspectRatio="none"><polyline points="0,8 12,11 25,14 38,16 50,15 62,19 75,18 88,21 100,20"/></svg></div>
+          </div>
+          <div class="mock__row">
+            <span class="mock__cell">HAT C</span>
+            <span class="mock__cell mock__cell--num">94.7%</span>
+            <div class="mock__spark"><svg viewBox="0 0 100 24" preserveAspectRatio="none"><polyline points="0,14 12,13 25,15 38,12 50,14 62,10 75,11 88,9 100,10"/></svg></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mock mock--chat">
+        <div class="mock__chat-q">Hat B'de neden düşüş var?</div>
+        <div class="mock__chat-a">
+          <span class="mock__chat-tag">LEVIORA</span>
+          08:42'de SCADA'dan 14 dk duruş bildirildi. <em>kalıp 7B</em>
+          ısı sapması — son 3 vardiyada 2. kez. Bakım talebi açayım mı?
+          <div class="mock__chat-actions">
+            <button class="mock__chip mock__chip--primary">Aç</button>
+            <button class="mock__chip">Detay</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="mock mock--alert">
+        <div class="mock__alert-pulse"></div>
+        <div>
+          <div class="mock__alert-title">Sapma · Hat B</div>
+          <div class="mock__alert-meta">kök neden bulundu · 4 dk</div>
+        </div>
+      </div>
+
+      <!-- Geometric logo motif -->
+      <svg class="hero__motif" viewBox="0 0 200 200" aria-hidden="true">
+        <defs>
+          <linearGradient id="motif-grad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#4E2F91" stop-opacity="0.18" />
+            <stop offset="1" stop-color="#F0E2EF" stop-opacity="0.05" />
+          </linearGradient>
+        </defs>
+        <polygon points="100,20 150,107 50,107" fill="url(#motif-grad)" />
+        <polygon points="100,180 50,93 150,93" fill="none" stroke="#4E2F91" stroke-opacity="0.18" />
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MANIFESTO ============ -->
+<section class="manifesto" id="neden" data-screen-label="03 Neden Leviora">
+  <div class="eyebrow eyebrow--center">
+    <span class="dot" aria-hidden="true"></span>
+    Neden LEVIORA
+  </div>
+  <h2 class="manifesto__title">
+    Yapay zekaya operasyonunuzun <em>dilini</em> öğrettik.
+  </h2>
+  <p class="manifesto__body">
+    Genel yapay zeka geneldir. Operasyon ise her şirkette farklıdır —
+    <em>kendi süreçleri, kendi kararları, kendi istisnalarıyla.</em>
+    Leviora bu farklılığı öğrenmek için tasarlandı: hazır gelmez,
+    operasyonunuza göre şekillenir.
+  </p>
+  <div class="manifesto__pull">
+    <div class="manifesto__pull-item">
+      <span class="manifesto__pull-n">01</span>
+      <span class="manifesto__pull-k">Sürecinizi tanır</span>
+      <span class="manifesto__pull-v">Sistemlerinizi, terimlerinizi ve istisnalarınızı öğrenir.</span>
+    </div>
+    <div class="manifesto__pull-item">
+      <span class="manifesto__pull-n">02</span>
+      <span class="manifesto__pull-k">Kurallarınızla düşünür</span>
+      <span class="manifesto__pull-v">Sizin tanımladığınız mantığa göre karar verir.</span>
+    </div>
+    <div class="manifesto__pull-item">
+      <span class="manifesto__pull-n">03</span>
+      <span class="manifesto__pull-k">Sınırlarınızda iş yapar</span>
+      <span class="manifesto__pull-v">Yetkilendirdiğiniz çerçevede aksiyon alır, her adımın izi kalır.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4. SEE THINK ACT ============ -->
+<section class="capabilities" id="nasil" data-screen-label="04 See Think Act">
+  <div class="capabilities__header">
+    <div class="eyebrow">
+      <span class="dot" aria-hidden="true"></span>
+      Nasıl çalışır
+    </div>
+    <h2 class="capabilities__title">
+      Görür. Anlar. <em>Aksiyon alır.</em>
+    </h2>
+    <p class="capabilities__sub">
+      Üç yetenek, tek sistem — operasyonunuza özel öğrenilmiş.
+    </p>
+  </div>
+
+  <div class="cap-tabs" role="tablist">
+    <button class="cap-tab is-active" role="tab" data-tab="see">
+      <span class="cap-tab__no">I</span>
+      <span class="cap-tab__name">Görür</span>
+    </button>
+    <button class="cap-tab" role="tab" data-tab="think">
+      <span class="cap-tab__no">II</span>
+      <span class="cap-tab__name">Anlar</span>
+    </button>
+    <button class="cap-tab" role="tab" data-tab="act">
+      <span class="cap-tab__no">III</span>
+      <span class="cap-tab__name">Aksiyon alır</span>
+    </button>
+  </div>
+
+  <!-- SEE -->
+  <article class="cap-panel is-active" data-panel="see">
+    <div class="cap-panel__left">
+      <div class="cap-panel__icon">
+        <svg viewBox="0 0 64 64" fill="none">
+          <ellipse cx="32" cy="32" rx="26" ry="14" stroke="currentColor" stroke-width="1.4" />
+          <circle cx="32" cy="32" r="7" fill="currentColor" />
+          <circle cx="32" cy="32" r="2.5" fill="#F4F0E8" />
+        </svg>
+      </div>
+      <h3 class="cap-panel__title">Görür</h3>
+      <p class="cap-panel__desc">
+        Operasyonel sistemlerinize bağlanır — MES, ERP, SCADA, BI panellerinden
+        gelen veriyi okur. Doğal dilinizle sorular sorabilirsiniz.
+      </p>
+      <ul class="cap-panel__list">
+        <li>Canlı sistem bağlantısı, anlık veri okuma</li>
+        <li>Doğal dilde sorgu — "bu hafta hangi hat geriden geldi?"</li>
+        <li>Tedarikçi, vardiya, ürün kırılımları</li>
+      </ul>
+    </div>
+    <div class="cap-panel__right">
+      <div class="chat">
+        <div class="chat__head">
+          <span class="chat__dot"></span><span class="chat__dot"></span><span class="chat__dot"></span>
+          <span class="chat__title">leviora · ops</span>
+        </div>
+        <div class="chat__line chat__line--user">
+          Bu hafta hangi hat geriden geldi?
+        </div>
+        <div class="chat__line chat__line--ai">
+          <strong>Hat B</strong>, planlanan üretimin <strong>%84.3</strong>'ünü
+          tamamladı (hedef: %95). Asıl sapma <em>Çar–Per</em> arası — toplam
+          <strong>4s 12dk</strong> plansız duruş.
+          <div class="chat__chart">
+            <div class="chat__bar"><span style="height:78%"></span><b>Pzt</b></div>
+            <div class="chat__bar"><span style="height:82%"></span><b>Sal</b></div>
+            <div class="chat__bar chat__bar--low"><span style="height:48%"></span><b>Çar</b></div>
+            <div class="chat__bar chat__bar--low"><span style="height:54%"></span><b>Per</b></div>
+            <div class="chat__bar"><span style="height:88%"></span><b>Cum</b></div>
+          </div>
+        </div>
+        <div class="chat__line chat__line--user">
+          Çarşamba neden böyle?
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- THINK -->
+  <article class="cap-panel" data-panel="think">
+    <div class="cap-panel__left">
+      <div class="cap-panel__icon">
+        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.4">
+          <circle cx="14" cy="14" r="5" />
+          <circle cx="50" cy="14" r="5" />
+          <circle cx="32" cy="50" r="5" />
+          <circle cx="32" cy="30" r="3" fill="currentColor" />
+          <line x1="17" y1="17" x2="30" y2="28" />
+          <line x1="47" y1="17" x2="34" y2="28" />
+          <line x1="32" y1="33" x2="32" y2="45" />
+        </svg>
+      </div>
+      <h3 class="cap-panel__title">Anlar</h3>
+      <p class="cap-panel__desc">
+        Olayları birbirine bağlar. Bir sapmanın kökenini sistemler arası
+        ilişkileri takip ederek bulur — sebep zinciri çıkarır, edge case'lerinizi
+        öğrenir.
+      </p>
+      <ul class="cap-panel__list">
+        <li>Çoklu sistem arası korelasyon</li>
+        <li>Olası kök neden hipotezleri + güven skoru</li>
+        <li>Tekrarlayan istisnaları zaman içinde öğrenir</li>
+      </ul>
+    </div>
+    <div class="cap-panel__right">
+      <div class="chat">
+        <div class="chat__head">
+          <span class="chat__dot"></span><span class="chat__dot"></span><span class="chat__dot"></span>
+          <span class="chat__title">leviora · ops</span>
+        </div>
+        <div class="chat__line chat__line--ai">
+          Çar–Per sapması için kök neden zinciri:
+          <div class="chain">
+            <div class="chain__step">
+              <span class="chain__lbl">SCADA</span>
+              kalıp 7B ısı sapması · 14:08
+            </div>
+            <div class="chain__arrow">↓</div>
+            <div class="chain__step">
+              <span class="chain__lbl">MES</span>
+              hat B duruş · 23 dk
+            </div>
+            <div class="chain__arrow">↓</div>
+            <div class="chain__step">
+              <span class="chain__lbl">ERP</span>
+              hammadde lot #4471 — <em>tedarikçi C</em>
+            </div>
+            <div class="chain__arrow">↓</div>
+            <div class="chain__step chain__step--hit">
+              <span class="chain__lbl">Örüntü</span>
+              tedarikçi C · son 3 ayda 4. kez
+            </div>
+          </div>
+          <span class="chat__conf">güven · %92</span>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ACT -->
+  <article class="cap-panel" data-panel="act">
+    <div class="cap-panel__left">
+      <div class="cap-panel__icon">
+        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.4">
+          <path d="M10 32 L48 32" />
+          <path d="M38 22 L48 32 L38 42" />
+          <circle cx="54" cy="32" r="4" fill="currentColor" />
+          <path d="M10 20 L18 20" stroke-opacity="0.4" />
+          <path d="M10 44 L18 44" stroke-opacity="0.4" />
+        </svg>
+      </div>
+      <h3 class="cap-panel__title">Aksiyon alır</h3>
+      <p class="cap-panel__desc">
+        Önerilerle kalmaz — yetkilendirdiğiniz sınırlarda otomatik aksiyon
+        alır. Bildirim gönderir, talep oluşturur, sürece müdahale eder. Her
+        aksiyonun izi açıktır.
+      </p>
+      <ul class="cap-panel__list">
+        <li>Yetki sınırları sizin tanımladığınız çerçevede</li>
+        <li>Her aksiyon için tam denetim izi</li>
+        <li>Onay gerektiren / otomatik akışlar ayrı</li>
+      </ul>
+    </div>
+    <div class="cap-panel__right">
+      <div class="chat">
+        <div class="chat__head">
+          <span class="chat__dot"></span><span class="chat__dot"></span><span class="chat__dot"></span>
+          <span class="chat__title">leviora · ops</span>
+        </div>
+        <div class="chat__line chat__line--ai">
+          Önerilen aksiyonlar:
+          <div class="acts">
+            <div class="acts__row">
+              <span class="acts__check" data-on>✓</span>
+              <span class="acts__label">Bakım talebi #BT-2381 oluştur</span>
+              <span class="acts__tag">otomatik</span>
+            </div>
+            <div class="acts__row">
+              <span class="acts__check" data-on>✓</span>
+              <span class="acts__label">Vardiya amirine bildirim gönder</span>
+              <span class="acts__tag">otomatik</span>
+            </div>
+            <div class="acts__row">
+              <span class="acts__check">·</span>
+              <span class="acts__label">Tedarikçi C için inceleme aç</span>
+              <span class="acts__tag acts__tag--pending">onayla</span>
+            </div>
+            <div class="acts__row">
+              <span class="acts__check">·</span>
+              <span class="acts__label">Lot #4471 karantinaya al</span>
+              <span class="acts__tag acts__tag--pending">onayla</span>
+            </div>
+          </div>
+        </div>
+        <div class="chat__line chat__line--user chat__line--mini">
+          Üst ikisi geçsin, alttakini ben bakayım.
+        </div>
+      </div>
+    </div>
+  </article>
+</section>
+
+<!-- ============ 5. KURULUM ============ -->
+<section class="setup" id="kurulum" data-screen-label="05 Kurulum">
+  <div class="setup__header">
+    <div class="eyebrow">
+      <span class="dot" aria-hidden="true"></span>
+      Kurulum
+    </div>
+    <h2 class="setup__title">
+      Bağlan. Eşle. <em>Kullan.</em>
+    </h2>
+  </div>
+
+  <ol class="steps">
+    <li class="step">
+      <span class="step__no">01</span>
+      <div class="step__rule" aria-hidden="true"></div>
+      <h3 class="step__name">Bağlan</h3>
+      <p class="step__desc">
+        Sistemlerinize güvenli bir bağlantı kurarız. Kendi altyapınızda
+        (on-premise) çalışır, veri dışarı çıkmaz.
+      </p>
+    </li>
+    <li class="step">
+      <span class="step__no">02</span>
+      <div class="step__rule" aria-hidden="true"></div>
+      <h3 class="step__name">Eşle</h3>
+      <p class="step__desc">
+        Operasyonunuzun terimlerini, kurallarını, edge case'lerini Leviora'ya
+        öğretiriz. Kısa bir konuşma + birkaç sistem örneği yeterli.
+      </p>
+    </li>
+    <li class="step">
+      <span class="step__no">03</span>
+      <div class="step__rule" aria-hidden="true"></div>
+      <h3 class="step__name">Kullan</h3>
+      <p class="step__desc">
+        Ekibiniz Leviora'yı doğal dilde kullanmaya başlar. Soru sorar, kök
+        neden ister, otomatik aksiyon kurar.
+      </p>
+    </li>
+  </ol>
+</section>
+
+<!-- ============ MOTTO (closing) ============ -->
+<section class="motto" data-screen-label="07 Motto">
+  <div class="motto__inner">
+    <h2 class="motto__title">
+      Leviora <em>hafifletir.</em>
+    </h2>
+    <p class="motto__sub">Operasyona özel yapay zeka.</p>
+
+    <svg class="motto__motif" viewBox="0 0 400 400" aria-hidden="true">
+      <defs>
+        <linearGradient id="mg1" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#4E2F91" stop-opacity="0.12" />
+          <stop offset="1" stop-color="#F0E2EF" stop-opacity="0.02" />
+        </linearGradient>
+      </defs>
+      <polygon points="200,40 320,220 80,220" fill="url(#mg1)" />
+      <polygon points="200,360 80,180 320,180" fill="none" stroke="#4E2F91" stroke-opacity="0.14" />
+    </svg>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer footer--mini" id="iletisim" data-screen-label="Footer">
+  <div class="footer__mini">
+    <div class="footer__mini-brand">
+      <svg class="logo-svg logo-svg--footer" viewBox="0 0 440 105" role="img" aria-label="Leviora"><use href="#leviora-logo-sym"/></svg>
+      <p>Operasyona özel yapay zeka.</p>
+    </div>
+    <a class="footer__mail" href="mailto:info@leviora.ai">
+      <span class="footer__mail-lbl">İletişim</span>
+      info@leviora.ai
+    </a>
+  </div>
+</footer>
+
+</main>
+
+<script src="leviora.js"></script>
+</body>
+</html>

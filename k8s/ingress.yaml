@@ -1,0 +1,47 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: leviora-website
+  namespace: leviora-website
+  annotations:
+    # Redirect www → apex
+    traefik.ingress.kubernetes.io/router.middlewares: leviora-website-redirect-www@kubernetescrd
+spec:
+  ingressClassName: traefik
+  tls:
+    - hosts:
+        - leviora.ai
+        - www.leviora.ai
+      secretName: leviora-website-tls
+  rules:
+    - host: leviora.ai
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: leviora-website
+                port:
+                  name: http
+    - host: www.leviora.ai
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: leviora-website
+                port:
+                  name: http
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: redirect-www
+  namespace: leviora-website
+spec:
+  redirectRegex:
+    regex: ^https?://www\.leviora\.ai/(.*)
+    replacement: https://leviora.ai/${1}
+    permanent: true
