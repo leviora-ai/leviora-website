@@ -159,6 +159,24 @@ em { font-family: var(--serif); font-style: italic; font-weight: 400; }
 .nav__links a:hover { color: var(--ink); }
 .nav__links a:hover::after { right: 0; }
 
+.nav__lang {
+  margin-left: clamp(8px, 1.2vw, 20px);
+  padding: 4px 10px !important;
+  border: 1px solid var(--hair-strong);
+  border-radius: 999px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+.nav__lang::after { display: none !important; }
+.nav__lang:hover {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--cream);
+}
+
 /* ============ hero ============ */
 .hero { padding: 80px var(--pad) 120px; max-width: var(--max); margin: 0 auto; }
 .hero__grid {

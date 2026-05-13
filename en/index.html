@@ -1,16 +1,16 @@
 <!doctype html>
-<html lang="tr">
+<html lang="en">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Leviora — Operasyona Özel Yapay Zeka</title>
+<title>Leviora — Operations-native AI</title>
 <link rel="alternate" hreflang="tr" href="https://leviora.ai/" />
 <link rel="alternate" hreflang="en" href="https://leviora.ai/en/" />
 <link rel="alternate" hreflang="x-default" href="https://leviora.ai/" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=Oxanium:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="leviora.css" />
+<link rel="stylesheet" href="/leviora.css" />
 </head>
 <body>
 
@@ -51,11 +51,11 @@
     <svg class="logo-svg" viewBox="0 0 440 105" role="img" aria-label="Leviora"><use href="#leviora-logo-sym"/></svg>
   </a>
   <nav class="nav__links">
-    <a href="#neden">Neden Leviora</a>
-    <a href="#nasil">Nasıl çalışır</a>
-    <a href="#kurulum">Kurulum</a>
-    <a href="#iletisim">İletişim</a>
-    <a class="nav__lang" href="/en/" hreflang="en" aria-label="English">EN</a>
+    <a href="#why">Why Leviora</a>
+    <a href="#how">How it works</a>
+    <a href="#setup">Setup</a>
+    <a href="#contact">Contact</a>
+    <a class="nav__lang" href="/" hreflang="tr" aria-label="Türkçe">TR</a>
   </nav>
 </header>
 
@@ -67,19 +67,19 @@
     <div class="hero__copy">
       <div class="eyebrow">
         <span class="dot" aria-hidden="true"></span>
-        Operasyona özel yapay zeka
+        Operations-native AI
       </div>
       <h1 class="hero__title">
-        Operasyonun<br />
-        <em>dilini</em> konuşan<br />
-        yapay zeka.
+        AI that speaks<br />
+        the <em>language</em><br />
+        of your operation.
       </h1>
       <p class="hero__sub">
-        Genel AI veriyi gösterir.<br />
-        Leviora <strong>sizin</strong> verinizi anlatır — kendi terimlerinizle, kendi sürecinizle, kendi kararlarınızla.
+        General AI shows you data.<br />
+        Leviora narrates <strong>your</strong> data — in your terms, your process, your decisions.
       </p>
       <div class="hero__cta">
-        <a class="btn btn--text" href="#nasil">Leviora nasıl çalışır?</a>
+        <a class="btn btn--text" href="#how">How does Leviora work?</a>
       </div>
     </div>
 
@@ -88,21 +88,21 @@
       <div class="mock mock--dash">
         <div class="mock__bar">
           <span class="mock__dot"></span><span class="mock__dot"></span><span class="mock__dot"></span>
-          <span class="mock__label">üretim · vardiya · gündüz</span>
+          <span class="mock__label">production · shift · day</span>
         </div>
         <div class="mock__body">
           <div class="mock__row">
-            <span class="mock__cell">HAT A</span>
+            <span class="mock__cell">LINE A</span>
             <span class="mock__cell mock__cell--num">98.2%</span>
             <div class="mock__spark"><svg viewBox="0 0 100 24" preserveAspectRatio="none"><polyline points="0,18 12,15 25,17 38,11 50,13 62,9 75,12 88,7 100,9"/></svg></div>
           </div>
           <div class="mock__row mock__row--alert">
-            <span class="mock__cell">HAT B</span>
+            <span class="mock__cell">LINE B</span>
             <span class="mock__cell mock__cell--num">71.4%</span>
             <div class="mock__spark"><svg viewBox="0 0 100 24" preserveAspectRatio="none"><polyline points="0,8 12,11 25,14 38,16 50,15 62,19 75,18 88,21 100,20"/></svg></div>
           </div>
           <div class="mock__row">
-            <span class="mock__cell">HAT C</span>
+            <span class="mock__cell">LINE C</span>
             <span class="mock__cell mock__cell--num">94.7%</span>
             <div class="mock__spark"><svg viewBox="0 0 100 24" preserveAspectRatio="none"><polyline points="0,14 12,13 25,15 38,12 50,14 62,10 75,11 88,9 100,10"/></svg></div>
           </div>
@@ -110,14 +110,14 @@
       </div>
 
       <div class="mock mock--chat">
-        <div class="mock__chat-q">Hat B'de neden düşüş var?</div>
+        <div class="mock__chat-q">Why is Line B falling behind?</div>
         <div class="mock__chat-a">
           <span class="mock__chat-tag">LEVIORA</span>
-          08:42'de SCADA'dan 14 dk duruş bildirildi. <em>kalıp 7B</em>
-          ısı sapması — son 3 vardiyada 2. kez. Bakım talebi açayım mı?
+          SCADA reported 14 min of downtime at 08:42. <em>Mold 7B</em>
+          temperature drift — 2nd time in the last 3 shifts. Open a maintenance request?
           <div class="mock__chat-actions">
-            <button class="mock__chip mock__chip--primary">Aç</button>
-            <button class="mock__chip">Detay</button>
+            <button class="mock__chip mock__chip--primary">Open</button>
+            <button class="mock__chip">Details</button>
           </div>
         </div>
       </div>
@@ -125,8 +125,8 @@
       <div class="mock mock--alert">
         <div class="mock__alert-pulse"></div>
         <div>
-          <div class="mock__alert-title">Sapma · Hat B</div>
-          <div class="mock__alert-meta">kök neden bulundu · 4 dk</div>
+          <div class="mock__alert-title">Deviation · Line B</div>
+          <div class="mock__alert-meta">root cause found · 4 min</div>
         </div>
       </div>
 
@@ -146,65 +146,65 @@
 </section>
 
 <!-- ============ MANIFESTO ============ -->
-<section class="manifesto" id="neden" data-screen-label="03 Neden Leviora">
+<section class="manifesto" id="why" data-screen-label="03 Why Leviora">
   <div class="eyebrow eyebrow--center">
     <span class="dot" aria-hidden="true"></span>
-    Veriden operasyonel zekâya
+    From data to operational intelligence
   </div>
   <h2 class="manifesto__title">
-    Veriyi okur. Sebebi bulur. <em>Kararı</em> verir.
+    Reads the data. Finds the cause. <em>Makes</em> the call.
   </h2>
   <p class="manifesto__body">
-    Operasyonel zekâ tek bir hareketten doğmaz. Leviora verilerinizi okur,
-    sebepleri zincirler, kararı sizin sınırlarınızda verir — üç ayrı yetenek
-    tek bir sistemde birleşir; operasyonu içeriden bilen bir bütün olur.
+    Operational intelligence isn't a single move. Leviora reads your data,
+    chains the causes, and makes the call within your boundaries — three
+    capabilities in one system; a whole that knows your operation from the inside.
   </p>
   <div class="manifesto__pull">
     <div class="manifesto__pull-item">
       <span class="manifesto__pull-n">01</span>
-      <span class="manifesto__pull-k">Verinizi okur</span>
-      <span class="manifesto__pull-v">Ürün, vardiya, sipariş, lot — sistemlerinizdeki kavramları sizin tanımladığınız gibi tanır.</span>
+      <span class="manifesto__pull-k">Reads your data</span>
+      <span class="manifesto__pull-v">Product, shift, order, lot — recognizes the concepts in your systems exactly as you define them.</span>
     </div>
     <div class="manifesto__pull-item">
       <span class="manifesto__pull-n">02</span>
-      <span class="manifesto__pull-k">Sebebi bulur</span>
-      <span class="manifesto__pull-v">Olaylar arasındaki bağı kurar, kök nedene dakikalar içinde ulaşır.</span>
+      <span class="manifesto__pull-k">Finds the cause</span>
+      <span class="manifesto__pull-v">Connects events across systems and reaches the root cause in minutes.</span>
     </div>
     <div class="manifesto__pull-item">
       <span class="manifesto__pull-n">03</span>
-      <span class="manifesto__pull-k">Kararı verir</span>
-      <span class="manifesto__pull-v">Yetkilendirdiğiniz sınırlarda aksiyon alır; her adımın izi açık kalır.</span>
+      <span class="manifesto__pull-k">Makes the call</span>
+      <span class="manifesto__pull-v">Takes action inside the boundaries you authorize; every step leaves an open audit trail.</span>
     </div>
   </div>
 </section>
 
 <!-- ============ 4. SEE THINK ACT ============ -->
-<section class="capabilities" id="nasil" data-screen-label="04 See Think Act">
+<section class="capabilities" id="how" data-screen-label="04 See Think Act">
   <div class="capabilities__header">
     <div class="eyebrow">
       <span class="dot" aria-hidden="true"></span>
-      Nasıl çalışır
+      How it works
     </div>
     <h2 class="capabilities__title">
-      Görür. Anlar. <em>Aksiyon alır.</em>
+      Sees. Thinks. <em>Acts.</em>
     </h2>
     <p class="capabilities__sub">
-      Üç yetenek, tek sistem — operasyonunuza özel öğrenilmiş.
+      Three capabilities, one system — trained on your operation.
     </p>
   </div>
 
   <div class="cap-tabs" role="tablist">
     <button class="cap-tab is-active" role="tab" data-tab="see">
       <span class="cap-tab__no">I</span>
-      <span class="cap-tab__name">Görür</span>
+      <span class="cap-tab__name">Sees</span>
     </button>
     <button class="cap-tab" role="tab" data-tab="think">
       <span class="cap-tab__no">II</span>
-      <span class="cap-tab__name">Anlar</span>
+      <span class="cap-tab__name">Thinks</span>
     </button>
     <button class="cap-tab" role="tab" data-tab="act">
       <span class="cap-tab__no">III</span>
-      <span class="cap-tab__name">Aksiyon alır</span>
+      <span class="cap-tab__name">Acts</span>
     </button>
   </div>
 
@@ -218,15 +218,15 @@
           <circle cx="32" cy="32" r="2.5" fill="#F4F0E8" />
         </svg>
       </div>
-      <h3 class="cap-panel__title">Görür</h3>
+      <h3 class="cap-panel__title">Sees</h3>
       <p class="cap-panel__desc">
-        Operasyonel sistemlerinize bağlanır — MES, ERP, SCADA, BI panellerinden
-        gelen veriyi okur. Doğal dilinizle sorular sorabilirsiniz.
+        Connects to your operational systems — reads data from MES, ERP, SCADA,
+        and BI dashboards. Ask questions in your natural language.
       </p>
       <ul class="cap-panel__list">
-        <li>Canlı sistem bağlantısı, anlık veri okuma</li>
-        <li>Doğal dilde sorgu — "bu hafta hangi hat geriden geldi?"</li>
-        <li>Tedarikçi, vardiya, ürün kırılımları</li>
+        <li>Live system connection, real-time data reads</li>
+        <li>Natural-language queries — "which line fell behind this week?"</li>
+        <li>Breakdowns by supplier, shift, product</li>
       </ul>
     </div>
     <div class="cap-panel__right">
@@ -236,22 +236,22 @@
           <span class="chat__title">leviora · ops</span>
         </div>
         <div class="chat__line chat__line--user">
-          Bu hafta hangi hat geriden geldi?
+          Which line fell behind this week?
         </div>
         <div class="chat__line chat__line--ai">
-          <strong>Hat B</strong>, planlanan üretimin <strong>%84.3</strong>'ünü
-          tamamladı (hedef: %95). Asıl sapma <em>Çar–Per</em> arası — toplam
-          <strong>4s 12dk</strong> plansız duruş.
+          <strong>Line B</strong> completed <strong>84.3%</strong> of its planned
+          output (target: 95%). The real deviation is between <em>Wed–Thu</em> —
+          <strong>4h 12m</strong> of unplanned downtime in total.
           <div class="chat__chart">
-            <div class="chat__bar"><span style="height:78%"></span><b>Pzt</b></div>
-            <div class="chat__bar"><span style="height:82%"></span><b>Sal</b></div>
-            <div class="chat__bar chat__bar--low"><span style="height:48%"></span><b>Çar</b></div>
-            <div class="chat__bar chat__bar--low"><span style="height:54%"></span><b>Per</b></div>
-            <div class="chat__bar"><span style="height:88%"></span><b>Cum</b></div>
+            <div class="chat__bar"><span style="height:78%"></span><b>Mon</b></div>
+            <div class="chat__bar"><span style="height:82%"></span><b>Tue</b></div>
+            <div class="chat__bar chat__bar--low"><span style="height:48%"></span><b>Wed</b></div>
+            <div class="chat__bar chat__bar--low"><span style="height:54%"></span><b>Thu</b></div>
+            <div class="chat__bar"><span style="height:88%"></span><b>Fri</b></div>
           </div>
         </div>
         <div class="chat__line chat__line--user">
-          Çarşamba neden böyle?
+          Why was Wednesday like that?
         </div>
       </div>
     </div>
@@ -271,16 +271,15 @@
           <line x1="32" y1="33" x2="32" y2="45" />
         </svg>
       </div>
-      <h3 class="cap-panel__title">Anlar</h3>
+      <h3 class="cap-panel__title">Thinks</h3>
       <p class="cap-panel__desc">
-        Olayları birbirine bağlar. Bir sapmanın kökenini sistemler arası
-        ilişkileri takip ederek bulur — sebep zinciri çıkarır, edge case'lerinizi
-        öğrenir.
+        Connects events. Traces the origin of a deviation through cross-system
+        relationships — builds the cause chain and learns your edge cases over time.
       </p>
       <ul class="cap-panel__list">
-        <li>Çoklu sistem arası korelasyon</li>
-        <li>Olası kök neden hipotezleri + güven skoru</li>
-        <li>Tekrarlayan istisnaları zaman içinde öğrenir</li>
+        <li>Correlation across multiple systems</li>
+        <li>Probable root cause hypotheses + confidence score</li>
+        <li>Learns recurring exceptions over time</li>
       </ul>
     </div>
     <div class="cap-panel__right">
@@ -290,29 +289,29 @@
           <span class="chat__title">leviora · ops</span>
         </div>
         <div class="chat__line chat__line--ai">
-          Çar–Per sapması için kök neden zinciri:
+          Root-cause chain for the Wed–Thu deviation:
           <div class="chain">
             <div class="chain__step">
               <span class="chain__lbl">SCADA</span>
-              kalıp 7B ısı sapması · 14:08
+              mold 7B temperature drift · 14:08
             </div>
             <div class="chain__arrow">↓</div>
             <div class="chain__step">
               <span class="chain__lbl">MES</span>
-              hat B duruş · 23 dk
+              Line B downtime · 23 min
             </div>
             <div class="chain__arrow">↓</div>
             <div class="chain__step">
               <span class="chain__lbl">ERP</span>
-              hammadde lot #4471 — <em>tedarikçi C</em>
+              raw material lot #4471 — <em>supplier C</em>
             </div>
             <div class="chain__arrow">↓</div>
             <div class="chain__step chain__step--hit">
-              <span class="chain__lbl">Örüntü</span>
-              tedarikçi C · son 3 ayda 4. kez
+              <span class="chain__lbl">Pattern</span>
+              supplier C · 4th time in the last 3 months
             </div>
           </div>
-          <span class="chat__conf">güven · %92</span>
+          <span class="chat__conf">confidence · 92%</span>
         </div>
       </div>
     </div>
@@ -330,16 +329,16 @@
           <path d="M10 44 L18 44" stroke-opacity="0.4" />
         </svg>
       </div>
-      <h3 class="cap-panel__title">Aksiyon alır</h3>
+      <h3 class="cap-panel__title">Acts</h3>
       <p class="cap-panel__desc">
-        Önerilerle kalmaz — yetkilendirdiğiniz sınırlarda otomatik aksiyon
-        alır. Bildirim gönderir, talep oluşturur, sürece müdahale eder. Her
-        aksiyonun izi açıktır.
+        Doesn't stop at suggestions — takes automated action inside the
+        boundaries you authorize. Sends notifications, opens requests, intervenes
+        in processes. Every action is fully traceable.
       </p>
       <ul class="cap-panel__list">
-        <li>Yetki sınırları sizin tanımladığınız çerçevede</li>
-        <li>Her aksiyon için tam denetim izi</li>
-        <li>Onay gerektiren / otomatik akışlar ayrı</li>
+        <li>Authority boundaries you define</li>
+        <li>Full audit trail for every action</li>
+        <li>Separate lanes for automated and approval-required flows</li>
       </ul>
     </div>
     <div class="cap-panel__right">
@@ -349,47 +348,47 @@
           <span class="chat__title">leviora · ops</span>
         </div>
         <div class="chat__line chat__line--ai">
-          Önerilen aksiyonlar:
+          Suggested actions:
           <div class="acts">
             <div class="acts__row">
               <span class="acts__check" data-on>✓</span>
-              <span class="acts__label">Bakım talebi #BT-2381 oluştur</span>
-              <span class="acts__tag">otomatik</span>
+              <span class="acts__label">Create maintenance request #MR-2381</span>
+              <span class="acts__tag">automated</span>
             </div>
             <div class="acts__row">
               <span class="acts__check" data-on>✓</span>
-              <span class="acts__label">Vardiya amirine bildirim gönder</span>
-              <span class="acts__tag">otomatik</span>
+              <span class="acts__label">Notify shift supervisor</span>
+              <span class="acts__tag">automated</span>
             </div>
             <div class="acts__row">
               <span class="acts__check">·</span>
-              <span class="acts__label">Tedarikçi C için inceleme aç</span>
-              <span class="acts__tag acts__tag--pending">onayla</span>
+              <span class="acts__label">Open investigation for supplier C</span>
+              <span class="acts__tag acts__tag--pending">approve</span>
             </div>
             <div class="acts__row">
               <span class="acts__check">·</span>
-              <span class="acts__label">Lot #4471 karantinaya al</span>
-              <span class="acts__tag acts__tag--pending">onayla</span>
+              <span class="acts__label">Quarantine lot #4471</span>
+              <span class="acts__tag acts__tag--pending">approve</span>
             </div>
           </div>
         </div>
         <div class="chat__line chat__line--user chat__line--mini">
-          Üst ikisi geçsin, alttakini ben bakayım.
+          Approve the top two, I'll handle the rest.
         </div>
       </div>
     </div>
   </article>
 </section>
 
-<!-- ============ 5. KURULUM ============ -->
-<section class="setup" id="kurulum" data-screen-label="05 Kurulum">
+<!-- ============ 5. SETUP ============ -->
+<section class="setup" id="setup" data-screen-label="05 Setup">
   <div class="setup__header">
     <div class="eyebrow">
       <span class="dot" aria-hidden="true"></span>
-      Kurulum
+      Setup
     </div>
     <h2 class="setup__title">
-      Bağlan. Eşle. <em>Kullan.</em>
+      Connect. Map. <em>Use.</em>
     </h2>
   </div>
 
@@ -397,28 +396,28 @@
     <li class="step">
       <span class="step__no">01</span>
       <div class="step__rule" aria-hidden="true"></div>
-      <h3 class="step__name">Bağlan</h3>
+      <h3 class="step__name">Connect</h3>
       <p class="step__desc">
-        Sistemlerinize güvenli bir bağlantı kurarız. Kendi altyapınızda
-        (on-premise) çalışır, veri dışarı çıkmaz.
+        We establish a secure connection to your systems. Runs on your own
+        infrastructure (on-premise) — data never leaves your perimeter.
       </p>
     </li>
     <li class="step">
       <span class="step__no">02</span>
       <div class="step__rule" aria-hidden="true"></div>
-      <h3 class="step__name">Eşle</h3>
+      <h3 class="step__name">Map</h3>
       <p class="step__desc">
-        Operasyonunuzun terimlerini, kurallarını, edge case'lerini Leviora'ya
-        öğretiriz. Kısa bir konuşma + birkaç sistem örneği yeterli.
+        We teach Leviora your operation's terms, rules, and edge cases. A short
+        conversation plus a few system samples is enough.
       </p>
     </li>
     <li class="step">
       <span class="step__no">03</span>
       <div class="step__rule" aria-hidden="true"></div>
-      <h3 class="step__name">Kullan</h3>
+      <h3 class="step__name">Use</h3>
       <p class="step__desc">
-        Ekibiniz Leviora'yı doğal dilde kullanmaya başlar. Soru sorar, kök
-        neden ister, otomatik aksiyon kurar.
+        Your team starts using Leviora in natural language. Ask questions,
+        request root causes, configure automated actions.
       </p>
     </li>
   </ol>
@@ -428,9 +427,9 @@
 <section class="motto" data-screen-label="07 Motto">
   <div class="motto__inner">
     <h2 class="motto__title">
-      Leviora <em>hafifletir.</em>
+      Leviora <em>lightens the load.</em>
     </h2>
-    <p class="motto__sub">Operasyona özel yapay zeka.</p>
+    <p class="motto__sub">Operations-native AI.</p>
 
     <svg class="motto__motif" viewBox="0 0 400 400" aria-hidden="true">
       <defs>
@@ -446,14 +445,14 @@
 </section>
 
 <!-- ============ FOOTER ============ -->
-<footer class="footer footer--mini" id="iletisim" data-screen-label="Footer">
+<footer class="footer footer--mini" id="contact" data-screen-label="Footer">
   <div class="footer__mini">
     <div class="footer__mini-brand">
       <svg class="logo-svg logo-svg--footer" viewBox="0 0 440 105" role="img" aria-label="Leviora"><use href="#leviora-logo-sym"/></svg>
-      <p>Operasyona özel yapay zeka.</p>
+      <p>Operations-native AI.</p>
     </div>
     <a class="footer__mail" href="mailto:info@leviora.ai">
-      <span class="footer__mail-lbl">İletişim</span>
+      <span class="footer__mail-lbl">Contact</span>
       info@leviora.ai
     </a>
   </div>
@@ -461,6 +460,6 @@
 
 </main>
 
-<script src="leviora.js"></script>
+<script src="/leviora.js"></script>
 </body>
 </html>

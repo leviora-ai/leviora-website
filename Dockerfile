@@ -5,6 +5,7 @@ RUN rm -rf /usr/share/nginx/html/*
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY index.html leviora.css leviora.js /usr/share/nginx/html/
 COPY assets /usr/share/nginx/html/assets
+COPY en /usr/share/nginx/html/en
 
 EXPOSE 8080
 
