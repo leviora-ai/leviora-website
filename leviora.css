@@ -160,22 +160,27 @@ em { font-family: var(--serif); font-style: italic; font-weight: 400; }
 .nav__links a:hover::after { right: 0; }
 
 .nav__lang {
-  margin-left: clamp(8px, 1.2vw, 20px);
-  padding: 4px 10px !important;
-  border: 1px solid var(--hair-strong);
-  border-radius: 999px;
+  position: relative;
+  margin-left: clamp(14px, 1.6vw, 24px);
+  padding-left: clamp(14px, 1.6vw, 24px) !important;
   font-family: var(--mono);
   font-size: 11px;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--ink-2);
+  color: var(--ink-3);
+}
+.nav__lang::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 1px;
+  height: 14px;
+  background: var(--hair);
+  transform: translateY(-50%);
 }
 .nav__lang::after { display: none !important; }
-.nav__lang:hover {
-  background: var(--ink);
-  border-color: var(--ink);
-  color: var(--cream);
-}
+.nav__lang:hover { color: var(--purple-1); }
 
 /* ============ hero ============ */
 .hero { padding: 80px var(--pad) 120px; max-width: var(--max); margin: 0 auto; }
