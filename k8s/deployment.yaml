@@ -32,7 +32,7 @@ spec:
       containers:
         - name: nginx
           image: ghcr.io/leviora-ai/leviora-website:latest
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           ports:
             - name: http
               containerPort: 8080

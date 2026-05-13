@@ -4,10 +4,11 @@ metadata:
   name: leviora-website
   namespace: leviora-website
   annotations:
-    # Redirect www → apex
-    traefik.ingress.kubernetes.io/router.middlewares: leviora-website-redirect-www@kubernetescrd
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
 spec:
-  ingressClassName: traefik
+  ingressClassName: nginx
   tls:
     - hosts:
         - leviora.ai
@@ -24,6 +25,25 @@ spec:
                 name: leviora-website
                 port:
                   name: http
+---
+# www → apex permanent redirect (cert-manager still issues the cert for www
+# because it's in the TLS hosts list above; this ingress only handles the
+# 308 redirect to canonical apex).
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: leviora-website-www-redirect
+  namespace: leviora-website
+  annotations:
+    nginx.ingress.kubernetes.io/permanent-redirect: https://leviora.ai$request_uri
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - www.leviora.ai
+      secretName: leviora-website-tls
+  rules:
     - host: www.leviora.ai
       http:
         paths:
@@ -34,14 +54,3 @@ spec:
                 name: leviora-website
                 port:
                   name: http
----
-apiVersion: traefik.io/v1alpha1
-kind: Middleware
-metadata:
-  name: redirect-www
-  namespace: leviora-website
-spec:
-  redirectRegex:
-    regex: ^https?://www\.leviora\.ai/(.*)
-    replacement: https://leviora.ai/${1}
-    permanent: true

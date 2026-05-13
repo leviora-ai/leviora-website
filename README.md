@@ -35,29 +35,51 @@ GitHub Actions (build.yml)
     ↓
 docker buildx → ghcr.io/leviora-ai/leviora-website:sha-<7> + :latest
     ↓
-ArgoCD image-updater (k8s/argocd-application.yaml ayrı Application)
+ArgoCD auto-sync (k8s/argocd-application.yaml ayrı Application)
     ↓
-Hetzner k3s · namespace `leviora-website` · Traefik Ingress · cert-manager TLS
+Hetzner k3s · namespace `leviora-website` · nginx-ingress · cert-manager TLS
     ↓
-https://leviora.ai  (www → apex redirect, Let's Encrypt prod)
+https://leviora.ai  (www → apex 308 redirect, Let's Encrypt prod)
 ```
 
 ### İlk kurulum (one-time)
 
+**Önce DNS** — `leviora.ai` + `www.leviora.ai` A kayıtları `178.105.28.21` (Hetzner pilot VM) işaret etmeli. Doğrulama:
+
+```bash
+dig +short leviora.ai @8.8.8.8       # → 178.105.28.21
+dig +short www.leviora.ai @8.8.8.8   # → 178.105.28.21
+```
+
+DNS propagate etmeden ArgoCD apply ETME — cert-manager HTTP-01 challenge fail eder ve Let's Encrypt rate limit'ini yer.
+
 ```bash
 # 1. ArgoCD Application'ı uygula (pandora-infra GitOps tree'sinden bağımsız)
-kubectl apply -f k8s/argocd-application.yaml
+kubectl --context <hetzner-pilot> apply -f k8s/argocd-application.yaml
 
-# 2. DNS doğrulaması: leviora.ai + www.leviora.ai → Hetzner cluster IP
-#    Memory: leviora.ai zaten Resend email için verified, A record set
+# 2. Sync'i izle
+kubectl --context <hetzner-pilot> -n argocd get application leviora-website -w
 
-# 3. cert-manager letsencrypt-prod ClusterIssuer cluster'da mevcut olmalı
-#    (pandora-infra'da kurulu — sadece referans, kopyalama gerekmez)
+# 3. Cert'in çıkışını bekle (~30-90 sn)
+kubectl --context <hetzner-pilot> -n leviora-website get certificate leviora-website-tls -w
+
+# 4. Canlı doğrulama
+curl -I https://leviora.ai
 ```
 
 ### Sonraki deploy'lar
 
-`git push origin main` yeterli. ArgoCD image-updater yeni `sha-<7>` digest'ini saniyeler içinde alır, rollout başlatır.
+`git push origin main` → GHA build (~25s) → GHCR `:latest` yenilenir. Pod'u yeni image'ı çekmesi için:
+
+```bash
+# Manifest değişikliği varsa (k8s/ altında): ArgoCD auto-sync yeter
+# Sadece image güncellemesi (imagePullPolicy: Always pinned to :latest):
+argocd app sync leviora-website
+# veya
+kubectl --context <hetzner-pilot> -n leviora-website rollout restart deploy/leviora-website
+```
+
+argocd-image-updater Hetzner cluster'da kurulu DEĞİL — kurulunca digest-based annotation'lar açılır, manuel sync ihtiyacı kalkar.
 
 ## Repo dizini
 
@@ -72,10 +94,9 @@ kubectl apply -f k8s/argocd-application.yaml
 ├── k8s/                    # Kustomize manifests (ayrı ArgoCD app)
 │   ├── kustomization.yaml
 │   ├── namespace.yaml
-│   ├── deployment.yaml
+│   ├── deployment.yaml     # imagePullPolicy: Always (:latest tag flow)
 │   ├── service.yaml
-│   ├── certificate.yaml
-│   ├── ingress.yaml        # leviora.ai + www → apex redirect (Traefik middleware)
+│   ├── ingress.yaml        # nginx-ingress; cert-manager annotation; www→apex 308 redirect ingress
 │   └── argocd-application.yaml
 └── .github/workflows/
     └── build.yml           # buildx → GHCR + kustomize render validation
