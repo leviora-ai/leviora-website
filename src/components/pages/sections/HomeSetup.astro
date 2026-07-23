@@ -71,6 +71,8 @@ const s = t.home.setup;
             <span class="setup__center-label">{s.panel.center}</span>
           </div>
 
+          <span class="setup__vline" aria-hidden="true"><i></i></span>
+
           <div class="setup__chips">
             {s.panel.chips.slice(0, 2).map((c) => <span class="setup-chip">{c}</span>)}
             <span class="setup-chip setup-chip--dashed">
@@ -677,13 +679,39 @@ const s = t.home.setup;
     }
   }
 
-  @media (max-width: 640px) {
-    .setup__chips {
-      position: static;
-      flex-direction: row;
-      flex-wrap: wrap;
-      width: auto;
-      margin-top: 260px;
+  /* Vertical hub→chips connector, mobile only */
+  .setup__vline {
+    display: none;
+  }
+
+  @media (max-width: 700px) {
+    .setup__panel {
+      min-height: 0;
+    }
+
+    .setup-view {
+      position: relative;
+      inset: auto;
+      padding: 22px 18px 26px;
+    }
+
+    .setup-view[aria-hidden='true'] {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+
+    /* Connect view: clean vertical flow */
+    .setup-view--connect {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .setup__panel-head {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
     }
 
     .setup__lines {
@@ -691,12 +719,67 @@ const s = t.home.setup;
     }
 
     .setup__center {
-      left: 50%;
-      top: 46%;
+      position: static;
+      transform: none;
+      align-self: center;
+      margin-top: 10px;
     }
-  }
 
-  @media (max-width: 640px) {
+    .setup__ring {
+      display: none;
+    }
+
+    .setup__vline {
+      display: block;
+      position: relative;
+      align-self: center;
+      width: 1px;
+      height: 56px;
+      background-image: linear-gradient(to bottom, rgba(210, 200, 235, 0.45) 55%, transparent 45%);
+      background-size: 1px 12px;
+    }
+
+    .setup__vline i {
+      position: absolute;
+      left: -3px;
+      top: 0;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #b9a7f5;
+      box-shadow: 0 0 8px rgba(185, 167, 245, 0.9);
+      animation: vlinedot 2.2s linear infinite;
+    }
+
+    @keyframes vlinedot {
+      0% {
+        top: 0;
+        opacity: 0;
+      }
+      15% {
+        opacity: 1;
+      }
+      85% {
+        opacity: 1;
+      }
+      100% {
+        top: calc(100% - 7px);
+        opacity: 0;
+      }
+    }
+
+    .setup__chips {
+      position: static;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      width: 100%;
+    }
+
+    .setup__chips .setup-chip--dashed {
+      grid-column: 1 / -1;
+    }
+
     .mapv__from {
       width: auto;
       flex: 1;
@@ -721,7 +804,8 @@ const s = t.home.setup;
     .setup__ring,
     .setup__hub,
     .setup__hub::after,
-    .mapv__dot {
+    .mapv__dot,
+    .setup__vline i {
       animation: none;
     }
 
