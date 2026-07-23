@@ -18,6 +18,13 @@ spec:
     - host: leviora.ai
       http:
         paths:
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: leviora-website-api
+                port:
+                  name: http
           - path: /
             pathType: Prefix
             backend:
