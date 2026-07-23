@@ -22,7 +22,7 @@ if (tabs.length > 1) {
       setTimeout(() => {
         answerText.textContent = next;
         answer.classList.remove('swapping');
-      }, 200);
+      }, 150);
     }
   }, 3000);
 }
