@@ -85,6 +85,8 @@ const leftChips = [
         }
       </div>
 
+      <span class="hero__vline" aria-hidden="true"><i></i></span>
+
       <div class="hero__center">
         <img
           class="hero__orb"
@@ -135,6 +137,8 @@ const leftChips = [
           </div>
         </div>
       </div>
+
+      <span class="hero__vline hero__vline--2" aria-hidden="true"><i></i></span>
 
       <div class="hero__col hero__col--right" data-reveal-stagger>
         <div class="chip chip--dashed chip--label">{h.outputsLabel}</div>
@@ -510,6 +514,10 @@ const leftChips = [
     color: #ffffff;
   }
 
+  .hero__vline {
+    display: none;
+  }
+
   /* ---- Responsive ---- */
   @media (max-width: 1000px) {
     .hero__graph {
@@ -523,10 +531,52 @@ const leftChips = [
       display: none;
     }
 
-    /* chat first, then a tidy 2-col chip grid, then full-width outputs */
+    /* narrative order: inputs → center chat → outputs, joined by flow lines */
     .hero__center {
-      order: -1;
       min-height: 0;
+    }
+
+    .hero__vline {
+      display: block;
+      position: relative;
+      justify-self: center;
+      width: 1px;
+      height: 48px;
+      background-image: linear-gradient(to bottom, rgba(210, 200, 235, 0.45) 55%, transparent 45%);
+      background-size: 1px 12px;
+    }
+
+    .hero__vline i {
+      position: absolute;
+      left: -3px;
+      top: 0;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #b9a7f5;
+      box-shadow: 0 0 8px rgba(185, 167, 245, 0.9);
+      animation: herovline 2.2s linear infinite;
+    }
+
+    .hero__vline--2 i {
+      animation-delay: 1.1s;
+    }
+
+    @keyframes herovline {
+      0% {
+        top: 0;
+        opacity: 0;
+      }
+      15% {
+        opacity: 1;
+      }
+      85% {
+        opacity: 1;
+      }
+      100% {
+        top: calc(100% - 7px);
+        opacity: 0;
+      }
     }
 
     .hero__orb {
@@ -573,6 +623,10 @@ const leftChips = [
 
     .hdot {
       display: none;
+    }
+
+    .hero__vline i {
+      animation: none;
     }
   }
 </style>
