@@ -56,6 +56,13 @@ const leftChips = [
         <path class="flow flow--out" d="M772 245 C 920 210, 1060 150, 1238 136"></path>
         <path class="flow flow--out" d="M772 268 C 920 250, 1060 218, 1238 212"></path>
         <path class="flow flow--out" d="M768 290 C 900 310, 1050 296, 1238 288"></path>
+        <circle class="hdot hdot--1" r="3.5"></circle>
+        <circle class="hdot hdot--2" r="3.5"></circle>
+        <circle class="hdot hdot--3" r="3.5"></circle>
+        <circle class="hdot hdot--4" r="3.5"></circle>
+        <circle class="hdot hdot--5" r="3.5"></circle>
+        <circle class="hdot hdot--6" r="3.5"></circle>
+        <circle class="hdot hdot--7" r="3.5"></circle>
       </svg>
 
       <div class="hero__col hero__col--left" data-reveal-stagger>
@@ -215,19 +222,52 @@ const leftChips = [
   }
 
   .flow {
-    stroke: rgba(149, 130, 189, 0.38);
-    stroke-width: 1.4;
+    stroke: rgba(210, 200, 235, 0.4);
+    stroke-width: 1.5;
     stroke-dasharray: 6 7;
     animation: flowdash 2.6s linear infinite;
   }
 
   .flow--out {
-    stroke: rgba(149, 130, 189, 0.28);
+    stroke: rgba(210, 200, 235, 0.32);
   }
 
   @keyframes flowdash {
     to {
       stroke-dashoffset: -26;
+    }
+  }
+
+  /* traveling data dots: systems → chat → outputs */
+  .hdot {
+    fill: #b9a7f5;
+    filter: drop-shadow(0 0 6px rgba(185, 167, 245, 0.9));
+    offset-rotate: 0deg;
+    animation: hdotflow 3.4s linear infinite;
+  }
+
+  .hdot--1 { offset-path: path('M170 20 C 420 20, 560 140, 640 210'); }
+  .hdot--2 { offset-path: path('M170 92 C 400 92, 540 170, 630 225'); animation-delay: 0.5s; }
+  .hdot--3 { offset-path: path('M170 184 C 380 184, 520 210, 620 245'); animation-delay: 1s; }
+  .hdot--4 { offset-path: path('M170 280 C 400 280, 540 280, 628 268'); animation-delay: 1.5s; }
+  .hdot--5 { offset-path: path('M170 352 C 420 352, 560 330, 640 292'); animation-delay: 2s; }
+  .hdot--6 { offset-path: path('M768 220 C 900 160, 1050 76, 1238 60'); animation-delay: 0.8s; }
+  .hdot--7 { offset-path: path('M772 268 C 920 250, 1060 218, 1238 212'); animation-delay: 2.2s; }
+
+  @keyframes hdotflow {
+    0% {
+      offset-distance: 0%;
+      opacity: 0;
+    }
+    12% {
+      opacity: 1;
+    }
+    88% {
+      opacity: 1;
+    }
+    100% {
+      offset-distance: 100%;
+      opacity: 0;
     }
   }
 
@@ -283,7 +323,7 @@ const leftChips = [
     margin: auto;
     width: min(604px, 100%);
     height: auto;
-    opacity: 0.8;
+    opacity: 0.95;
     animation: orbbreathe 12s var(--ease-out) infinite;
   }
 
@@ -291,11 +331,11 @@ const leftChips = [
     0%,
     100% {
       transform: scale(1);
-      opacity: 0.72;
+      opacity: 0.85;
     }
     50% {
       transform: scale(1.045);
-      opacity: 0.88;
+      opacity: 1;
     }
   }
 
@@ -309,8 +349,10 @@ const leftChips = [
     padding: 16px;
     border-radius: 8px;
     background: #150e2e;
-    border: 3px solid rgba(78, 47, 144, 0.3);
-    box-shadow: 0 0 60px rgba(78, 47, 144, 0.35);
+    border: 3px solid rgba(78, 47, 144, 0.45);
+    box-shadow:
+      0 0 90px rgba(78, 47, 144, 0.55),
+      0 0 30px rgba(78, 47, 144, 0.4);
   }
 
   .chat__question {
@@ -527,6 +569,10 @@ const leftChips = [
     .flow,
     .hero__orb {
       animation: none;
+    }
+
+    .hdot {
+      display: none;
     }
   }
 </style>
