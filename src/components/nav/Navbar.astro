@@ -1,0 +1,241 @@
+---
+import type { Lang } from '../../i18n/types';
+import { useTranslations, localizePath } from '../../i18n/ui';
+import LangDropdown from './LangDropdown.astro';
+import Button from '../ui/Button.astro';
+
+interface Props {
+  lang: Lang;
+  /** Language-neutral path of the current page. */
+  path: string;
+}
+
+const { lang, path } = Astro.props;
+const t = useTranslations(lang);
+
+const links = [
+  { href: '/', label: t.nav.home },
+  { href: '/product/', label: t.nav.product },
+  { href: '/solutions/', label: t.nav.solutions },
+];
+---
+
+<header class="nav">
+  <div class="nav__inner">
+    <a class="nav__brand" href={localizePath('/', lang)} aria-label="Leviora">
+      <img src="/assets/leviora-wordmark.svg" alt="Leviora" width="236" height="48" />
+    </a>
+
+    <nav class="nav__links" aria-label="Main">
+      {
+        links.map((link, i) => (
+          <>
+            {i > 0 && <span class="nav__sep" aria-hidden="true" />}
+            <a
+              href={localizePath(link.href, lang)}
+              aria-current={link.href === path ? 'page' : undefined}
+            >
+              {link.label}
+            </a>
+          </>
+        ))
+      }
+      <span class="nav__sep" aria-hidden="true"></span>
+      <LangDropdown lang={lang} path={path} />
+    </nav>
+
+    <div class="nav__actions">
+      <Button href={localizePath('/contact/', lang)}>{t.nav.requestDemo}</Button>
+    </div>
+
+    <button
+      class="nav__burger"
+      type="button"
+      data-nav-toggle
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      aria-label={t.nav.openMenu}
+    >
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <div class="nav__mobile" id="mobile-menu" data-nav-menu hidden>
+    <nav aria-label="Mobile">
+      {
+        links.map((link) => (
+          <a
+            href={localizePath(link.href, lang)}
+            aria-current={link.href === path ? 'page' : undefined}
+          >
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+    <div class="nav__mobile-foot">
+      <LangDropdown lang={lang} path={path} />
+      <Button href={localizePath('/contact/', lang)}>{t.nav.requestDemo}</Button>
+    </div>
+  </div>
+</header>
+
+<style>
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--bg-deep) 82%, transparent);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--hair-dark);
+  }
+
+  .nav__inner {
+    max-width: var(--max);
+    margin-inline: auto;
+    padding: 14px var(--pad);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .nav__brand {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .nav__brand img {
+    width: 236px;
+    height: 48px;
+  }
+
+  @media (max-width: 1100px) {
+    .nav__brand img {
+      width: 177px;
+      height: 36px;
+    }
+  }
+
+  .nav__links {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .nav__sep {
+    width: 1px;
+    height: 22px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.3);
+    transform: rotate(15deg);
+  }
+
+  .nav__links a {
+    text-decoration: none;
+    font-size: 17px;
+    color: #e9e9ea;
+    transition: color var(--hover-duration) var(--ease-out);
+  }
+
+  .nav__links a:hover,
+  .nav__links a[aria-current='page'] {
+    color: var(--ink-inverse);
+  }
+
+  .nav__actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .nav__burger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
+    padding: 10px;
+    background: transparent;
+    border: 1px solid var(--hair-dark);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+  }
+
+  .nav__burger span {
+    display: block;
+    height: 1.6px;
+    width: 100%;
+    background: var(--ink-inverse);
+    transition: transform var(--hover-duration) var(--ease-out),
+      opacity var(--hover-duration) var(--ease-out);
+  }
+
+  .nav__burger[aria-expanded='true'] span:nth-child(1) {
+    transform: translateY(6.6px) rotate(45deg);
+  }
+
+  .nav__burger[aria-expanded='true'] span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .nav__burger[aria-expanded='true'] span:nth-child(3) {
+    transform: translateY(-6.6px) rotate(-45deg);
+  }
+
+  .nav__mobile {
+    display: none;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px var(--pad) 28px;
+    border-bottom: 1px solid var(--hair-dark);
+    background: color-mix(in srgb, var(--bg-deep) 96%, transparent);
+  }
+
+  .nav__mobile nav {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .nav__mobile nav a {
+    padding: 12px 0;
+    text-decoration: none;
+    font-size: 17px;
+    color: var(--ink-inverse-2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .nav__mobile nav a[aria-current='page'] {
+    color: var(--ink-inverse);
+  }
+
+  .nav__mobile-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 900px) {
+    .nav__links,
+    .nav__actions {
+      display: none;
+    }
+
+    .nav__burger {
+      display: flex;
+    }
+
+    .nav__mobile:not([hidden]) {
+      display: flex;
+    }
+  }
+</style>
+
+<script>
+  import '../../scripts/nav';
+</script>

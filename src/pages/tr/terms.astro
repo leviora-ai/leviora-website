@@ -1,0 +1,45 @@
+---
+import LegalLayout from '../../layouts/LegalLayout.astro';
+import { useTranslations } from '../../i18n/ui';
+
+const t = useTranslations('tr');
+---
+
+<LegalLayout
+  lang="tr"
+  title={t.meta.terms.title}
+  description={t.meta.terms.description}
+  path="/terms/"
+  heading="Kullanım Koşulları"
+  updated="Son güncelleme: Temmuz 2026"
+>
+  <p>
+    Bu koşullar, leviora.ai web sitesinin kullanımını düzenler. Siteyi kullanarak bu
+    koşulları kabul etmiş olursunuz.
+  </p>
+
+  <h2>İçerik</h2>
+  <p>
+    Bu sitedeki içerik, Leviora platformu hakkında genel bilgilendirme amacıyla sunulur;
+    sözleşmesel bir teklif niteliği taşımaz. Ürün yetenekleri, paketler ve takvimler yazılı
+    sözleşmeyle kesinleşir.
+  </p>
+
+  <h2>Fikrî mülkiyet</h2>
+  <p>
+    Leviora adı, logosu ve bu sitedeki tüm içerik Leviora'ya aittir; izinsiz çoğaltılamaz.
+  </p>
+
+  <h2>Sorumluluk</h2>
+  <p>
+    Site "olduğu gibi" sunulur. Doğruluk için özen gösteririz; ancak tüm bilgilerin eksiksiz
+    veya güncel olduğunu garanti etmeyiz ve site içeriğine dayanarak alınan kararlardan
+    sorumluluk kabul etmeyiz.
+  </p>
+
+  <h2>Değişiklikler</h2>
+  <p>Bu koşulları zaman zaman güncelleyebiliriz. Güncel sürüm her zaman bu sayfadadır.</p>
+
+  <h2>İletişim</h2>
+  <p>Leviora — <a href="mailto:info@leviora.ai">info@leviora.ai</a></p>
+</LegalLayout>

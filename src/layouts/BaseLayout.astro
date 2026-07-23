@@ -1,0 +1,75 @@
+---
+import '@fontsource-variable/oxanium';
+import '@fontsource/argentum-sans/latin-200.css';
+import '@fontsource/argentum-sans/latin-300.css';
+import '@fontsource/argentum-sans/latin-400.css';
+import '@fontsource/argentum-sans/latin-500.css';
+import '@fontsource/argentum-sans/latin-600.css';
+import '../styles/global.css';
+import oxaniumWoff2 from '@fontsource-variable/oxanium/files/oxanium-latin-wght-normal.woff2?url';
+import argentum300 from '@fontsource/argentum-sans/files/argentum-sans-latin-300-normal.woff2?url';
+import argentum400 from '@fontsource/argentum-sans/files/argentum-sans-latin-400-normal.woff2?url';
+import type { Lang } from '../i18n/types';
+import { localizePath } from '../i18n/ui';
+import Navbar from '../components/nav/Navbar.astro';
+import Footer from '../components/layout/Footer.astro';
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description: string;
+  /** Language-neutral path for this page, e.g. "/product/". */
+  path: string;
+  ogImage?: string;
+  noindex?: boolean;
+}
+
+const { lang, title, description, path, ogImage, noindex = false } = Astro.props;
+
+const site = Astro.site!.href.replace(/\/$/, '');
+const canonical = `${site}${localizePath(path, lang)}`;
+const hrefEn = `${site}${localizePath(path, 'en')}`;
+const hrefTr = `${site}${localizePath(path, 'tr')}`;
+const og = ogImage ?? '/assets/og/default.png';
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline>
+      document.documentElement.classList.add('js');
+    </script>
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preload" as="font" type="font/woff2" href={oxaniumWoff2} crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href={argentum300} crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href={argentum400} crossorigin />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="en" href={hrefEn} />
+    <link rel="alternate" hreflang="tr" href={hrefTr} />
+    <link rel="alternate" hreflang="x-default" href={hrefEn} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    {noindex && <meta name="robots" content="noindex" />}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Leviora" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={`${site}${og}`} />
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+  <body>
+    <Navbar lang={lang} path={path} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer lang={lang} />
+    <script>
+      import '../scripts/reveal';
+      import '../scripts/chat-play';
+    </script>
+  </body>
+</html>

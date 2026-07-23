@@ -1,0 +1,83 @@
+---
+import type { Lang } from '../../../i18n/types';
+import { useTranslations, localizePath } from '../../../i18n/ui';
+import Eyebrow from '../../ui/Eyebrow.astro';
+import Button from '../../ui/Button.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const h = t.solutions.hero;
+---
+
+<section class="shero">
+  <div class="shero__inner" data-reveal-stagger>
+    <Eyebrow text={h.eyebrow} />
+    <h1 class="shero__title">
+      <span>{h.titleLine1}</span>
+      <span class="shero__title-accent">{h.titleLine2}</span>
+    </h1>
+    <p class="shero__sub">{h.sub}</p>
+    <div class="shero__ctas">
+      <Button href={localizePath('/contact/', lang)}>{h.ctaPrimary}</Button>
+      <Button href={localizePath('/product/', lang)} variant="secondary">
+        {h.ctaSecondary}
+      </Button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .shero {
+    background:
+      radial-gradient(70% 90% at 50% 0%, rgba(19, 12, 38, 0.9) 0%, transparent 75%),
+      #0d0618;
+  }
+
+  .shero__inner {
+    max-width: var(--max);
+    margin-inline: auto;
+    padding: clamp(56px, 9vw, 120px) var(--pad) clamp(56px, 8vw, 100px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    text-align: center;
+  }
+
+  .shero__title {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin: 0;
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(34px, 4.4vw, 60px);
+    line-height: 1.1;
+    color: var(--ink-inverse);
+  }
+
+  .shero__title-accent {
+    color: var(--purple-heading);
+  }
+
+  .shero__sub {
+    margin: 0;
+    max-width: 640px;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #e9e9ea;
+  }
+
+  .shero__ctas {
+    display: flex;
+    gap: 12px;
+    margin-top: 14px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+</style>

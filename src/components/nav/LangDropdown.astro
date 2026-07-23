@@ -1,0 +1,113 @@
+---
+import type { Lang } from '../../i18n/types';
+import { localizePath, otherLang } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  path: string;
+}
+
+const { lang, path } = Astro.props;
+const other = otherLang(lang);
+const labels: Record<Lang, string> = { en: 'English', tr: 'Türkçe' };
+---
+
+<div class="lang" data-lang-dropdown>
+  <button
+    class="lang__btn"
+    type="button"
+    aria-expanded="false"
+    aria-haspopup="true"
+  >
+    {labels[lang]}
+    <svg
+      class="lang__chevron"
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="m6 9 6 6 6-6"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"></path>
+    </svg>
+  </button>
+  <div class="lang__menu" hidden>
+    <span class="lang__item lang__item--current" aria-current="true">{labels[lang]}</span>
+    <a class="lang__item" href={localizePath(path, other)} lang={other} hreflang={other}>
+      {labels[other]}
+    </a>
+  </div>
+</div>
+
+<style>
+  .lang {
+    position: relative;
+  }
+
+  .lang__btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: transparent;
+    border: none;
+    padding: 4px 2px;
+    font-family: var(--sans);
+    font-size: 17px;
+    color: #e9e9ea;
+    cursor: pointer;
+  }
+
+  .lang__chevron {
+    transition: transform var(--hover-duration) var(--ease-out);
+  }
+
+  .lang__btn[aria-expanded='true'] .lang__chevron {
+    transform: rotate(180deg);
+  }
+
+  .lang__menu {
+    position: absolute;
+    top: calc(100% + 12px);
+    right: 0;
+    min-width: 140px;
+    display: flex;
+    flex-direction: column;
+    padding: 6px;
+    border-radius: var(--radius-sm);
+    background: #150e2e;
+    border: 1px solid rgba(149, 130, 189, 0.35);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+    z-index: 60;
+  }
+
+  .lang__menu[hidden] {
+    display: none;
+  }
+
+  .lang__item {
+    padding: 9px 12px;
+    border-radius: 6px;
+    font-size: 15px;
+    color: var(--ink-inverse-2);
+    text-decoration: none;
+  }
+
+  .lang__item--current {
+    color: #ffffff;
+    background: rgba(78, 47, 144, 0.35);
+  }
+
+  a.lang__item:hover {
+    background: rgba(255, 255, 255, 0.06);
+    color: #ffffff;
+  }
+</style>
+
+<script>
+  import '../../scripts/lang-dropdown';
+</script>

@@ -1,0 +1,112 @@
+---
+import type { CapabilityDict, Lang } from '../../../i18n/types';
+import ChatWindow from '../../ui/ChatWindow.astro';
+import CheckBullet from '../../ui/CheckBullet.astro';
+
+interface Props {
+  lang: Lang;
+  capability: CapabilityDict;
+  reverse?: boolean;
+  dark?: boolean;
+}
+
+const { capability, reverse = false, dark = false } = Astro.props;
+---
+
+<section class:list={['cap', { 'cap--dark': dark, 'cap--reverse': reverse }]}>
+  <div class="cap__inner">
+    <div class="cap__chat">
+      <ChatWindow chat={capability.chat} />
+    </div>
+    <div class="cap__text" data-reveal-stagger>
+      <h2 class="cap__title">{capability.title}</h2>
+      <p class="cap__body">{capability.body}</p>
+      <div class="cap__bullets">
+        {capability.bullets.map((b) => <CheckBullet text={b} tone={dark ? 'dark' : 'light'} />)}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cap {
+    background: var(--bg-light);
+  }
+
+  .cap--dark {
+    background: var(--bg-deep);
+  }
+
+  .cap__inner {
+    max-width: var(--max);
+    margin-inline: auto;
+    padding: clamp(48px, 6vw, 96px) var(--pad);
+    display: grid;
+    grid-template-columns: 1.18fr 1fr;
+    gap: clamp(32px, 4vw, 64px);
+    align-items: center;
+  }
+
+  .cap__inner > * {
+    min-width: 0;
+  }
+
+  .cap--reverse .cap__chat {
+    order: 2;
+  }
+
+  .cap--reverse .cap__text {
+    order: 1;
+  }
+
+  .cap__text {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .cap__title {
+    margin: 0;
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(26px, 2.6vw, 36px);
+    line-height: 1.1;
+    color: var(--ink);
+  }
+
+  .cap--dark .cap__title {
+    color: var(--ink-inverse);
+  }
+
+  .cap__body {
+    margin: 0;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--ink-2);
+  }
+
+  .cap--dark .cap__body {
+    color: var(--ink-inverse-2);
+  }
+
+  .cap__bullets {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  @media (max-width: 1000px) {
+    .cap__inner {
+      grid-template-columns: 1fr;
+    }
+
+    .cap--reverse .cap__chat {
+      order: 1;
+    }
+
+    .cap--reverse .cap__text {
+      order: 2;
+    }
+  }
+</style>

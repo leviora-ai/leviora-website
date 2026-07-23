@@ -1,0 +1,50 @@
+/* Leviora marketing site design tokens.
+   Values verified against Figma file 5JyYz4ob9uX9bvvqBADLSW
+   (variables + hero/button design context, 2026-07-23). */
+:root {
+  /* Surfaces */
+  --bg-deep: #070707;
+  --bg-dark: #0d0618;
+  --bg-panel: #1d1f2c;
+  --bg-light: #ffffff;
+  --bg-light-2: #f7f5fc;
+
+  /* Ink on dark */
+  --ink-inverse: #eceaf2;
+  --ink-inverse-2: #a5a5ab;
+  --ink-inverse-3: #777980;
+
+  /* Ink on light */
+  --ink: #1d1f2c;
+  --ink-2: #4a4c56;
+  --ink-3: #777980;
+
+  /* Accent (brand purple family) */
+  --purple: #4e2f90;
+  --purple-deep: #432680;
+  --purple-heading: #9582bd;
+  --purple-soft: #b9a7f5;
+
+  /* Lines */
+  --hair-dark: rgba(255, 255, 255, 0.18);
+  --hair-light: rgba(29, 31, 44, 0.12);
+
+  /* Type */
+  --display: 'Oxanium Variable', 'Oxanium', system-ui, sans-serif;
+  --sans: 'Argentum Sans', 'Montserrat', system-ui, -apple-system, sans-serif;
+
+  /* Layout */
+  --max: 1408px;
+  --pad: clamp(20px, 4vw, 96px);
+  --section-pad: clamp(72px, 10vw, 140px);
+  --radius-sm: 10px;
+  --radius-md: 12px;
+  --radius-lg: 24px;
+
+  /* Motion (brief §5) */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --reveal-duration: 380ms;
+  --reveal-distance: 20px;
+  --reveal-stagger: 70ms;
+  --hover-duration: 180ms;
+}

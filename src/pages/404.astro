@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/ui/Button.astro';
+import { useTranslations } from '../i18n/ui';
+
+const t = useTranslations('en');
+---
+
+<BaseLayout
+  lang="en"
+  title={t.meta.notFound.title}
+  description={t.meta.notFound.description}
+  path="/404/"
+  noindex
+>
+  <section class="notfound">
+    <p class="notfound__code">404</p>
+    <h1>{t.notFound.heading}</h1>
+    <p class="notfound__body">{t.notFound.body}</p>
+    <Button href="/">{t.notFound.backHome}</Button>
+  </section>
+</BaseLayout>
+
+<style>
+  .notfound {
+    min-height: 60vh;
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    text-align: center;
+    gap: 12px;
+    padding: var(--section-pad) var(--pad);
+  }
+
+  .notfound__code {
+    font-size: 15px;
+    letter-spacing: 0.3em;
+    color: var(--purple-soft);
+    margin: 0;
+  }
+
+  .notfound h1 {
+    margin: 0;
+    font-size: clamp(32px, 5vw, 52px);
+  }
+
+  .notfound__body {
+    color: var(--ink-inverse-3);
+    margin: 0 0 20px;
+  }
+</style>

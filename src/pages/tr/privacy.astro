@@ -1,0 +1,51 @@
+---
+import LegalLayout from '../../layouts/LegalLayout.astro';
+import { useTranslations } from '../../i18n/ui';
+
+const t = useTranslations('tr');
+---
+
+<LegalLayout
+  lang="tr"
+  title={t.meta.privacy.title}
+  description={t.meta.privacy.description}
+  path="/privacy/"
+  heading="Gizlilik Politikası"
+  updated="Son güncelleme: Temmuz 2026"
+>
+  <p>
+    Bu politika, Leviora'nın ("biz") leviora.ai üzerinden toplanan kişisel bilgileri nasıl
+    işlediğini açıklar. Kısa tutuyoruz; çünkü çok az veri topluyoruz.
+  </p>
+
+  <h2>Neler topluyoruz</h2>
+  <p>
+    Demo talep formunu gönderdiğinizde, paylaştığınız bilgileri alırız: adınız, e-posta
+    adresiniz, telefon numaranız, şirket adınız ve mesajınız. Web sitesi reklam takipçisi
+    kullanmaz, pazarlama çerezi bırakmaz.
+  </p>
+
+  <h2>Nasıl kullanıyoruz</h2>
+  <p>
+    Form gönderimleri, e-posta iletim sağlayıcımız aracılığıyla posta kutumuza
+    (info@leviora.ai) iletilir ve yalnızca talebinize yanıt vermek, demo veya pilot planlamak
+    için kullanılır. Bilgilerinizi pazarlama amacıyla üçüncü taraflara satmayız, paylaşmayız.
+  </p>
+
+  <h2>Saklama</h2>
+  <p>
+    Yazışmaları, talebinizin ve iş ilişkimizin gerektirdiği süre boyunca saklarız; sonrasında
+    sileriz.
+  </p>
+
+  <h2>Haklarınız</h2>
+  <p>
+    Kişisel verilerinize erişim, düzeltme veya silme talebinizi dilediğiniz zaman
+    <a href="mailto:info@leviora.ai">info@leviora.ai</a> adresine yazarak iletebilirsiniz.
+    Türkiye'de yerleşik kişiler ayrıca <a href="/tr/kvkk/">KVKK aydınlatma metnimizdeki</a>
+    haklara sahiptir.
+  </p>
+
+  <h2>İletişim</h2>
+  <p>Leviora — <a href="mailto:info@leviora.ai">info@leviora.ai</a></p>
+</LegalLayout>

@@ -1,0 +1,505 @@
+---
+import type { Lang } from '../../../i18n/types';
+import { useTranslations, localizePath } from '../../../i18n/ui';
+import Eyebrow from '../../ui/Eyebrow.astro';
+import Button from '../../ui/Button.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const h = t.home.hero;
+
+const leftChips = [
+  { label: h.chips.erp, dashed: false },
+  { label: h.chips.mes, dashed: false },
+  { label: h.chips.other, dashed: true },
+  { label: h.chips.scada, dashed: false },
+  { label: h.chips.cmms, dashed: false },
+];
+---
+
+<section class="hero" id="hero">
+  <div class="hero__inner">
+    <div class="hero__head" data-reveal-stagger>
+      <Eyebrow text={h.eyebrow} />
+      <h1 class="hero__title">
+        <span class="hero__title-line">{h.titleLine1}</span>
+        <span class="hero__title-line hero__title-line--accent">{h.titleLine2}</span>
+      </h1>
+      <div class="hero__ctas">
+        <Button href={localizePath('/contact/', lang)}>{h.ctaPrimary}</Button>
+        <Button href={localizePath('/product/', lang)} variant="secondary">
+          {h.ctaSecondary}
+        </Button>
+      </div>
+    </div>
+
+    <div class="hero__graph" data-graph>
+      <svg
+        class="hero__lines"
+        viewBox="0 0 1408 407"
+        fill="none"
+        preserveAspectRatio="xMidYMid meet"
+        aria-hidden="true"
+      >
+        {/* left chips → center */}
+        <path class="flow" d="M170 20 C 420 20, 560 140, 640 210"></path>
+        <path class="flow" d="M170 92 C 400 92, 540 170, 630 225"></path>
+        <path class="flow" d="M170 184 C 380 184, 520 210, 620 245"></path>
+        <path class="flow" d="M170 280 C 400 280, 540 280, 628 268"></path>
+        <path class="flow" d="M170 352 C 420 352, 560 330, 640 292"></path>
+        {/* center → right outputs */}
+        <path class="flow flow--out" d="M768 220 C 900 160, 1050 76, 1238 60"></path>
+        <path class="flow flow--out" d="M772 245 C 920 210, 1060 150, 1238 136"></path>
+        <path class="flow flow--out" d="M772 268 C 920 250, 1060 218, 1238 212"></path>
+        <path class="flow flow--out" d="M768 290 C 900 310, 1050 296, 1238 288"></path>
+      </svg>
+
+      <div class="hero__col hero__col--left" data-reveal-stagger>
+        {
+          leftChips.map((chip) => (
+            <div class:list={['chip', { 'chip--dashed': chip.dashed }]}>
+              {chip.dashed && (
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path
+                    d="M12 5v14M5 12h14"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              )}
+              <span>{chip.label}</span>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="hero__center">
+        <img
+          class="hero__orb"
+          src="/assets/diagrams/hero-orb.png"
+          alt=""
+          width="604"
+          height="407"
+          fetchpriority="high"
+        />
+        <div class="chat" data-reveal data-chat-seq>
+          <div class="chat__question" data-msg>
+            <span class="chat__dot" aria-hidden="true"><i></i></span>
+            <p>{h.chatQuestion}</p>
+          </div>
+          <div
+            class="chat__answer"
+            data-msg
+            data-tab-answer
+            data-a-0={h.tabAnswers.sees}
+            data-a-1={h.tabAnswers.understands}
+            data-a-2={h.tabAnswers.takesAction}
+          >
+            <span class="chat__avatar" aria-hidden="true">
+              <img src="/assets/leviora-icon.svg" alt="" width="16" height="16" />
+            </span>
+            <p>{h.tabAnswers.sees}</p>
+          </div>
+          <div class="chat__input">
+            <span class="chat__placeholder">{h.chatPlaceholder}</span>
+            <span class="chat__analyze">
+              {h.analyze}
+              <span class="chat__analyze-arrow" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M5 12h14m0 0-6-6m6 6-6 6"
+                    stroke="#fff"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"></path>
+                </svg>
+              </span>
+            </span>
+          </div>
+          <div class="chat__tabs" role="presentation">
+            <span class="chat__tab chat__tab--active">{h.tabs.sees}</span>
+            <span class="chat__tab">{h.tabs.understands}</span>
+            <span class="chat__tab">{h.tabs.takesAction}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero__col hero__col--right" data-reveal-stagger>
+        <div class="chip chip--dashed chip--label">{h.outputsLabel}</div>
+        {
+          h.outputs.map((card) => (
+            <div class="out-card">
+              <p class="out-card__title">{card.title}</p>
+              <p class="out-card__desc">{card.desc}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    background:
+      radial-gradient(52% 60% at 50% 62%, rgba(78, 47, 144, 0.34) 0%, transparent 70%),
+      radial-gradient(80% 50% at 50% 0%, rgba(19, 12, 38, 0.9) 0%, transparent 75%),
+      var(--bg-deep);
+    overflow: hidden;
+  }
+
+  .hero__inner {
+    max-width: var(--max);
+    margin-inline: auto;
+    padding: clamp(56px, 9vw, 120px) var(--pad) clamp(48px, 6vw, 80px);
+  }
+
+  .hero__head {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    text-align: center;
+  }
+
+  .hero__title {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin: 20px 0 0;
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(34px, 4.4vw, 60px);
+    line-height: 1.1;
+  }
+
+  .hero__title-line {
+    color: var(--ink-inverse);
+  }
+
+  .hero__title-line--accent {
+    color: var(--purple-heading);
+  }
+
+  .hero__ctas {
+    display: flex;
+    gap: 12px;
+    margin-top: 14px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  /* ---- Graph ---- */
+  .hero__graph {
+    position: relative;
+    display: grid;
+    grid-template-columns: 166px 1fr 166px;
+    align-items: center;
+    gap: clamp(24px, 4vw, 72px);
+    margin-top: clamp(40px, 6vw, 84px);
+    min-height: 407px;
+  }
+
+  .hero__lines {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  .flow {
+    stroke: rgba(149, 130, 189, 0.38);
+    stroke-width: 1.4;
+    stroke-dasharray: 6 7;
+    animation: flowdash 2.6s linear infinite;
+  }
+
+  .flow--out {
+    stroke: rgba(149, 130, 189, 0.28);
+  }
+
+  @keyframes flowdash {
+    to {
+      stroke-dashoffset: -26;
+    }
+  }
+
+  [data-graph].paused .flow,
+  [data-graph].paused .hero__orb {
+    animation-play-state: paused;
+  }
+
+  .hero__col {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .chip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 12px;
+    border-radius: 8px;
+    background: #120c26;
+    border: 2px solid rgba(39, 24, 75, 0.6);
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1;
+    color: #ffffff;
+    white-space: nowrap;
+  }
+
+  .chip--dashed {
+    background: #261f33;
+    border: 1px dashed rgba(255, 255, 255, 0.5);
+  }
+
+  .chip--label {
+    text-transform: none;
+  }
+
+  /* ---- Center: orb + chat ---- */
+  .hero__center {
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-height: 407px;
+  }
+
+  .hero__orb {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: min(604px, 100%);
+    height: auto;
+    opacity: 0.8;
+    animation: orbbreathe 12s var(--ease-out) infinite;
+  }
+
+  @keyframes orbbreathe {
+    0%,
+    100% {
+      transform: scale(1);
+      opacity: 0.72;
+    }
+    50% {
+      transform: scale(1.045);
+      opacity: 0.88;
+    }
+  }
+
+  .chat {
+    position: relative;
+    z-index: 2;
+    width: min(456px, 100%);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
+    border-radius: 8px;
+    background: #150e2e;
+    border: 3px solid rgba(78, 47, 144, 0.3);
+    box-shadow: 0 0 60px rgba(78, 47, 144, 0.35);
+  }
+
+  .chat__question {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .chat__dot {
+    display: grid;
+    place-items: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: rgba(78, 47, 144, 0.4);
+    border: 1px solid rgba(78, 47, 144, 0.6);
+    flex-shrink: 0;
+  }
+
+  .chat__dot i {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--purple-heading);
+  }
+
+  .chat__question p {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #ffffff;
+  }
+
+  .chat__answer {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: rgba(78, 47, 144, 0.18);
+    border: 1px solid rgba(78, 47, 144, 0.4);
+  }
+
+  .chat__avatar {
+    display: grid;
+    place-items: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 7px;
+    background: rgba(233, 222, 250, 0.12);
+    border: 0.8px solid rgba(149, 130, 189, 0.5);
+    flex-shrink: 0;
+  }
+
+  .chat__answer p {
+    margin: 0;
+    font-weight: 300;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--ink-inverse);
+    transition: opacity 200ms var(--ease-out);
+  }
+
+  .chat__answer.swapping p {
+    opacity: 0;
+  }
+
+  .chat__input {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 3px 3px 3px 12px;
+    border-radius: 6px;
+    background: #110b24;
+  }
+
+  .chat__placeholder {
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--ink-inverse-2);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .chat__analyze {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 2px 2px 2px 10px;
+    border-radius: 6px;
+    background: var(--purple);
+    font-size: 12px;
+    line-height: 1.2;
+    color: #ffffff;
+  }
+
+  .chat__analyze-arrow {
+    display: grid;
+    place-items: center;
+    padding: 4px;
+    border-radius: 5px;
+    background: var(--purple-deep);
+  }
+
+  .chat__tabs {
+    display: flex;
+    gap: 8px;
+  }
+
+  .chat__tab {
+    flex: 1;
+    text-align: center;
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.03);
+    font-size: 13px;
+    line-height: 1.2;
+    color: var(--ink-inverse-2);
+    white-space: nowrap;
+  }
+
+  .chat__tab--active {
+    border-color: rgba(149, 130, 189, 0.6);
+    background: rgba(78, 47, 144, 0.3);
+    color: #ffffff;
+  }
+
+  /* ---- Right column ---- */
+  .out-card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px;
+    border-radius: 8px;
+    background: #120c26;
+    border: 2px solid rgba(39, 24, 75, 0.6);
+  }
+
+  .out-card__title {
+    margin: 0;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 1;
+    color: #ffffff;
+  }
+
+  .out-card__desc {
+    margin: 0;
+    font-weight: 200;
+    font-size: 12px;
+    line-height: 1.3;
+    color: #ffffff;
+  }
+
+  /* ---- Responsive ---- */
+  @media (max-width: 1000px) {
+    .hero__graph {
+      grid-template-columns: 1fr;
+      min-height: 0;
+    }
+
+    .hero__lines {
+      display: none;
+    }
+
+    .hero__col {
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .hero__center {
+      order: -1;
+      min-height: 320px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .flow,
+    .hero__orb {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  import '../../../scripts/hero-graph';
+</script>

@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import type { Lang } from '../../i18n/types';
+import { useTranslations } from '../../i18n/ui';
+import ProductHero from './sections/ProductHero.astro';
+import ThreeLayers from './sections/ThreeLayers.astro';
+import CapabilityRow from './sections/CapabilityRow.astro';
+import FaqAccordion from '../faq/FaqAccordion.astro';
+import CtaBanner from '../cta/CtaBanner.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const caps = t.product.capabilities;
+---
+
+<BaseLayout
+  lang={lang}
+  title={t.meta.product.title}
+  description={t.meta.product.description}
+  path="/product/"
+>
+  <ProductHero lang={lang} />
+  <ThreeLayers lang={lang} />
+  <CapabilityRow lang={lang} capability={caps.sees} dark />
+  <CapabilityRow lang={lang} capability={caps.understands} reverse />
+  <CapabilityRow lang={lang} capability={caps.takesAction} dark />
+  <FaqAccordion
+    items={t.home.faq.items}
+    eyebrow={t.home.faq.eyebrow}
+    segments={t.home.faq.segments}
+  />
+  <CtaBanner lang={lang} />
+</BaseLayout>

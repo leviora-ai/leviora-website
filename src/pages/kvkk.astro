@@ -1,0 +1,45 @@
+---
+import LegalLayout from '../layouts/LegalLayout.astro';
+import { useTranslations } from '../i18n/ui';
+
+const t = useTranslations('en');
+---
+
+<LegalLayout
+  lang="en"
+  title={t.meta.kvkk.title}
+  description={t.meta.kvkk.description}
+  path="/kvkk/"
+  heading="KVKK Information Notice"
+  updated="Last updated: July 2026"
+>
+  <p>
+    This notice is provided under the Turkish Personal Data Protection Law No. 6698
+    ("KVKK"). The Turkish version at <a href="/tr/kvkk/">/tr/kvkk/</a> is the authoritative
+    text.
+  </p>
+
+  <h2>Data controller</h2>
+  <p>Leviora — <a href="mailto:info@leviora.ai">info@leviora.ai</a></p>
+
+  <h2>Data processed and purpose</h2>
+  <p>
+    Identity and contact data you share through the demo request form (name, email, phone,
+    company, message) is processed to respond to your request, plan a demo or pilot, and
+    conduct business communication.
+  </p>
+
+  <h2>Legal basis and transfer</h2>
+  <p>
+    Processing is based on the establishment of a business relationship at your request
+    (KVKK art. 5/2-c) and our legitimate interest (art. 5/2-f). Form messages are conveyed
+    through our email delivery provider; data is not sold or shared for marketing.
+  </p>
+
+  <h2>Your rights (KVKK art. 11)</h2>
+  <p>
+    You may contact us at <a href="mailto:info@leviora.ai">info@leviora.ai</a> to learn
+    whether your data is processed, request correction or deletion, and exercise your other
+    rights under article 11.
+  </p>
+</LegalLayout>

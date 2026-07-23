@@ -1,0 +1,132 @@
+---
+import type { Lang } from '../../../i18n/types';
+import { useTranslations } from '../../../i18n/ui';
+import SectionHeading from '../../ui/SectionHeading.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const s = t.contact.steps;
+---
+
+<section class="csteps">
+  <div class="csteps__inner">
+    <div class="csteps__head">
+      <SectionHeading eyebrow={s.eyebrow} segments={s.segments} tone="light" align="left" />
+    </div>
+    <div class="csteps__grid" data-reveal-stagger>
+      {
+        s.cards.map((card, i) => (
+          <div class="cstep">
+            <div class="cstep__top">
+              <span class="cstep__num">
+                <b>{String(i + 1).padStart(2, '0')}</b>
+                <i>/{String(s.cards.length).padStart(2, '0')}</i>
+              </span>
+            </div>
+            <div class="cstep__body">
+              <p class="cstep__title">{card.title}</p>
+              <p class="cstep__text">{card.body}</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .csteps {
+    background: var(--bg-light);
+  }
+
+  .csteps__inner {
+    max-width: var(--max);
+    margin-inline: auto;
+    padding: var(--section-pad) var(--pad);
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  .csteps__head {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .csteps__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    align-items: stretch;
+  }
+
+  .cstep {
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--radius-lg);
+    background: #f6f3fd;
+    overflow: hidden;
+  }
+
+  .cstep__top {
+    padding: 20px 24px;
+    background: #ded1f2;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  }
+
+  .cstep__num {
+    display: inline-flex;
+    align-items: flex-end;
+    gap: 4px;
+    padding: 7px 11px;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.55);
+  }
+
+  .cstep__num b {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.1;
+    color: var(--purple);
+  }
+
+  .cstep__num i {
+    font-style: normal;
+    font-weight: 300;
+    font-size: 12px;
+    color: #777980;
+  }
+
+  .cstep__body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 28px 24px 32px;
+  }
+
+  .cstep__title {
+    margin: 0;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 1.2;
+    color: var(--ink);
+  }
+
+  .cstep__text {
+    margin: 0;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--ink-2);
+  }
+
+  @media (max-width: 1000px) {
+    .csteps__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

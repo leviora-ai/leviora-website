@@ -1,7 +1,13 @@
 .git
 .github
+.astro
+node_modules
+dist
 k8s
+api
 README.md
 *.md
 .dockerignore
 .gitignore
+.DS_Store
+*.log

@@ -1,0 +1,34 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import type { Lang } from '../../i18n/types';
+import { useTranslations } from '../../i18n/ui';
+import SolutionsHero from './sections/SolutionsHero.astro';
+import ScenarioTable from './sections/ScenarioTable.astro';
+import CapabilityRow from './sections/CapabilityRow.astro';
+import Packages from './sections/Packages.astro';
+import NotForEveryone from './sections/NotForEveryone.astro';
+import CtaBanner from '../cta/CtaBanner.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const caps = t.product.capabilities;
+---
+
+<BaseLayout
+  lang={lang}
+  title={t.meta.solutions.title}
+  description={t.meta.solutions.description}
+  path="/solutions/"
+>
+  <SolutionsHero lang={lang} />
+  <ScenarioTable lang={lang} />
+  <CapabilityRow lang={lang} capability={caps.sees} dark />
+  <CapabilityRow lang={lang} capability={caps.understands} reverse />
+  <Packages lang={lang} />
+  <NotForEveryone lang={lang} />
+  <CtaBanner lang={lang} />
+</BaseLayout>

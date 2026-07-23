@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import type { Lang } from '../../i18n/types';
+import { useTranslations } from '../../i18n/ui';
+import ContactHero from './sections/ContactHero.astro';
+import ContactSteps from './sections/ContactSteps.astro';
+import FaqAccordion from '../faq/FaqAccordion.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<BaseLayout
+  lang={lang}
+  title={t.meta.contact.title}
+  description={t.meta.contact.description}
+  path="/contact/"
+>
+  <ContactHero lang={lang} />
+  <ContactSteps lang={lang} />
+  <FaqAccordion
+    items={t.contact.faq.items}
+    eyebrow={t.contact.faq.eyebrow}
+    segments={t.contact.faq.segments}
+  />
+</BaseLayout>

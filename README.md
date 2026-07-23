@@ -1,122 +1,102 @@
 # leviora-website
 
-Marketing site for [leviora.ai](https://leviora.ai) — operasyona özel yapay zeka.
+Marketing site for [leviora.ai](https://leviora.ai) — operational AI, built for industry.
 
-Statik HTML / CSS / JS landing page. **pandora-* platform stack'ından ayrı pipeline'da deploy edilir** — kendi GHCR image build'i, kendi ArgoCD Application'ı.
+**Astro static site + tiny contact API**, Figma tasarımından birebir (file `5JyYz4ob9uX9bvvqBADLSW`). **pandora-\* platform stack'inden ayrı pipeline'da deploy edilir** — kendi GHCR image build'leri, kendi ArgoCD Application'ı.
 
 ## Stack
 
-- `index.html` — 463 satır, semantik HTML; tek sayfa (hero + manifesto + see/think/act + kurulum + motto + footer)
-- `leviora.css` — 1118 satır, design system (Instrument Serif + Geist + Oxanium fonts, krem zemin, mor aksent)
-- `leviora.js` — 102 satır, tab switching + scroll reveal + hover parallax
-- `assets/leviora-logo.svg` — markalı SVG logo (gradient'lı)
-- nginx:1.27-alpine static serving (port 8080, non-root, read-only rootfs)
-
-Design tasarlanırken çıkış noktası: "AI'ın yaptığı belli olmasın". Editöryel/dergi karakteri, mor "noktasal vurgu", tipografi öncelikli.
+- **Astro 5** (static output, SSR yok) — 15 sayfa: EN kökte (`/`, `/product/`, `/solutions/`, `/contact/`, legal), TR `/tr/` altında; typed i18n dictionary (`src/i18n/en.ts` + `tr.ts`, eksik key = type error)
+- **Token-based vanilla CSS** (`src/styles/tokens.css`) — Tailwind yok, UI framework yok
+- **Fontlar self-hosted** (fontsource): Oxanium Variable (display), Argentum Sans 200-600 (body), Exo 400 (product layer kartları); preload'lu
+- **Motion kütüphanesiz**: IntersectionObserver reveal (`reveal.ts`), chat oynatımı (`chat-play.ts`), scroll-zoom kolaj (`statement-zoom.ts`), offset-path veri noktaları, hero tab döngüsü — hepsi `prefers-reduced-motion` korumalı, yalnızca transform/opacity
+- **`api/`** — Hono + zod + Resend: `POST /api/contact` → info@leviora.ai (honeypot + per-pod rate limit 5/10dk)
+- nginx:1.27-alpine static serving (port 8080, non-root, read-only rootfs); MPA `=404` + `/404.html` (SPA fallback YOK)
 
 ## Local development
 
 ```bash
-# Open index.html doğrudan tarayıcıda (Google Fonts CDN'den font'lar gelir)
-open index.html
+npm install && npm run dev          # site → http://localhost:4321
+cd api && npm install && npm run dev # api  → http://localhost:8080
 
 # Container build + run
 docker build -t leviora-website:dev .
+docker build -t leviora-website-api:dev -f api/Dockerfile api/
 docker run --rm -p 8080:8080 leviora-website:dev
-# -> http://localhost:8080
+
+# Tam yerel deploy (web + api, form dahil) → http://localhost:8088
+docker build -t leviora-website:local . && docker build -t leviora-website-api:local -f api/Dockerfile api/
+docker compose -f compose.local.yml up -d
+# Gerçek mail testi: RESEND_API_KEY=re_... docker compose -f compose.local.yml up -d
 ```
 
-## Deployment pipeline (ayrı — pandora-* platform'undan bağımsız)
+Kontroller: `npm run check` (astro check), `npm run build`, `kubectl kustomize k8s/`.
+
+## Deployment pipeline (pandora-\*'dan bağımsız)
 
 ```
 push to main
     ↓
-GitHub Actions (build.yml)
+GitHub Actions (build.yml): verify-site + verify-api → matrix build
     ↓
-docker buildx → ghcr.io/leviora-ai/leviora-website:sha-<7> + :latest
+ghcr.io/leviora-ai/leviora-website:latest  +  ghcr.io/leviora-ai/leviora-website-api:latest  (+ :sha-<7>)
     ↓
-ArgoCD auto-sync (k8s/argocd-application.yaml ayrı Application)
+ArgoCD auto-sync (k8s/argocd-application.yaml)
     ↓
-Hetzner k3s · namespace `leviora-website` · nginx-ingress · cert-manager TLS
+Hetzner k3s · namespace leviora-website · nginx-ingress · cert-manager TLS
     ↓
-https://leviora.ai  (www → apex 308 redirect, Let's Encrypt prod)
+https://leviora.ai   (/api → api service; www → apex 308)
 ```
 
-### İlk kurulum (one-time)
-
-**Önce DNS** — `leviora.ai` + `www.leviora.ai` A kayıtları `178.105.28.21` (Hetzner pilot VM) işaret etmeli. Doğrulama:
+`:latest` + `imagePullPolicy: Always` — image güncellemesi pod yenilenince gelir:
 
 ```bash
-dig +short leviora.ai @8.8.8.8       # → 178.105.28.21
-dig +short www.leviora.ai @8.8.8.8   # → 178.105.28.21
-```
-
-DNS propagate etmeden ArgoCD apply ETME — cert-manager HTTP-01 challenge fail eder ve Let's Encrypt rate limit'ini yer.
-
-```bash
-# 1. ArgoCD Application'ı uygula (pandora-infra GitOps tree'sinden bağımsız)
-kubectl --context <hetzner-pilot> apply -f k8s/argocd-application.yaml
-
-# 2. Sync'i izle
-kubectl --context <hetzner-pilot> -n argocd get application leviora-website -w
-
-# 3. Cert'in çıkışını bekle (~30-90 sn)
-kubectl --context <hetzner-pilot> -n leviora-website get certificate leviora-website-tls -w
-
-# 4. Canlı doğrulama
-curl -I https://leviora.ai
-```
-
-### Sonraki deploy'lar
-
-`git push origin main` → GHA build (~25s) → GHCR `:latest` yenilenir. Pod'u yeni image'ı çekmesi için:
-
-```bash
-# Manifest değişikliği varsa (k8s/ altında): ArgoCD auto-sync yeter
-# Sadece image güncellemesi (imagePullPolicy: Always pinned to :latest):
 argocd app sync leviora-website
 # veya
-kubectl --context <hetzner-pilot> -n leviora-website rollout restart deploy/leviora-website
+kubectl -n leviora-website rollout restart deploy/leviora-website deploy/leviora-website-api
 ```
 
-argocd-image-updater Hetzner cluster'da kurulu DEĞİL — kurulunca digest-based annotation'lar açılır, manuel sync ihtiyacı kalkar.
+### Pre-cutover checklist (contact form çalışsın diye)
+
+1. **Resend secret** (commit edilmez, one-time):
+   ```bash
+   kubectl -n leviora-website create secret generic leviora-api-secrets \
+     --from-literal=RESEND_API_KEY=re_...
+   ```
+2. **Resend'de `leviora.ai` domain doğrulaması** (DKIM/SPF) — yoksa `noreply@leviora.ai` gönderimi bounce eder.
+3. Prod smoke: `curl -I https://leviora.ai` → 200; form e2e → info@leviora.ai'ye mail düşmeli.
 
 ## Repo dizini
 
 ```
 .
-├── Dockerfile              # nginx:1.27-alpine, port 8080, non-root
-├── nginx.conf              # gzip + cache headers + healthz + security headers
-├── index.html              # design bundle'dan as-is
-├── leviora.css             # design bundle'dan as-is
-├── leviora.js              # design bundle'dan as-is
-├── assets/leviora-logo.svg
-├── k8s/                    # Kustomize manifests (ayrı ArgoCD app)
-│   ├── kustomization.yaml
-│   ├── namespace.yaml
-│   ├── deployment.yaml     # imagePullPolicy: Always (:latest tag flow)
-│   ├── service.yaml
-│   ├── ingress.yaml        # nginx-ingress; cert-manager annotation; www→apex 308 redirect ingress
-│   └── argocd-application.yaml
-└── .github/workflows/
-    └── build.yml           # buildx → GHCR + kustomize render validation
+├── astro.config.mjs        # i18n (en kök, tr prefix), sitemap
+├── src/
+│   ├── i18n/               # typed dictionaries: types.ts, en.ts, tr.ts, ui.ts
+│   ├── layouts/            # BaseLayout (meta/OG/hreflang/canonical), LegalLayout
+│   ├── components/         # nav, ui (Button/Eyebrow/SectionHeading/ChatWindow/...), faq, cta, forms, pages/sections
+│   ├── scripts/            # reveal, chat-play, statement-zoom, hero-graph, nav, faq, setup-accordion, lang-dropdown, contact-form
+│   ├── styles/             # tokens.css, global.css
+│   └── pages/              # index/product/solutions/contact/privacy/terms/kvkk/404 + tr/*
+├── public/assets/          # leviora-wordmark.svg, leviora-icon.svg, diagrams/ (webp), og/
+├── api/                    # Hono contact servisi (kendi Dockerfile + package.json)
+├── Dockerfile              # multi-stage: node:20 build → nginx:1.27-alpine
+├── nginx.conf              # =404 + /404.html, /_astro/ immutable cache, healthz
+├── k8s/                    # kustomize: web+api deployment/service, ingress (/api), argocd app
+└── .github/workflows/build.yml
 ```
 
-## Brand kuralları (referans)
+## Brand token'ları (Figma'dan doğrulanmış)
 
 | Token | Değer |
 |---|---|
-| Cream zemin | `#F4F0E8` |
-| Ink | `#15131A` |
-| Purple deep | `#4E2F91` |
-| Purple mid | `#7D499D` |
-| Purple soft | `#F0E2EF` |
-| Serif display | Instrument Serif (italic vurgular) |
-| Sans body | Geist 300-700 |
-| Display numbers | Oxanium |
+| Zemin (koyu) | `#070707` / panel `#120C26` |
+| Ink (koyu zeminde) | `#ECEAF2` |
+| Purple (primary/buton) | `#4E2F90` (ok kutusu `#432680`) |
+| Purple heading accent | `#9582BD` |
+| Display | Oxanium Variable |
+| Body | Argentum Sans 200–600 |
 
 ## İçerik güncelleme
 
-Copy değişikliği = `index.html` edit + `git push`. Yeni section = mevcut `<section>` pattern'ini kopyala (`.eyebrow`, `.btn`, `.chat`, vb. utility class'lar zaten CSS'de). Yeni render-time JS gerekmiyorsa `leviora.js`'e dokunma.
-
-Image asset eklerken `assets/` altına koy + `<img src="/assets/...">` ile referans ver. Dockerfile zaten tüm `assets/`'ı kopyalıyor.
+Copy = `src/i18n/en.ts` + `tr.ts` (iki dilde aynı key'ler; TS eksik çeviriyi derlemede yakalar). Yeni section = `src/components/pages/sections/` altında component + i18n namespace. Görsel eklerken `public/assets/` altına WebP koy.

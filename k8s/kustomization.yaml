@@ -6,10 +6,17 @@ resources:
   - namespace.yaml
   - deployment.yaml
   - service.yaml
+  - api-serviceaccount.yaml
+  - api-secretstore.yaml
+  - api-externalsecret.yaml
+  - api-deployment.yaml
+  - api-service.yaml
   - ingress.yaml
 
 images:
   - name: ghcr.io/leviora-ai/leviora-website
+    newTag: latest
+  - name: ghcr.io/leviora-ai/leviora-website-api
     newTag: latest
 
 labels:
