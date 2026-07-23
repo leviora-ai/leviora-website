@@ -8,7 +8,7 @@ const tabs = graph ? Array.from(graph.querySelectorAll<HTMLElement>('.chat__tab'
 const answer = graph?.querySelector<HTMLElement>('[data-tab-answer]') ?? null;
 const answerText = answer?.querySelector<HTMLElement>('p') ?? null;
 
-if (tabs.length > 1 && !reduced) {
+if (tabs.length > 1) {
   let current = tabs.findIndex((t) => t.classList.contains('chat__tab--active'));
   setInterval(() => {
     if (document.hidden || graph?.classList.contains('paused')) return;
