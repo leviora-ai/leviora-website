@@ -39,10 +39,21 @@ export interface ChatWindowDict {
   aiTime: string;
   aiMeta: string;
   aiText: string;
-  aiBullets: string[];
+  aiBullets?: string[];
+  facts?: { label: string; value: string }[];
+  source?: string;
+  sourceLink?: string;
   placeholder: string;
   analyze: string;
   live: string;
+}
+
+export interface CapabilityDict {
+  eyebrow?: string;
+  title: string;
+  body: string;
+  bullets: string[];
+  chat: ChatWindowDict;
 }
 
 export interface Dict {
@@ -68,6 +79,34 @@ export interface Dict {
     };
     faq: HeadingDict & {
       items: { q: string; a: string }[];
+    };
+  };
+  product: {
+    hero: {
+      eyebrow: string;
+      titleLine1: string;
+      titleLine2: string;
+      sub: string;
+      ctaPrimary: string;
+      ctaSecondary: string;
+      conclusion: { tag: string; title: string; body: string };
+      layers: { title: string; q: string; body: string }[];
+    };
+    three: HeadingDict & {
+      sub: string;
+      closing: string;
+      cards: { title: string; q: string; body: string }[];
+      aiName: string;
+      aiTime: string;
+      aiMeta: string;
+      placeholder: string;
+      analyze: string;
+      live: string;
+    };
+    capabilities: {
+      sees: CapabilityDict;
+      understands: CapabilityDict;
+      takesAction: CapabilityDict;
     };
   };
   cta: HeadingDict & {

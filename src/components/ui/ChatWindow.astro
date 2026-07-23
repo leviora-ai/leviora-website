@@ -31,10 +31,34 @@ const { chat } = Astro.props;
           <small class="cw__ai-meta">{chat.aiMeta}</small>
         </span>
       </div>
-      <p class="cw__ai-text">{chat.aiText}</p>
-      <ul class="cw__ai-bullets">
-        {chat.aiBullets.map((b) => <li>{b}</li>)}
-      </ul>
+      {chat.aiText && <p class="cw__ai-text">{chat.aiText}</p>}
+      {
+        chat.facts && (
+          <div class="cw__facts">
+            {chat.facts.map((f) => (
+              <p class="cw__fact">
+                <span class="cw__fact-label">{f.label}</span>
+                <span class="cw__fact-value">{f.value}</span>
+              </p>
+            ))}
+          </div>
+        )
+      }
+      {
+        chat.aiBullets && (
+          <ul class="cw__ai-bullets">
+            {chat.aiBullets.map((b) => <li>{b}</li>)}
+          </ul>
+        )
+      }
+      {
+        chat.source && (
+          <p class="cw__source">
+            {chat.source}
+            {chat.sourceLink && <span class="cw__source-link"> · {chat.sourceLink}</span>}
+          </p>
+        )
+      }
     </div>
 
     <div class="cw__input">
@@ -191,6 +215,49 @@ const { chat } = Astro.props;
     font-size: 16px;
     line-height: 1.6;
     color: #a5a5ab;
+  }
+
+  .cw__facts {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .cw__fact {
+    margin: 0;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .cw__fact-label {
+    padding: 4px 8px;
+    border-radius: 6px;
+    background: rgba(78, 47, 144, 0.12);
+    border: 1px solid rgba(78, 47, 144, 0.3);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    color: var(--purple);
+  }
+
+  .cw__fact-value {
+    font-weight: 300;
+    font-size: 15px;
+    color: var(--ink-2);
+  }
+
+  .cw__source {
+    margin: 0;
+    font-weight: 300;
+    font-size: 13px;
+    color: #a5a5ab;
+  }
+
+  .cw__source-link {
+    color: var(--purple);
+    text-decoration: underline;
   }
 
   .cw__input {

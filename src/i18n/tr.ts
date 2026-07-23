@@ -147,6 +147,144 @@ export const tr: Dict = {
       ],
     },
   },
+  product: {
+    hero: {
+      eyebrow: 'Merkezî Kurumsal Zekâ',
+      titleLine1: 'Üç katman,',
+      titleLine2: 'tek bir Merkezî Kurumsal Zekâ.',
+      sub: 'Operasyonu anlayan yapay zekâ tek bir parçadan oluşmaz. Üç katman birlikte çalışır: ne olduğunu, neden olduğunu ve ne yapılması gerektiğini birbirine bağlar.',
+      ctaPrimary: 'Demo Talep Et',
+      ctaSecondary: 'Mimariyi İncele',
+      conclusion: {
+        tag: 'SONUÇ',
+        title: 'Merkezî Kurumsal Zekâ',
+        body: 'Üç katman birleşir; ortaya operasyonu anlayan tek bir zekâ çıkar — o da Leviora’dır.',
+      },
+      layers: [
+        {
+          title: 'Ortak Veri Dili',
+          q: 'Ne oldu?',
+          body: 'Her sistem farklı konuşur. Leviora hepsini tek bir dilde birleştirir.',
+        },
+        {
+          title: 'İlişki Haritası',
+          q: 'Neden oldu?',
+          body: 'Hatların, vardiyaların, makinelerin ve siparişlerin ilişkisini öğrenir; bir olayın zincirini izler.',
+        },
+        {
+          title: 'İş Kuralları Motoru',
+          q: 'Ne yapılmalı?',
+          body: 'Eşikleriniz, limitleriniz ve istisnalarınız operasyonel kurallara dönüşür.',
+        },
+      ],
+    },
+    three: {
+      eyebrow: 'Merkezî Kurumsal Zekâ',
+      segments: [
+        { text: 'Üç katman, tek bir' },
+        { text: 'Merkezî Kurumsal Zekâ.', accent: true },
+      ],
+      sub: 'Operasyonu anlayan yapay zekâ tek parçadan oluşmaz. Üç katman birlikte çalışır — ne olduğunu, neden olduğunu ve ne yapılacağını birbirine bağlar.',
+      closing:
+        'Üçü birleştiğinde, Merkezî Kurumsal Zekânız operasyonunuzun gerçekte nasıl işlediğine dair tek ve yapılandırılmış bir kavrayış oluşturur.',
+      cards: [
+        {
+          title: 'Ortak Veri Dili',
+          q: 'Ne oldu?',
+          body: 'Her sistem farklı konuşur. Hepsini tek bir dilde birleştirir.',
+        },
+        {
+          title: 'İlişki Haritası',
+          q: 'Neden oldu?',
+          body: 'Hatların, vardiyaların, makinelerin ve siparişlerin ilişkisini öğrenir; olayın zincirini izler.',
+        },
+        {
+          title: 'İş Kuralları Motoru',
+          q: 'Ne yapılmalı?',
+          body: 'Eşikleriniz, limitleriniz ve istisnalarınız operasyonel kurallara dönüşür.',
+        },
+      ],
+      aiName: 'LEVIORA AI',
+      aiTime: '· 09.37',
+      aiMeta: 'Veri Analisti · 9 adım · 923 ms · Detay',
+      placeholder: 'Analiz edilecek konuyu yazın…',
+      analyze: 'Analiz et',
+      live: 'Canlı',
+    },
+    capabilities: {
+      sees: {
+        title: 'Görür',
+        body: 'Leviora, operasyonunuzun tamamındaki canlı veriyi okur: MES, ERP, SCADA, CMMS. Manuel dışa aktarma yok, rapor bekleme yok. Siz sorarsınız; cevap, o anda akan veriden gelir.',
+        bullets: [
+          'Bağlı tüm sistemlerde anlık görünürlük',
+          'Doğal dille sorgu — SQL yok, pano kurulumu yok',
+          'Bağlamı kendisi kurar: hangi hat, vardiya, parti bilir',
+          'Cevaplar canlı veriden gelir',
+        ],
+        chat: {
+          user: '3. hattın OEE değeri şu an ne?',
+          aiName: 'LEVIORA AI',
+          aiTime: '· 09.37',
+          aiMeta: 'Veri Analisti · 9 adım · 923 ms · Detay',
+          aiText:
+            '%72. Hedef %85. Son 2 saatte 18 dakika plansız duruş. En büyük neden: B Kalıbı değişimi — 10 dakikalık standarda karşı 22 dakika.',
+          source: 'operasyon verinizden',
+          sourceLink: 'Kaynağı Gör',
+          placeholder: 'Analiz edilecek konuyu yazın…',
+          analyze: 'Analiz et',
+          live: 'Canlı',
+        },
+      },
+      understands: {
+        title: 'Anlar',
+        body: 'Leviora olayları bir neden zincirine bağlar — geç başlayan vardiya, geciken kalıp değişimi, haftalardır tekrarlayan örüntü — ve kök nedeni bulur. Yalnızca bir sayı raporlamaz; nedenini açıklar.',
+        bullets: [
+          'Olaylar arasında neden-sonuç zincirini kurar',
+          'Belirtiyi değil kök nedeni bulur',
+          'Tekrarlayan örüntüleri yakalar',
+          'Bulguları kaynağıyla açıklar — uydurmaz',
+        ],
+        chat: {
+          user: '3. hattın OEE değeri neden düştü?',
+          aiName: 'LEVIORA AI',
+          aiTime: '· 09.37',
+          aiMeta: 'Plansız Duruş Uyarısı',
+          aiText:
+            'Kök neden: B Ürünü kalıp değişimi, üst üste üçüncü haftadır standart süreyi 3 kat aştı.',
+          source: 'operasyon verinizden',
+          sourceLink: 'Kaynağı Gör',
+          placeholder: 'Analiz edilecek konuyu yazın…',
+          analyze: 'Analiz et',
+          live: 'Canlı',
+        },
+      },
+      takesAction: {
+        title: 'Harekete Geçer',
+        body: 'Leviora, yetkilendirdiğiniz sınırlar içinde hareket eder. Bakım talebi açar, vardiya amirine haber verir, kalite kontrolünü işaretler. Her aksiyon yetkilidir, kayıtlıdır ve geri alınabilir. Öneri veren bir sohbet değil — sınırlarınız içinde çalışan bir sistem.',
+        bullets: [
+          'Yalnızca yetkilendirdiğiniz sınırlar içinde',
+          'Her aksiyon kayıtlı ve geri alınabilir',
+          'Her modülün ne yapabileceğini siz tanımlarsınız',
+          'Eşik aşıldığında kendi başına harekete geçer',
+        ],
+        chat: {
+          user: '3. hattın OEE değeri şu an ne?',
+          aiName: 'LEVIORA AI',
+          aiTime: '· 09.37',
+          aiMeta: 'Operasyon Analisti · 4 adım · 512 ms · Detay',
+          aiText: '',
+          facts: [
+            { label: 'KOŞUL', value: 'Duruş 10 dakikayı aşarsa' },
+            { label: 'AKSİYON', value: 'Vardiya amirine haber ver' },
+            { label: 'YETKİ', value: 'Üretim Müdürü Onayı · Yalnızca Bildirim' },
+          ],
+          placeholder: 'Analiz edilecek konuyu yazın…',
+          analyze: 'Analiz et',
+          live: 'Canlı',
+        },
+      },
+    },
+  },
   cta: {
     eyebrow: 'Bize Ulaşın',
     segments: [

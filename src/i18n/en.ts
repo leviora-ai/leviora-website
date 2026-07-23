@@ -147,6 +147,144 @@ export const en: Dict = {
       ],
     },
   },
+  product: {
+    hero: {
+      eyebrow: 'Central Corporate Intelligence',
+      titleLine1: 'Three Layers,',
+      titleLine2: 'A Central Corporate Intelligence.',
+      sub: 'The artificial intelligence that understands the operation is not made up of a single part. Three layers work together: connecting what happened, why it happened, and what needs to be done.',
+      ctaPrimary: 'Request A Demo',
+      ctaSecondary: 'Explore The Architecture',
+      conclusion: {
+        tag: 'CONCLUSION',
+        title: 'Central Corporate Intelligence',
+        body: 'The three layers merge; there becomes a single intelligence that understands the operation and that is Leviora.',
+      },
+      layers: [
+        {
+          title: 'Common Data Language',
+          q: 'What happened?',
+          body: 'Every system speaks differently. Leviora unifies them under one language.',
+        },
+        {
+          title: 'Relationship Map',
+          q: 'Why did it happen?',
+          body: 'Learns how lines, shifts, machines & orders relate; traces the chain of an event.',
+        },
+        {
+          title: 'Business Rules Engine',
+          q: 'What should be done?',
+          body: 'Your thresholds, limits and exceptions become operational rules.',
+        },
+      ],
+    },
+    three: {
+      eyebrow: 'Central Enterprise Intelligence',
+      segments: [
+        { text: 'Three Layers, One Central' },
+        { text: 'Enterprise Intelligence.', accent: true },
+      ],
+      sub: "AI that understands an operation isn't made of a single piece. Three layers work together — linking what happened, why it happened, and what to do.",
+      closing:
+        'When the three combine, your Central Enterprise Intelligence forms one structured understanding of how your operation truly works.',
+      cards: [
+        {
+          title: 'Common Data Language',
+          q: 'What happened?',
+          body: 'Every system speaks differently. It unifies them under one language.',
+        },
+        {
+          title: 'Relationship Map',
+          q: 'Why did it happen?',
+          body: 'Learns how lines, shifts, machines and orders relate; traces the chain of an event.',
+        },
+        {
+          title: 'Business Rules Engine',
+          q: 'What should be done?',
+          body: 'Your thresholds, limits and exceptions become operational rules.',
+        },
+      ],
+      aiName: 'LEVIORA AI',
+      aiTime: '· 09:37',
+      aiMeta: 'Data Analyst · 9 steps · 923ms · Details',
+      placeholder: 'Write a topic to be analyzed…',
+      analyze: 'Analyze',
+      live: 'Live',
+    },
+    capabilities: {
+      sees: {
+        title: 'Sees',
+        body: 'Leviora reads live data across your entire operation MES, ERP, SCADA, CMMS. No manual exports, no waiting for reports. You ask, and the answer comes from data flowing right now.',
+        bullets: [
+          'Instant visibility across all connected systems',
+          'Natural-language queries — no SQL, no dashboard building',
+          'Builds context itself: knows which line, shift, batch',
+          'Answers come from live data',
+        ],
+        chat: {
+          user: "What's Line 3's OEE right now?",
+          aiName: 'LEVIORA AI',
+          aiTime: '· 09:37',
+          aiMeta: 'Data Analyst · 9 steps · 923ms · Details',
+          aiText:
+            '72%. Target 85%. 18 minutes of unplanned downtime in the last 2 hours. Largest cause: Mold B changeover — 22 min against 10 min standard.',
+          source: 'from your operational data',
+          sourceLink: 'View Source',
+          placeholder: 'Write a topic to be analyzed…',
+          analyze: 'Analyze',
+          live: 'Live',
+        },
+      },
+      understands: {
+        title: 'Understands',
+        body: "Leviora links events into a cause chain — a shift that started late, a delayed mold change, a pattern repeating for weeks — and finds the root cause. It doesn't just report a number; it explains why.",
+        bullets: [
+          'Builds the cause-and-effect chain between events',
+          'Finds the root cause, not the symptom',
+          'Catches recurring patterns',
+          "Explains findings with their source — doesn't make them up",
+        ],
+        chat: {
+          user: "Why did Line 3's OEE drop?",
+          aiName: 'LEVIORA AI',
+          aiTime: '· 09:37',
+          aiMeta: 'Unplanned Downtime Alert',
+          aiText:
+            'Root cause: mold change on Product B exceeded standard time by 3× for the third consecutive week.',
+          source: 'from your operational data',
+          sourceLink: 'View Source',
+          placeholder: 'Write a topic to be analyzed…',
+          analyze: 'Analyze',
+          live: 'Live',
+        },
+      },
+      takesAction: {
+        title: 'Takes Action',
+        body: 'Leviora acts within the limits you authorize. It opens a maintenance request, notifies the shift supervisor, flags a quality check. Every action is authorized, logged and reversible. Not a chat that suggests — a system that works within your limits.',
+        bullets: [
+          'Only within the limits you authorize',
+          'Every action logged and reversible',
+          'You define what each module can do',
+          'Acts on its own when a threshold is crossed',
+        ],
+        chat: {
+          user: "What's Line 3's OEE right now?",
+          aiName: 'LEVIORA AI',
+          aiTime: '· 09:37',
+          aiMeta: 'Ops Analyst · 4 steps · 512ms · Details',
+          aiText: '',
+          facts: [
+            { label: 'CONDITION', value: 'If downtime exceeds 10 minutes' },
+            { label: 'ACTION', value: 'Notify the shift supervisor' },
+            { label: 'AUTHORITY', value: 'Production Manager Approval · Notification Only' },
+          ],
+          placeholder: 'Write a topic to be analyzed…',
+          analyze: 'Analyze',
+          live: 'Live',
+        },
+      },
+    },
+  },
   cta: {
     eyebrow: 'Contact Us',
     segments: [
