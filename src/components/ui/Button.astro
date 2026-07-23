@@ -3,10 +3,11 @@ interface Props {
   href?: string;
   variant?: 'primary' | 'secondary' | 'ghost';
   type?: 'button' | 'submit';
+  arrow?: boolean;
   id?: string;
 }
 
-const { href, variant = 'primary', type = 'button', id } = Astro.props;
+const { href, variant = 'primary', type = 'button', arrow = variant === 'primary', id } = Astro.props;
 const Tag = href ? 'a' : 'button';
 ---
 
@@ -16,20 +17,35 @@ const Tag = href ? 'a' : 'button';
   type={href ? undefined : type}
   id={id}
 >
-  <slot />
+  <span class="btn__label"><slot /></span>
+  {
+    arrow && (
+      <span class="btn__arrow" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path
+            d="M5 12h14m0 0-6-6m6 6-6 6"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </span>
+    )
+  }
 </Tag>
 
 <style>
   .btn {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
-    padding: 12px 22px;
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-md);
     border: 1px solid transparent;
-    font-weight: 600;
-    font-size: 15px;
-    line-height: 1;
+    font-family: var(--sans);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.4;
+    text-transform: capitalize;
     text-decoration: none;
     cursor: pointer;
     transition:
@@ -43,27 +59,52 @@ const Tag = href ? 'a' : 'button';
   }
 
   .btn--primary {
-    background: var(--purple-strong);
-    color: var(--ink-inverse);
+    gap: 11px;
+    background: var(--purple);
+    color: #ffffff;
+    padding: 2px 2px 2px 24px;
   }
 
-  .btn--primary:hover {
-    background: var(--purple);
+  .btn--primary:not(:has(.btn__arrow)) {
+    padding: 12px 24px;
+  }
+
+  .btn__arrow {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-sm);
+    background: var(--purple-deep);
+    transition: transform var(--hover-duration) var(--ease-out);
+  }
+
+  .btn:hover .btn__arrow {
+    transform: translateX(2px);
   }
 
   .btn--secondary {
-    background: transparent;
-    color: var(--ink-inverse);
+    background: rgba(0, 0, 0, 0.08);
+    color: #ffffff;
     border-color: var(--hair-dark);
+    backdrop-filter: blur(1.5px);
+    padding: 12px 24px;
   }
 
   .btn--secondary:hover {
-    border-color: var(--purple-soft);
+    border-color: var(--purple-heading);
   }
 
   .btn--ghost {
     background: transparent;
     color: var(--ink-inverse-2);
-    padding-inline: 8px;
+    padding: 8px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn:hover,
+    .btn:hover .btn__arrow {
+      transform: none;
+    }
   }
 </style>
