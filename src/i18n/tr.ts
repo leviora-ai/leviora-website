@@ -285,6 +285,159 @@ export const tr: Dict = {
       },
     },
   },
+  solutions: {
+    hero: {
+      eyebrow: 'Operasyonel Yapay Zekâ · Sanayi İçin',
+      titleLine1: 'Operasyon neredeyse,',
+      titleLine2: 'Leviora orada.',
+      sub: 'Bir sektör listesi değil — makinelerin, insanların ve kararların buluştuğu her yere uyan bir çalışma biçimi.',
+      ctaPrimary: 'Demo Talep Et',
+      ctaSecondary: 'Nasıl çalışır?',
+    },
+    scenarios: {
+      eyebrow: 'Kullanım Senaryoları',
+      segments: [
+        { text: 'Operasyonunuza' },
+        { text: 'neler sorabilirsiniz?', accent: true },
+      ],
+      colScenario: 'Senaryo',
+      colQuestion: 'Örnek soru',
+      rows: [
+        { scenario: 'Üretim hattı', question: 'B hattı bu sabah neden geç başladı?' },
+        { scenario: 'Duruş ve OEE', question: 'Bu hafta en çok duruş hangi hatta yaşandı?' },
+        { scenario: 'Fire ve kalite', question: 'Hangi üründe fire artıyor, neden?' },
+        { scenario: 'Bakım', question: 'Hangi ekipman arıza riskine yakın?' },
+        { scenario: 'Enerji', question: 'Tüketim dün gece neden yükseldi?' },
+      ],
+    },
+    packages: {
+      eyebrow: 'Bize Ulaşın',
+      segments: [
+        { text: "Leviora'yı kendi operasyonunuzda" },
+        { text: 'çalışırken görmek ister misiniz?', accent: true },
+      ],
+      sub: '30 dakikalık demo. 30 günlük pilot. Karar tamamen sizin.',
+      tiers: [
+        {
+          name: 'Başlangıç',
+          features: [
+            'Tek senaryoda canlı',
+            'Kendi gerçek verinizle pilot',
+            'Hızlı değer kanıtı',
+            'Canlı veri üzerinde gerçek soru-cevap',
+          ],
+          cta: 'Konuşalım.',
+        },
+        {
+          name: 'Genişleme',
+          features: [
+            'Kullanım operasyonun geneline yayılır',
+            'Kök neden / uyarı / özet modülleri birlikte',
+            'Otomatik uyarılar (eşik/anomali)',
+            'MES/SCADA/CMMS entegrasyonu',
+            'Çoklu kullanıcı',
+          ],
+          cta: 'Konuşalım.',
+        },
+        {
+          name: 'Kurumsal',
+          features: [
+            'Çok tesisli kurulum',
+            'Şirket içi / özel bulut',
+            'Tüm sistemlerle entegrasyon',
+            'Rol tabanlı yetkilendirme',
+            'Kurumun tanımladığı aksiyon limitleri',
+            'Sınırsız kullanıcı',
+            'Tesisler arası raporlama',
+            'Öncelikli destek',
+          ],
+          cta: 'Demo Talep Et',
+          highlighted: true,
+        },
+      ],
+    },
+    notFor: {
+      eyebrow: 'Kapsam Dışı',
+      segments: [{ text: 'Herkes için' }, { text: 'değiliz.', accent: true }],
+      body: 'Leviora, okunacak gerçek ve canlı sistemleri olan operasyonlar için kuruldu. Bağlanacak operasyon veriniz yoksa — ya da genel amaçlı bir ofis sohbet robotu arıyorsanız — açık konuşalım: doğru adres biz değiliz. Bunu size dürüstçe söyleriz.',
+    },
+  },
+  contact: {
+    hero: {
+      eyebrow: 'Bize Ulaşın',
+      titleLine1: "Leviora'yı kendi",
+      titleLine2: 'şartlarınızla görün.',
+      bullets: [
+        { title: '30 Dakikalık Görüşme', desc: 'Operasyonunuz hakkında gerçek bir sohbet' },
+        { title: 'Kendi Sorularınızla', desc: 'Ürünü canlı veri üzerinde gösteriyoruz' },
+        { title: 'Veriniz Kendi Ağınızda Kalır', desc: 'Dışarı çıkmaz' },
+      ],
+    },
+    form: {
+      title: 'Ücretsiz 30 dakikalık görüşmenizi planlayın',
+      name: 'Adınız',
+      namePlaceholder: 'Adınızı yazın',
+      phone: 'Telefon numarası',
+      phonePlaceholder: '+90 500 000 00 00',
+      email: 'E-posta adresi*',
+      emailPlaceholder: 'E-postanızı yazın',
+      company: 'Şirket*',
+      companyPlaceholder: 'Şirket adı',
+      message: 'Neyi keşfetmek istersiniz? (isteğe bağlı)',
+      messagePlaceholder: 'Operasyonunuzdan veya belirli bir sorundan bahsedin…',
+      submit: 'Demo Talep Et',
+      sending: 'Gönderiliyor…',
+      success: 'Teşekkürler — talebinizi aldık. 24 saat içinde dönüş yapıyoruz.',
+      error: 'Bir sorun oluştu. Lütfen tekrar deneyin ya da info@leviora.ai adresine yazın.',
+    },
+    steps: {
+      eyebrow: 'Nasıl Çalışır',
+      segments: [
+        { text: 'Talepten pilota,' },
+        { text: 'üç adım.', accent: true },
+      ],
+      cards: [
+        {
+          title: 'Demo Talep Edersiniz',
+          body: 'Formu doldurun; 24 saat içinde dönüş yapıyoruz.',
+        },
+        {
+          title: '30 Dakikalık Görüşme',
+          body: 'Kendi operasyon sorularınızla, canlı veri üzerinde. Senaryo yok, ezber demo yok.',
+        },
+        {
+          title: 'İsteğe Bağlı 30 Günlük Pilot',
+          body: 'Kendi verinizde, kendi şartlarınızla. Sistemlerinize bağlanırız, dilinizi öğreniriz, ekibiniz kullanmaya başlar. Karar tamamen sizindir.',
+        },
+      ],
+    },
+    faq: {
+      eyebrow: 'Sık Sorulan Sorular',
+      segments: [{ text: 'Dürüst' }, { text: 'Cevaplar.', accent: true }],
+      items: [
+        {
+          q: 'Demo için ne hazırlamam gerekiyor?',
+          a: 'Hiçbir şey. Siz operasyonunuzdan gerçek bir soru getirin; gerisini biz hallederiz. Hazırlık yok, sunum yok, ön çalışma yok.',
+        },
+        {
+          q: 'Demo gerçek verimde mi, hazır bir senaryoda mı?',
+          a: 'Mümkün olan her durumda canlı verinizde — mesele zaten bu. Görüşme öncesinde erişim sağlanamazsa ürünü gerçekçi bir operasyon veri setinde gösterir, pilot sırasında sistemlerinize bağlanırız.',
+        },
+        {
+          q: 'Pilot beni bir taahhüde bağlar mı?',
+          a: 'Hayır. 30 günlük pilot kendi verinizde çalışır ve sizin kararınızla biter. Devam etmezseniz bağlantıyı keseriz — veriniz zaten ağınızdan çıkmadığı için geride hiçbir şey kalmaz.',
+        },
+        {
+          q: 'Verim güvende mi? KVKK uyumlu mu?',
+          a: 'Veriniz ağınızdan asla çıkmaz. Leviora sistemlerinizi gerçek zamanlı okur; ham veriyi dışarı kopyalamaz, dışarıda saklamaz. Veri dışarı çıkmadığı için KVKK açısından da en güvenli zemindesiniz.',
+        },
+        {
+          q: 'Pilotun sonunda ne olur?',
+          a: 'Karar sizin. Değer kanıtlandıysa yaygınlaştırmayı birlikte planlarız. Kanıtlanmadıysa bağlantıyı temizce keseriz — bağlayıcılık yok, geride veri kalmaz.',
+        },
+      ],
+    },
+  },
   cta: {
     eyebrow: 'Bize Ulaşın',
     segments: [
@@ -299,7 +452,6 @@ export const tr: Dict = {
     home: 'Ana Sayfa',
     product: 'Ürün',
     solutions: 'Çözümler',
-    about: 'Hakkımızda',
     requestDemo: 'Demo Talep Et',
     openMenu: 'Menüyü aç',
     closeMenu: 'Menüyü kapat',
@@ -311,7 +463,6 @@ export const tr: Dict = {
     platform: 'Platform',
     others: 'Diğer',
     home: 'Ana Sayfa',
-    about: 'Hakkımızda',
     contact: 'İletişim',
     product: 'Ürün',
     solutions: 'Çözümler',
@@ -337,11 +488,6 @@ export const tr: Dict = {
       title: 'Çözümler — Leviora',
       description:
         'Operasyon neredeyse Leviora orada. Operasyonunuza neler sorabileceğinizi ve size uygun paketi görün.',
-    },
-    about: {
-      title: 'Hakkımızda — Leviora',
-      description:
-        'İki yapay zekâ mühendisi ve bir sanayi yöneticisi; operasyonun dilini konuşan zekâyı inşa ediyoruz.',
     },
     contact: {
       title: 'Demo Talep Et — Leviora',

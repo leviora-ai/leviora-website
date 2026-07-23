@@ -285,6 +285,159 @@ export const en: Dict = {
       },
     },
   },
+  solutions: {
+    hero: {
+      eyebrow: 'Operational AI · For Industry',
+      titleLine1: "Wherever There's An",
+      titleLine2: 'Operation, Leviora Is There.',
+      sub: 'Not a list of industries — a way of working that fits anywhere machines, people and decisions meet.',
+      ctaPrimary: 'Request A Demo',
+      ctaSecondary: 'How Does It Work?',
+    },
+    scenarios: {
+      eyebrow: 'Use Scenarios',
+      segments: [
+        { text: 'What Can You Ask' },
+        { text: 'Your Operation?', accent: true },
+      ],
+      colScenario: 'Scenario',
+      colQuestion: 'Example question',
+      rows: [
+        { scenario: 'Production line', question: 'Why did Line B start late this morning?' },
+        { scenario: 'Downtime & OEE', question: 'Which line had the most downtime this week?' },
+        { scenario: 'Scrap & quality', question: 'Which product had rising scrap, and why?' },
+        { scenario: 'Maintenance', question: 'Which equipment is close to failure risk?' },
+        { scenario: 'Energy', question: 'Why did consumption rise last night?' },
+      ],
+    },
+    packages: {
+      eyebrow: 'Contact Us',
+      segments: [
+        { text: 'Would You Like To See Leviora' },
+        { text: 'Running On Your Own Operation?', accent: true },
+      ],
+      sub: 'A 30-minute demo. A 30-day pilot. The decision is entirely yours.',
+      tiers: [
+        {
+          name: 'Starter',
+          features: [
+            'Live on a single scenario',
+            'Pilot with your real data',
+            'Fast proof of value',
+            'Real Q&A on live data',
+          ],
+          cta: "Let's talk.",
+        },
+        {
+          name: 'Expansion',
+          features: [
+            'Usage spread across the operation',
+            'Root-cause / alert / summary modules together',
+            'Automated alerts (threshold/anomaly)',
+            'MES/SCADA/CMMS integration',
+            'Multiple users',
+          ],
+          cta: "Let's talk.",
+        },
+        {
+          name: 'Enterprise',
+          features: [
+            'Multi-site deployment',
+            'On-prem / private cloud',
+            'Integration with all systems',
+            'Role-based authorization',
+            'Enterprise-defined action limits',
+            'Unlimited users',
+            'Cross-facility reporting',
+            'Priority support',
+          ],
+          cta: 'Request A Demo',
+          highlighted: true,
+        },
+      ],
+    },
+    notFor: {
+      eyebrow: 'Out Of Scope',
+      segments: [{ text: "We're Not For" }, { text: 'Everyone.', accent: true }],
+      body: "Leviora was built for operations with real, live systems to read. If you have no operational data to connect — or you're looking for a general-purpose office chatbot — let's be clear: we're not the right fit. And we'll tell you so honestly.",
+    },
+  },
+  contact: {
+    hero: {
+      eyebrow: 'Contact Us',
+      titleLine1: 'See Leviora On',
+      titleLine2: 'Your Own Terms.',
+      bullets: [
+        { title: '30-Minute Session', desc: 'A Real Talk About Your Operation' },
+        { title: 'With Your Own Questions', desc: 'We Show The Product On Live Data' },
+        { title: 'Your Data Stays On Your Network', desc: "It Doesn't Leave" },
+      ],
+    },
+    form: {
+      title: 'Book your free 30-minute call',
+      name: 'Your name',
+      namePlaceholder: 'Enter your name',
+      phone: 'Phone number',
+      phonePlaceholder: '+90 500 000 00 00',
+      email: 'Email address*',
+      emailPlaceholder: 'Enter your email',
+      company: 'Company*',
+      companyPlaceholder: 'Company name',
+      message: 'What would you like to explore? (optional)',
+      messagePlaceholder: 'Tell us about your operation or a specific challenge…',
+      submit: 'Request A Demo',
+      sending: 'Sending…',
+      success: "Thank you — we've received your request. We reply within 24 hours.",
+      error: 'Something went wrong. Please try again, or write to info@leviora.ai.',
+    },
+    steps: {
+      eyebrow: 'How It Works',
+      segments: [
+        { text: 'From Request To Pilot,' },
+        { text: 'Three Steps.', accent: true },
+      ],
+      cards: [
+        {
+          title: 'You Request A Demo',
+          body: 'Fill in the form; we reply within 24 hours.',
+        },
+        {
+          title: 'A 30-Minute Call',
+          body: 'With your own operational questions, on live data. No scripts, no canned demos.',
+        },
+        {
+          title: 'An Optional 30-Day Pilot',
+          body: 'On your own data, on your own terms. We connect to your systems, learn your language, your team starts using it. The decision is entirely yours.',
+        },
+      ],
+    },
+    faq: {
+      eyebrow: 'FAQ',
+      segments: [{ text: 'Honest' }, { text: 'Answers.', accent: true }],
+      items: [
+        {
+          q: 'What do I need to prepare for the demo?',
+          a: 'Nothing. You bring a real question from your operation; we handle the rest. No prep, no presentation, no pre-work needed.',
+        },
+        {
+          q: 'Is the demo on my real data, or a canned scenario?',
+          a: "Wherever possible, on your live data — that's the point. If access can't be arranged before the call, we show the product on a realistic operational dataset and connect to your systems during the pilot.",
+        },
+        {
+          q: 'Does the pilot lock me into a commitment?',
+          a: 'No. The 30-day pilot runs on your own data and ends with your decision. If you choose not to continue, we disconnect — and since your data never left your network, nothing stays behind.',
+        },
+        {
+          q: 'Is my data safe? Is it KVKK-compliant?',
+          a: "Your data never leaves your network. Leviora reads your systems in real time; it does not copy raw data out or store it externally. Because data never leaves, you're on the safest ground for KVKK too.",
+        },
+        {
+          q: 'What happens at the end of the pilot?',
+          a: 'You decide. If the value is proven, we plan the rollout together. If not, we disconnect cleanly — no lock-in, no data left behind.',
+        },
+      ],
+    },
+  },
   cta: {
     eyebrow: 'Contact Us',
     segments: [
@@ -299,7 +452,6 @@ export const en: Dict = {
     home: 'Home',
     product: 'Product',
     solutions: 'Solutions',
-    about: 'About Us',
     requestDemo: 'Request A Demo',
     openMenu: 'Open menu',
     closeMenu: 'Close menu',
@@ -311,7 +463,6 @@ export const en: Dict = {
     platform: 'Platform',
     others: 'Others',
     home: 'Home',
-    about: 'About',
     contact: 'Contact',
     product: 'Product',
     solutions: 'Solutions',
@@ -337,11 +488,6 @@ export const en: Dict = {
       title: 'Solutions — Leviora',
       description:
         "Wherever there's an operation, Leviora is there. See what you can ask your operation and which package fits.",
-    },
-    about: {
-      title: 'About Us — Leviora',
-      description:
-        'Two AI engineers and an industry manager, building the intelligence that speaks the language of the operation.',
     },
     contact: {
       title: 'Request a Demo — Leviora',

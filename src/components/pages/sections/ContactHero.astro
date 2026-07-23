@@ -1,0 +1,137 @@
+---
+import type { Lang } from '../../../i18n/types';
+import { useTranslations } from '../../../i18n/ui';
+import Eyebrow from '../../ui/Eyebrow.astro';
+import ContactForm from '../../forms/ContactForm.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const h = t.contact.hero;
+---
+
+<section class="chero">
+  <div class="chero__inner">
+    <div class="chero__text" data-reveal-stagger>
+      <Eyebrow text={h.eyebrow} align="left" />
+      <h1 class="chero__title">
+        <span>{h.titleLine1}</span>
+        <span class="chero__title-accent">{h.titleLine2}</span>
+      </h1>
+      <ul class="chero__bullets">
+        {
+          h.bullets.map((b) => (
+            <li>
+              <span class="chero__dot" aria-hidden="true">
+                <i />
+              </span>
+              <span>
+                <b>{b.title}</b> {b.desc}
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div class="chero__form" data-reveal>
+      <ContactForm lang={lang} />
+    </div>
+  </div>
+</section>
+
+<style>
+  .chero {
+    background:
+      radial-gradient(50% 80% at 18% 30%, rgba(78, 47, 144, 0.25) 0%, transparent 70%),
+      url('/assets/diagrams/cta-grid.png') left top / auto 130% no-repeat,
+      var(--bg-dark);
+  }
+
+  .chero__inner {
+    max-width: var(--max);
+    margin-inline: auto;
+    padding: clamp(56px, 8vw, 100px) var(--pad);
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: clamp(32px, 5vw, 80px);
+    align-items: center;
+  }
+
+  .chero__inner > * {
+    min-width: 0;
+  }
+
+  .chero__text {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .chero__title {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin: 0;
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(34px, 4vw, 56px);
+    line-height: 1.1;
+    color: var(--ink-inverse);
+  }
+
+  .chero__title-accent {
+    color: var(--purple-heading);
+  }
+
+  .chero__bullets {
+    list-style: none;
+    margin: 8px 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .chero__bullets li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 300;
+    font-size: 17px;
+    line-height: 1.4;
+    color: var(--ink-inverse-2);
+  }
+
+  .chero__bullets b {
+    font-weight: 500;
+    color: var(--ink-inverse);
+  }
+
+  .chero__dot {
+    display: grid;
+    place-items: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: rgba(78, 47, 144, 0.4);
+    border: 1px solid rgba(149, 130, 189, 0.6);
+    flex-shrink: 0;
+  }
+
+  .chero__dot i {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--purple-heading);
+  }
+
+  @media (max-width: 1000px) {
+    .chero__inner {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

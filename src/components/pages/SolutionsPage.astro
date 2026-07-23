@@ -2,6 +2,12 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import type { Lang } from '../../i18n/types';
 import { useTranslations } from '../../i18n/ui';
+import SolutionsHero from './sections/SolutionsHero.astro';
+import ScenarioTable from './sections/ScenarioTable.astro';
+import CapabilityRow from './sections/CapabilityRow.astro';
+import Packages from './sections/Packages.astro';
+import NotForEveryone from './sections/NotForEveryone.astro';
+import CtaBanner from '../cta/CtaBanner.astro';
 
 interface Props {
   lang: Lang;
@@ -9,6 +15,7 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = useTranslations(lang);
+const caps = t.product.capabilities;
 ---
 
 <BaseLayout
@@ -17,17 +24,11 @@ const t = useTranslations(lang);
   description={t.meta.solutions.description}
   path="/solutions/"
 >
-  {/* Faz 3: SolutionsHero, ScenarioTable, capability rows, Packages, NotForEveryone, CtaBanner */}
-  <section class="placeholder">
-    <h1>{t.meta.solutions.title}</h1>
-  </section>
+  <SolutionsHero lang={lang} />
+  <ScenarioTable lang={lang} />
+  <CapabilityRow lang={lang} capability={caps.sees} dark />
+  <CapabilityRow lang={lang} capability={caps.understands} reverse />
+  <Packages lang={lang} />
+  <NotForEveryone lang={lang} />
+  <CtaBanner lang={lang} />
 </BaseLayout>
-
-<style>
-  .placeholder {
-    min-height: 60vh;
-    display: grid;
-    place-items: center;
-    padding: var(--section-pad) var(--pad);
-  }
-</style>

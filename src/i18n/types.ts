@@ -109,6 +109,64 @@ export interface Dict {
       takesAction: CapabilityDict;
     };
   };
+  solutions: {
+    hero: {
+      eyebrow: string;
+      titleLine1: string;
+      titleLine2: string;
+      sub: string;
+      ctaPrimary: string;
+      ctaSecondary: string;
+    };
+    scenarios: HeadingDict & {
+      colScenario: string;
+      colQuestion: string;
+      rows: { scenario: string; question: string }[];
+    };
+    packages: HeadingDict & {
+      sub: string;
+      tiers: {
+        name: string;
+        features: string[];
+        cta: string;
+        highlighted?: boolean;
+      }[];
+    };
+    notFor: HeadingDict & {
+      body: string;
+    };
+  };
+  contact: {
+    hero: {
+      eyebrow: string;
+      titleLine1: string;
+      titleLine2: string;
+      bullets: { title: string; desc: string }[];
+    };
+    form: {
+      title: string;
+      name: string;
+      namePlaceholder: string;
+      phone: string;
+      phonePlaceholder: string;
+      email: string;
+      emailPlaceholder: string;
+      company: string;
+      companyPlaceholder: string;
+      message: string;
+      messagePlaceholder: string;
+      submit: string;
+      sending: string;
+      success: string;
+      error: string;
+    };
+    steps: HeadingDict & {
+      cards: { title: string; body: string }[];
+    };
+    faq: HeadingDict & {
+      items: { q: string; a: string }[];
+    };
+  };
   cta: HeadingDict & {
     sub: string;
     primary: string;
@@ -118,7 +176,6 @@ export interface Dict {
     home: string;
     product: string;
     solutions: string;
-    about: string;
     requestDemo: string;
     openMenu: string;
     closeMenu: string;
@@ -129,7 +186,6 @@ export interface Dict {
     platform: string;
     others: string;
     home: string;
-    about: string;
     contact: string;
     product: string;
     solutions: string;
@@ -144,7 +200,6 @@ export interface Dict {
     home: MetaDict;
     product: MetaDict;
     solutions: MetaDict;
-    about: MetaDict;
     contact: MetaDict;
     privacy: MetaDict;
     terms: MetaDict;

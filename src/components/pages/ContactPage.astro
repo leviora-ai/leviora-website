@@ -2,6 +2,9 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import type { Lang } from '../../i18n/types';
 import { useTranslations } from '../../i18n/ui';
+import ContactHero from './sections/ContactHero.astro';
+import ContactSteps from './sections/ContactSteps.astro';
+import FaqAccordion from '../faq/FaqAccordion.astro';
 
 interface Props {
   lang: Lang;
@@ -17,17 +20,11 @@ const t = useTranslations(lang);
   description={t.meta.contact.description}
   path="/contact/"
 >
-  {/* Faz 3: ContactHero + ContactForm, ContactSteps, FAQ */}
-  <section class="placeholder">
-    <h1>{t.meta.contact.title}</h1>
-  </section>
+  <ContactHero lang={lang} />
+  <ContactSteps lang={lang} />
+  <FaqAccordion
+    items={t.contact.faq.items}
+    eyebrow={t.contact.faq.eyebrow}
+    segments={t.contact.faq.segments}
+  />
 </BaseLayout>
-
-<style>
-  .placeholder {
-    min-height: 60vh;
-    display: grid;
-    place-items: center;
-    padding: var(--section-pad) var(--pad);
-  }
-</style>

@@ -1,0 +1,103 @@
+---
+import type { Lang } from '../../../i18n/types';
+import { useTranslations } from '../../../i18n/ui';
+import SectionHeading from '../../ui/SectionHeading.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const s = t.solutions.scenarios;
+---
+
+<section class="scen">
+  <div class="scen__inner">
+    <div class="scen__head">
+      <SectionHeading eyebrow={s.eyebrow} segments={s.segments} tone="light" align="left" />
+    </div>
+    <div class="scen__tablewrap" data-reveal>
+      <table class="scen__table">
+        <thead>
+          <tr>
+            <th>{s.colScenario}</th>
+            <th>{s.colQuestion}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            s.rows.map((row) => (
+              <tr>
+                <td>{row.scenario}</td>
+                <td>{row.question}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<style>
+  .scen {
+    background: var(--bg-light);
+  }
+
+  .scen__inner {
+    max-width: var(--max);
+    margin-inline: auto;
+    padding: var(--section-pad) var(--pad);
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  .scen__head {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .scen__tablewrap {
+    overflow-x: auto;
+    border: 1px solid var(--hair-light);
+    border-radius: var(--radius-md);
+  }
+
+  .scen__table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 560px;
+  }
+
+  .scen__table th {
+    text-align: left;
+    padding: 16px 24px;
+    background: var(--bg-light-2);
+    font-weight: 500;
+    font-size: 16px;
+    color: var(--ink);
+    border-bottom: 1px solid var(--hair-light);
+  }
+
+  .scen__table td {
+    padding: 16px 24px;
+    font-weight: 300;
+    font-size: 16px;
+    color: var(--ink-2);
+    border-bottom: 1px solid var(--hair-light);
+  }
+
+  .scen__table tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .scen__table tbody tr {
+    transition: background var(--hover-duration) var(--ease-out);
+  }
+
+  .scen__table tbody tr:hover {
+    background: rgba(78, 47, 144, 0.04);
+  }
+</style>

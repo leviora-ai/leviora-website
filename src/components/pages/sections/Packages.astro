@@ -1,0 +1,218 @@
+---
+import type { Lang } from '../../../i18n/types';
+import { useTranslations, localizePath } from '../../../i18n/ui';
+import SectionHeading from '../../ui/SectionHeading.astro';
+import Button from '../../ui/Button.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const p = t.solutions.packages;
+---
+
+<section class="pack">
+  <div class="pack__inner">
+    <div class="pack__head" data-reveal>
+      <SectionHeading eyebrow={p.eyebrow} segments={p.segments} tone="dark" />
+      <p class="pack__sub">{p.sub}</p>
+    </div>
+
+    <div class="pack__grid" data-reveal-stagger>
+      {
+        p.tiers.map((tier) => (
+          <div class:list={['tier', { 'tier--hi': tier.highlighted }]}>
+            <div class="tier__head">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path
+                  d="M12 2l2.1 6.1L20 10l-5.9 1.9L12 18l-2.1-6.1L4 10l5.9-1.9L12 2z"
+                  fill="url(#tier-star)"
+                />
+                <defs>
+                  <linearGradient id="tier-star" x1="4" y1="12" x2="20" y2="12">
+                    <stop stop-color="#8158A4" />
+                    <stop offset="1" stop-color="#F0E2EF" />
+                  </linearGradient>
+                </defs>
+              </svg>
+              <p class="tier__name">{tier.name}</p>
+            </div>
+            <div class="tier__body">
+              <ul class="tier__features">
+                {tier.features.map((f) => (
+                  <li>
+                    <span class="tier__dot" aria-hidden="true">
+                      <i />
+                    </span>
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              {tier.highlighted ? (
+                <Button href={localizePath('/contact/', lang)}>{tier.cta}</Button>
+              ) : (
+                <a class="tier__cta" href={localizePath('/contact/', lang)}>
+                  {tier.cta}
+                </a>
+              )}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .pack {
+    background: #0d0a1a;
+  }
+
+  .pack__inner {
+    max-width: var(--max);
+    margin-inline: auto;
+    padding: var(--section-pad) var(--pad);
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  .pack__head {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    text-align: center;
+  }
+
+  .pack__sub {
+    margin: 0;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #e9e9ea;
+  }
+
+  .pack__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    align-items: start;
+  }
+
+  .tier {
+    border-radius: var(--radius-lg);
+    background: #222124;
+    border: 1px solid #6e6e6e;
+    overflow: hidden;
+  }
+
+  .tier--hi {
+    background: #161616;
+    border-color: #6a3889;
+  }
+
+  .tier__head {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 31px 31px 27px;
+  }
+
+  .tier__name {
+    margin: 0;
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 1.2;
+    color: var(--ink-inverse);
+  }
+
+  .tier__body {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    padding: 32px;
+    border-radius: var(--radius-lg);
+    background: #131215;
+  }
+
+  .tier--hi .tier__body {
+    background: #ffffff;
+  }
+
+  .tier__features {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .tier__features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.2;
+    color: var(--ink-inverse);
+  }
+
+  .tier--hi .tier__features li {
+    color: var(--purple);
+  }
+
+  .tier__dot {
+    display: grid;
+    place-items: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: rgba(78, 47, 144, 0.25);
+    border: 1px solid var(--purple);
+    flex-shrink: 0;
+  }
+
+  .tier__dot i {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--purple-heading);
+  }
+
+  .tier--hi .tier__dot {
+    background: rgba(221, 213, 233, 0.4);
+    border-color: #b7acd4;
+  }
+
+  .tier--hi .tier__dot i {
+    background: #725aa6;
+  }
+
+  .tier__cta {
+    display: block;
+    padding: 12px 24px;
+    border-radius: var(--radius-sm);
+    background: #222124;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--ink-inverse);
+    transition: background var(--hover-duration) var(--ease-out);
+  }
+
+  .tier__cta:hover {
+    background: #2e2d31;
+  }
+
+  @media (max-width: 1000px) {
+    .pack__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
