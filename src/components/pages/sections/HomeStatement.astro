@@ -13,7 +13,17 @@ const t = useTranslations(lang);
 const s = t.home.statement;
 ---
 
-<section class="statement">
+<section class="statement" data-statement>
+  <div class="statement__bg" aria-hidden="true">
+    <img
+      src="/assets/diagrams/industry-collage.webp"
+      alt=""
+      width="1920"
+      height="1080"
+      loading="lazy"
+      data-statement-bg
+    />
+  </div>
   <div class="statement__content" data-reveal-stagger>
     <Eyebrow text={s.eyebrow} />
     <h2 class="statement__title">
@@ -32,18 +42,45 @@ const s = t.home.statement;
     place-items: center;
     min-height: clamp(480px, 44vw, 698px);
     padding: var(--section-pad) var(--pad);
-    background:
-      linear-gradient(
-        to bottom,
-        rgba(14, 11, 22, 0.6) 0%,
-        rgba(14, 11, 22, 0.48) 53%,
-        rgba(14, 11, 22, 0.6) 100%
-      ),
-      url('/assets/diagrams/circuit-bg.png') center / cover no-repeat,
-      var(--bg-deep);
+    background: var(--bg-deep);
+    overflow: hidden;
+  }
+
+  .statement__bg {
+    position: absolute;
+    inset: 0;
+  }
+
+  .statement__bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(14, 11, 22, 0.72) 0%,
+      rgba(14, 11, 22, 0.58) 53%,
+      rgba(14, 11, 22, 0.72) 100%
+    );
+  }
+
+  .statement__bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.18);
+    will-change: transform;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .statement__bg img {
+      transform: none;
+      will-change: auto;
+    }
   }
 
   .statement__content {
+    position: relative;
+    z-index: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -77,3 +114,7 @@ const s = t.home.statement;
     max-width: 640px;
   }
 </style>
+
+<script>
+  import '../../../scripts/statement-zoom';
+</script>

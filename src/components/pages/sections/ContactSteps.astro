@@ -61,10 +61,12 @@ const s = t.contact.steps;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 32px;
-    align-items: start;
+    align-items: stretch;
   }
 
   .cstep {
+    display: flex;
+    flex-direction: column;
     border-radius: var(--radius-lg);
     background: #f6f3fd;
     overflow: hidden;

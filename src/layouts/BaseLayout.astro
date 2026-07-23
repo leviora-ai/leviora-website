@@ -6,6 +6,9 @@ import '@fontsource/argentum-sans/latin-400.css';
 import '@fontsource/argentum-sans/latin-500.css';
 import '@fontsource/argentum-sans/latin-600.css';
 import '../styles/global.css';
+import oxaniumWoff2 from '@fontsource-variable/oxanium/files/oxanium-latin-wght-normal.woff2?url';
+import argentum300 from '@fontsource/argentum-sans/files/argentum-sans-latin-300-normal.woff2?url';
+import argentum400 from '@fontsource/argentum-sans/files/argentum-sans-latin-400-normal.woff2?url';
 import type { Lang } from '../i18n/types';
 import { localizePath } from '../i18n/ui';
 import Navbar from '../components/nav/Navbar.astro';
@@ -41,6 +44,9 @@ const og = ogImage ?? '/assets/og/default.png';
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preload" as="font" type="font/woff2" href={oxaniumWoff2} crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href={argentum300} crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href={argentum400} crossorigin />
     <link rel="canonical" href={canonical} />
     <link rel="alternate" hreflang="en" href={hrefEn} />
     <link rel="alternate" hreflang="tr" href={hrefTr} />

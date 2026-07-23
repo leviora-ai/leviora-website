@@ -18,10 +18,12 @@ const { chat } = Astro.props;
   <div class="cw__body">
     <div class="cw__user">{chat.user}</div>
 
+    <div class="cw__typing" aria-hidden="true"><i></i><i></i><i></i></div>
+
     <div class="cw__ai">
       <div class="cw__ai-head">
         <span class="cw__avatar">
-          <img src="/assets/leviora-logo.svg" alt="" width="26" height="26" />
+          <img src="/assets/leviora-icon.svg" alt="" width="26" height="26" />
         </span>
         <span class="cw__ai-id">
           <span class="cw__ai-name">
@@ -291,4 +293,110 @@ const { chat } = Astro.props;
     color: #e9e9ea;
     white-space: nowrap;
   }
+
+  /* ---- Conversation playback (chat-play.ts adds .cw--play on scroll-in) ---- */
+  .cw__typing {
+    display: none;
+    align-self: flex-start;
+    gap: 5px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: #f1ebfa;
+  }
+
+  .cw__typing i {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #9582bd;
+  }
+
+  :global(html.js) .cw__user,
+  :global(html.js) .cw__ai,
+  :global(html.js) .cw__input {
+    opacity: 0;
+  }
+
+  .cw--play .cw__user {
+    animation: cw-msg 400ms var(--ease-out) 100ms forwards;
+  }
+
+  .cw--play .cw__typing {
+    display: flex;
+    animation: cw-typing 900ms var(--ease-out) 500ms forwards;
+    opacity: 0;
+  }
+
+  .cw--play .cw__typing i {
+    animation: cw-dot 700ms ease-in-out infinite;
+  }
+
+  .cw--play .cw__typing i:nth-child(2) {
+    animation-delay: 140ms;
+  }
+
+  .cw--play .cw__typing i:nth-child(3) {
+    animation-delay: 280ms;
+  }
+
+  .cw--play .cw__ai {
+    animation: cw-msg 450ms var(--ease-out) 1500ms forwards;
+  }
+
+  .cw--play .cw__input {
+    animation: cw-msg 400ms var(--ease-out) 2000ms forwards;
+  }
+
+  @keyframes cw-msg {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes cw-typing {
+    0% {
+      opacity: 0;
+    }
+    15%,
+    85% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      display: none;
+    }
+  }
+
+  @keyframes cw-dot {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-4px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global(html.js) .cw__user,
+    :global(html.js) .cw__ai,
+    :global(html.js) .cw__input {
+      opacity: 1;
+    }
+
+    .cw__typing,
+    .cw--play .cw__typing {
+      display: none;
+      animation: none;
+    }
+  }
 </style>
+
+<script>
+  import '../../scripts/chat-play';
+</script>

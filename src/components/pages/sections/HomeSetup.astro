@@ -38,7 +38,7 @@ const s = t.home.setup;
       <div class="setup__panel" data-reveal>
         <img
           class="setup__photo"
-          src="/assets/diagrams/setup-datacenter.png"
+          src="/assets/diagrams/stars-grid.webp"
           alt=""
           loading="lazy"
         />
@@ -53,12 +53,17 @@ const s = t.home.setup;
           <path class="flow" d="M556 186 C 460 186, 330 186, 245 186"></path>
           <path class="flow" d="M556 282 C 440 270, 340 220, 240 192"></path>
           <path class="flow" d="M556 354 C 420 340, 320 240, 240 198"></path>
+          <circle class="dot dot--1" r="3.5"></circle>
+          <circle class="dot dot--2" r="3.5"></circle>
+          <circle class="dot dot--3" r="3.5"></circle>
+          <circle class="dot dot--4" r="3.5"></circle>
+          <circle class="dot dot--5" r="3.5"></circle>
         </svg>
 
         <div class="setup__center">
           <span class="setup__ring" aria-hidden="true"></span>
           <span class="setup__hub">
-            <img src="/assets/leviora-logo.svg" alt="" width="28" height="28" />
+            <img src="/assets/leviora-icon.svg" alt="" width="28" height="28" />
           </span>
           <span class="setup__center-label">{s.panel.center}</span>
         </div>
@@ -245,6 +250,55 @@ const s = t.home.setup;
     }
   }
 
+  /* traveling data dots: chip → hub */
+  .dot {
+    fill: #b9a7f5;
+    filter: drop-shadow(0 0 6px rgba(185, 167, 245, 0.9));
+    offset-rotate: 0deg;
+    animation: dotflow 3.2s linear infinite;
+  }
+
+  .dot--1 {
+    offset-path: path('M556 22 C 420 30, 320 120, 240 176');
+  }
+
+  .dot--2 {
+    offset-path: path('M556 94 C 440 100, 340 150, 240 182');
+    animation-delay: 0.6s;
+  }
+
+  .dot--3 {
+    offset-path: path('M556 186 C 460 186, 330 186, 245 186');
+    animation-delay: 1.2s;
+  }
+
+  .dot--4 {
+    offset-path: path('M556 282 C 440 270, 340 220, 240 192');
+    animation-delay: 1.8s;
+  }
+
+  .dot--5 {
+    offset-path: path('M556 354 C 420 340, 320 240, 240 198');
+    animation-delay: 2.4s;
+  }
+
+  @keyframes dotflow {
+    0% {
+      offset-distance: 0%;
+      opacity: 0;
+    }
+    12% {
+      opacity: 1;
+    }
+    88% {
+      opacity: 1;
+    }
+    100% {
+      offset-distance: 100%;
+      opacity: 0;
+    }
+  }
+
   .setup__center {
     position: absolute;
     left: 26%;
@@ -281,13 +335,44 @@ const s = t.home.setup;
   }
 
   .setup__hub {
+    position: relative;
     display: grid;
     place-items: center;
     width: 60px;
     height: 60px;
     border-radius: 50%;
     background: #3d3c47;
-    border: 1px solid #4b3a5d;
+    border: 1px solid #8158a4;
+    animation: hubpulse 4s var(--ease-out) infinite;
+  }
+
+  .setup__hub::after {
+    content: '';
+    position: absolute;
+    inset: -14px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(129, 88, 164, 0.45) 0%, transparent 70%);
+    animation: hubglow 4s var(--ease-out) infinite;
+  }
+
+  @keyframes hubpulse {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.06);
+    }
+  }
+
+  @keyframes hubglow {
+    0%,
+    100% {
+      opacity: 0.5;
+    }
+    50% {
+      opacity: 1;
+    }
   }
 
   .setup__center-label {
@@ -369,8 +454,14 @@ const s = t.home.setup;
 
   @media (prefers-reduced-motion: reduce) {
     .flow,
-    .setup__ring {
+    .setup__ring,
+    .setup__hub,
+    .setup__hub::after {
       animation: none;
+    }
+
+    .dot {
+      display: none;
     }
   }
 </style>

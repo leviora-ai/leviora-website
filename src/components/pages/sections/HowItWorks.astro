@@ -18,7 +18,7 @@ const how = t.home.how;
     <div class="how__cards" data-reveal-stagger>
       {
         how.cards.map((card, i) => (
-          <div class:list={['how-card-wrap', { 'how-card-wrap--stacked': i > 0 }]}>
+          <div class="how-card-wrap">
             <div class="how-card">
               <span class="how-card__num">
                 <b>{String(i + 1).padStart(2, '0')}</b>
@@ -54,16 +54,19 @@ const how = t.home.how;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 32px;
-    align-items: start;
+    align-items: stretch;
   }
 
-  .how-card-wrap--stacked {
+  .how-card-wrap {
+    display: flex;
+    flex-direction: column;
     background: #f6f3fd;
     border-radius: var(--radius-lg);
     padding-bottom: 29px;
   }
 
   .how-card {
+    flex: 1;
     display: flex;
     flex-direction: column;
     gap: 54px;
