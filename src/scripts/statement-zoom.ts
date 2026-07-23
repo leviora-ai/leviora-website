@@ -13,9 +13,12 @@ if (section && bg && !reduced) {
     const rect = section.getBoundingClientRect();
     const vh = window.innerHeight;
     // 0 when section enters from bottom, 1 when it leaves at top
-    const progress = Math.min(1, Math.max(0, (vh - rect.top) / (vh + rect.height)));
-    const scale = 1.18 - 0.18 * progress;
-    bg.style.transform = `scale(${scale.toFixed(4)})`;
+    const raw = Math.min(1, Math.max(0, (vh - rect.top) / (vh + rect.height)));
+    // remap to the visible span so the zoom clearly plays while on screen
+    const p = Math.min(1, Math.max(0, (raw - 0.08) / 0.75));
+    const scale = 1.32 - 0.32 * p;
+    const ty = (0.5 - p) * 36;
+    bg.style.transform = `scale(${scale.toFixed(4)}) translateY(${ty.toFixed(1)}px)`;
   };
 
   const onScroll = () => {

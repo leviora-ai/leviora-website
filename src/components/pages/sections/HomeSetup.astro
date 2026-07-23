@@ -150,11 +150,16 @@ const s = t.home.setup;
   }
 
   .setup-item__body {
-    display: none;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
     font-weight: 300;
     font-size: 18px;
     line-height: 1.4;
     color: #d2d2d5;
+    transition:
+      max-height 450ms var(--ease-out),
+      opacity 350ms var(--ease-out);
   }
 
   .setup-item--active {
@@ -174,7 +179,14 @@ const s = t.home.setup;
   }
 
   .setup-item--active .setup-item__body {
-    display: block;
+    max-height: 240px;
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .setup-item__body {
+      transition: none;
+    }
   }
 
   /* ---- Right: network panel ---- */
