@@ -1,0 +1,129 @@
+---
+import type { Lang } from '../../../i18n/types';
+import { useTranslations } from '../../../i18n/ui';
+import SectionHeading from '../../ui/SectionHeading.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const how = t.home.how;
+---
+
+<section class="how" id="how">
+  <div class="how__inner">
+    <SectionHeading eyebrow={how.eyebrow} segments={how.segments} tone="light" />
+    <div class="how__cards" data-reveal-stagger>
+      {
+        how.cards.map((card, i) => (
+          <div class:list={['how-card-wrap', { 'how-card-wrap--stacked': i > 0 }]}>
+            <div class="how-card">
+              <span class="how-card__num">
+                <b>{String(i + 1).padStart(2, '0')}</b>
+                <i>/{String(how.cards.length).padStart(2, '0')}</i>
+              </span>
+              <div class="how-card__text">
+                <p class="how-card__title">{card.title}</p>
+                <p class="how-card__body">{card.body}</p>
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .how {
+    background: var(--bg-light);
+  }
+
+  .how__inner {
+    max-width: var(--max);
+    margin-inline: auto;
+    padding: var(--section-pad) var(--pad);
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  .how__cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    align-items: start;
+  }
+
+  .how-card-wrap--stacked {
+    background: #f6f3fd;
+    border-radius: var(--radius-lg);
+    padding-bottom: 29px;
+  }
+
+  .how-card {
+    display: flex;
+    flex-direction: column;
+    gap: 54px;
+    padding: 32px 24px;
+    border-radius: var(--radius-lg);
+    background: #f1ebfa;
+    border: 1px solid #6a3889;
+  }
+
+  .how-card__num {
+    display: inline-flex;
+    align-items: flex-end;
+    gap: 4px;
+    align-self: flex-start;
+    padding: 7px 11px;
+    border-radius: 50px;
+    border: 1px solid #4e2f91;
+    background: linear-gradient(to bottom, rgba(98, 42, 133, 0.1), rgba(106, 56, 137, 0.35));
+  }
+
+  .how-card__num b {
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.1;
+    color: #ffffff;
+  }
+
+  .how-card__num i {
+    font-style: normal;
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 1.4;
+    color: #777980;
+  }
+
+  .how-card__text {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .how-card__title {
+    margin: 0;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 1.2;
+    color: var(--ink);
+  }
+
+  .how-card__body {
+    margin: 0;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--ink-2);
+  }
+
+  @media (max-width: 1000px) {
+    .how__cards {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

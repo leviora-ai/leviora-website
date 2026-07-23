@@ -30,6 +30,132 @@ export const tr: Dict = {
         takesAction: 'Harekete Geçer',
       },
     },
+    statement: {
+      eyebrow: 'Operasyona Özgü Yapay Zekâ',
+      titleLine1: 'Sizin dilinizle düşünen,',
+      titleLine2: 'kurallarınızla karar veren, sınırlarınızda kalan bir sistem',
+      sub: 'Sizin kavramlarınızla düşünen, kurallarınıza göre karar veren ve çizdiğiniz sınırlar içinde hareket eden bir sistem.',
+      cta: 'Demo Talep Et',
+    },
+    how: {
+      eyebrow: 'Nasıl Çalışır',
+      segments: [
+        { text: 'Görür ·' },
+        { text: 'Anlar', accent: true },
+        { text: '· Harekete Geçer' },
+      ],
+      cards: [
+        {
+          title: 'Görür',
+          body: 'Operasyonunuzun tamamındaki canlı veriyi okur: MES, ERP, SCADA, CMMS. Manuel dışa aktarma yok, rapor bekleme yok. Siz sorarsınız; cevap, o anda akan veriden gelir.',
+        },
+        {
+          title: 'Anlar',
+          body: 'Olayları bir neden zincirine bağlar. Belirtiyi değil kök nedeni bulur. Bulguları kaynağıyla birlikte açıklar — uydurmaz.',
+        },
+        {
+          title: 'Harekete Geçer',
+          body: 'Yetkilendirdiğiniz sınırlar içinde hareket eder. Bakım talebi açar, vardiya amirine haber verir, kalite kontrolünü işaretler. Yetkili, kayıtlı, geri alınabilir.',
+        },
+      ],
+    },
+    why: {
+      eyebrow: 'Neden Leviora',
+      segments: [
+        { text: 'Genel yapay zekâ veriyi açıklar. Leviora' },
+        { text: 'operasyonu anlar.', accent: true },
+      ],
+      bullets: [
+        'Sizin verinizle, sizin dilinizle cevap verir',
+        'Emin olmadığında uydurmaz',
+        'Bulguları özet / tablo / kaynak ile açıklar',
+        'Genel bir yapay zekâya soramayacağınız soruları cevaplar',
+        'Kök nedeni, etkiyi ve örüntüyü birlikte değerlendirir',
+      ],
+      chat: {
+        user: 'Son 14 günde hatalar nerede kümeleniyor?',
+        aiName: 'LEVIORA AI',
+        aiTime: '· 09.37',
+        aiMeta: 'Veri Analisti · 9 adım · 923 ms · Detay',
+        aiText:
+          "9 Haziran'da belirgin bir kümelenme oluştu — makineye özgü bir lider yok. Tek bir makineyi güvenle işaret edemem.",
+        aiBullets: [
+          'Dağılım yatay: 10 makinede 1 hata.',
+          'Yoğunlaşma günlük (9 Haziran), makine bazlı değil.',
+          'Ana neden doğrulanamadı; veri yetersiz, uydurmuyorum.',
+        ],
+        placeholder: 'Analiz edilecek konuyu yazın…',
+        analyze: 'Analiz et',
+        live: 'Canlı',
+      },
+    },
+    setup: {
+      eyebrow: 'Kurulum',
+      segments: [
+        { text: 'Uzun kurulum projeleri yok.' },
+        { text: 'Bağlan, eşle, kullan.', accent: true },
+      ],
+      items: [
+        {
+          title: 'Bağlan',
+          tag: '1–2. Gün',
+          body: 'ERP, MES, SCADA bağlantısı. Veriniz ağınızdan asla çıkmaz; Leviora ham veriyi dışarı çekmeden veya dışarıda saklamadan sistemlerinizden okur.',
+        },
+        {
+          title: 'Eşle',
+          tag: 'İlk Hafta',
+          body: 'Tablolarınız ve alanlarınız, zaten kullandığınız iş nesneleriyle eşlenir — hatlar, vardiyalar, makineler, siparişler. Kod yazmadan, arayüz üzerinden tanımlanır.',
+        },
+        {
+          title: 'Kullan',
+          tag: '2. Haftadan İtibaren',
+          body: 'Ekibiniz günlük dille soru sormaya başlar. Her cevap kaynağı ve gerekçesiyle gelir; yetkili aksiyonlar adım adım devreye alınır.',
+        },
+      ],
+      panel: {
+        title: 'Veriniz buradan çıkmaz.',
+        network: 'Sizin Ağınız',
+        center: 'Tek Merkez',
+        other: 'Diğer Sistemler',
+        chips: ['ERP', 'MES', 'SCADA', 'CMMS'],
+      },
+    },
+    faq: {
+      eyebrow: 'Sık Sorulan Sorular',
+      segments: [{ text: 'Dürüst' }, { text: 'Cevaplar.', accent: true }],
+      items: [
+        {
+          q: 'Verim güvende mi? KVKK uyumlu musunuz?',
+          a: 'Veriniz ağınızdan asla çıkmaz. Leviora sistemlerinizi gerçek zamanlı okur; ham veriyi dışarı kopyalamaz, dışarıda saklamaz. Veri dışarı çıkmadığı için KVKK açısından da en güvenli zemindesiniz. Demo sırasında mimariyi ayrıntılarıyla anlatmaktan memnuniyet duyarız.',
+        },
+        {
+          q: 'Leviora cevabı bilmiyorsa ne yapar?',
+          a: 'Bilmiyorum der. Veri yetersizse ya da neden doğrulanamıyorsa Leviora bunu açıkça söyler — neyi kontrol ettiğini ve neyin eksik olduğunu da. Tahmin etmez, uydurmaz.',
+        },
+        {
+          q: 'Sorduğum her şeye yardımcı olur mu?',
+          a: 'Operasyon verinizin cevaplayabildiği her konuda yardımcı olur — üretim, duruş, kalite, bakım, enerji. Genel amaçlı bir sohbet robotu değildir; operasyonunuzun dışındaki sorular kapsam dışıdır ve bunu dürüstçe söyler.',
+        },
+        {
+          q: 'Leviora ne kadar yetkiye sahip?',
+          a: 'Tam olarak sizin verdiğiniz kadar. Her aksiyon türünü siz tanımlar ve onaylarsınız — yalnızca bildirimden iş emri açmaya kadar. Her aksiyon yetkilidir, kayıtlıdır ve geri alınabilir.',
+        },
+        {
+          q: 'Ne kadar hızlı kullanmaya başlayabiliriz?',
+          a: 'Bağlantı 1–2 gün sürer, eşleme ilk haftada yapılır, ekibiniz ikinci haftadan itibaren kullanmaya başlar. İsteğe bağlı 30 günlük pilot kendi verinizde çalışır — karar tamamen sizindir.',
+        },
+      ],
+    },
+  },
+  cta: {
+    eyebrow: 'Bize Ulaşın',
+    segments: [
+      { text: "Leviora'yı kendi operasyonunuzda" },
+      { text: 'çalışırken görmek ister misiniz?', accent: true },
+    ],
+    sub: '30 dakikalık demo. 30 günlük pilot. Karar tamamen sizin.',
+    primary: 'Demo Talep Et',
+    secondary: 'Nasıl çalışır?',
   },
   nav: {
     home: 'Ana Sayfa',

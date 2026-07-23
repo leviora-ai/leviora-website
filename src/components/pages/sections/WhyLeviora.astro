@@ -1,0 +1,72 @@
+---
+import type { Lang } from '../../../i18n/types';
+import { useTranslations } from '../../../i18n/ui';
+import SectionHeading from '../../ui/SectionHeading.astro';
+import ChatWindow from '../../ui/ChatWindow.astro';
+import CheckBullet from '../../ui/CheckBullet.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const why = t.home.why;
+---
+
+<section class="why">
+  <div class="why__inner">
+    <div class="why__chat">
+      <ChatWindow chat={why.chat} />
+    </div>
+    <div class="why__text">
+      <SectionHeading
+        eyebrow={why.eyebrow}
+        segments={why.segments}
+        tone="light"
+        align="left"
+      />
+      <div class="why__bullets" data-reveal-stagger>
+        {why.bullets.map((b) => <CheckBullet text={b} />)}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .why {
+    background: var(--bg-light);
+  }
+
+  .why__inner {
+    max-width: var(--max);
+    margin-inline: auto;
+    padding: 60px var(--pad) var(--section-pad);
+    display: grid;
+    grid-template-columns: 1.18fr 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+
+  .why__inner > * {
+    min-width: 0;
+  }
+
+  .why__text {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  .why__bullets {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  @media (max-width: 1000px) {
+    .why__inner {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

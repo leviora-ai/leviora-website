@@ -30,6 +30,132 @@ export const en: Dict = {
         takesAction: 'Takes Action',
       },
     },
+    statement: {
+      eyebrow: 'Operation-Specific Artificial Intelligence',
+      titleLine1: 'A System That Thinks In Your Terms,',
+      titleLine2: 'Decides By Your Rules, Acts Within Your Limits',
+      sub: 'A system that thinks in your terms, makes decisions according to your rules, and acts within your boundaries.',
+      cta: 'Request A Demo',
+    },
+    how: {
+      eyebrow: 'How It Works',
+      segments: [
+        { text: 'Sees ·' },
+        { text: 'Understands', accent: true },
+        { text: '· Takes Action' },
+      ],
+      cards: [
+        {
+          title: 'Sees',
+          body: 'Reads live data across your entire operation MES, ERP, SCADA, CMMS. No manual exports, no waiting for reports. You ask, and the answer comes from data flowing right now.',
+        },
+        {
+          title: 'Understands',
+          body: "Links events into a cause chain. Finds the root cause, not the symptom. Explains findings with their source — doesn't make things up.",
+        },
+        {
+          title: 'Takes Action',
+          body: 'Acts within the limits you authorize. Opens a maintenance request, notifies the shift supervisor, flags a quality check. Authorized, logged, reversible.',
+        },
+      ],
+    },
+    why: {
+      eyebrow: 'Why Leviora',
+      segments: [
+        { text: 'General AI Explains The Data. Leviora' },
+        { text: 'Understands The Operation.', accent: true },
+      ],
+      bullets: [
+        'Answers with your data, in your terms',
+        "Doesn't make things up when unsure",
+        'Explains findings with summary / table / source',
+        "Answers questions you couldn't ask a general AI",
+        'Evaluates root cause, impact and pattern together',
+      ],
+      chat: {
+        user: 'Where are the errors clustered in the last 14 days?',
+        aiName: 'LEVIORA AI',
+        aiTime: '· 09:37',
+        aiMeta: 'Data Analyst · 9 steps · 923ms · Details',
+        aiText:
+          'A noticeable clustering occurred on June 9th — no machine-specific leader. I cannot confidently blame any single machine.',
+        aiBullets: [
+          'The distribution is horizontal: 1 error per 10 machines.',
+          'Concentration is daily (June 9th), not machine-based.',
+          "The main cause could not be confirmed; insufficient data, I'm not making this up.",
+        ],
+        placeholder: 'Write a topic to be analyzed…',
+        analyze: 'Analyze',
+        live: 'Live',
+      },
+    },
+    setup: {
+      eyebrow: 'Setup',
+      segments: [
+        { text: 'No Long Setup Projects.' },
+        { text: 'Connect, Map, Use.', accent: true },
+      ],
+      items: [
+        {
+          title: 'Connect',
+          tag: 'Day 1–2',
+          body: 'ERP, MES, SCADA connection. Your data never leaves your network Leviora reads from your systems without extracting or storing raw data externally.',
+        },
+        {
+          title: 'Map',
+          tag: 'First Week',
+          body: 'Your tables and fields are mapped to the business objects you already use — lines, shifts, machines, orders. Defined through the interface, without writing code.',
+        },
+        {
+          title: 'Use',
+          tag: 'From Week 2',
+          body: 'Your team starts asking questions in everyday language. Every answer arrives with its source and reasoning; authorized actions go live step by step.',
+        },
+      ],
+      panel: {
+        title: 'Your data will not leave here.',
+        network: 'Your Network',
+        center: 'Single Center',
+        other: 'Other Systems',
+        chips: ['ERP', 'MES', 'SCADA', 'CMMS'],
+      },
+    },
+    faq: {
+      eyebrow: 'FAQ',
+      segments: [{ text: 'Honest' }, { text: 'Answers.', accent: true }],
+      items: [
+        {
+          q: 'Is my data safe? Are you KVKK-compliant?',
+          a: "Your data never leaves your network. Leviora reads your systems in real time; it does not copy raw data out or store it externally. Because data never leaves, you're on the safest ground for KVKK too. We're happy to walk through our architecture in detail during the demo.",
+        },
+        {
+          q: "What does Leviora do if it doesn't know the answer?",
+          a: "It says so. If the data is insufficient or the cause cannot be confirmed, Leviora tells you exactly that — what it checked and what is missing. It does not guess, and it does not make things up.",
+        },
+        {
+          q: 'Will it help with anything I ask?',
+          a: "It helps with anything your operational data can answer — production, downtime, quality, maintenance, energy. It is not a general-purpose chatbot; questions outside your operation are out of scope, and it says so honestly.",
+        },
+        {
+          q: 'How much authority does Leviora have?',
+          a: 'Exactly as much as you grant. Every action type is defined and approved by you — from notify-only up to opening work orders. Every action is authorized, logged, and reversible.',
+        },
+        {
+          q: 'How quickly can we start using it?',
+          a: 'Connection takes 1–2 days, mapping happens in the first week, and your team starts using it from week two. An optional 30-day pilot runs on your own data — the decision is entirely yours.',
+        },
+      ],
+    },
+  },
+  cta: {
+    eyebrow: 'Contact Us',
+    segments: [
+      { text: 'Would You Like To See Leviora' },
+      { text: 'Running On Your Own Operation?', accent: true },
+    ],
+    sub: 'A 30-minute demo. A 30-day pilot. The decision is entirely yours.',
+    primary: 'Request A Demo',
+    secondary: 'How Does It Work?',
   },
   nav: {
     home: 'Home',

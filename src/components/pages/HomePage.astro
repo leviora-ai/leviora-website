@@ -3,6 +3,12 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import type { Lang } from '../../i18n/types';
 import { useTranslations } from '../../i18n/ui';
 import HomeHero from './sections/HomeHero.astro';
+import HomeStatement from './sections/HomeStatement.astro';
+import HowItWorks from './sections/HowItWorks.astro';
+import WhyLeviora from './sections/WhyLeviora.astro';
+import HomeSetup from './sections/HomeSetup.astro';
+import FaqAccordion from '../faq/FaqAccordion.astro';
+import CtaBanner from '../cta/CtaBanner.astro';
 
 interface Props {
   lang: Lang;
@@ -19,5 +25,14 @@ const t = useTranslations(lang);
   path="/"
 >
   <HomeHero lang={lang} />
-  {/* Faz 2 devam: CircuitBg, HowItWorks, WhyLeviora, Setup, FAQ, CtaBanner */}
+  <HomeStatement lang={lang} />
+  <HowItWorks lang={lang} />
+  <WhyLeviora lang={lang} />
+  <HomeSetup lang={lang} />
+  <FaqAccordion
+    items={t.home.faq.items}
+    eyebrow={t.home.faq.eyebrow}
+    segments={t.home.faq.segments}
+  />
+  <CtaBanner lang={lang} />
 </BaseLayout>

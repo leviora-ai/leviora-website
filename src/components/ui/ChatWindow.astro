@@ -1,0 +1,227 @@
+---
+import type { ChatWindowDict } from '../../i18n/types';
+
+interface Props {
+  chat: ChatWindowDict;
+}
+
+const { chat } = Astro.props;
+---
+
+<div class="cw" data-reveal>
+  <div class="cw__header">
+    <span class="cw__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="cw__brand">Leviora</span>
+    <span class="cw__live"><i aria-hidden="true"></i>{chat.live}</span>
+  </div>
+
+  <div class="cw__body">
+    <div class="cw__user">{chat.user}</div>
+
+    <div class="cw__ai">
+      <div class="cw__ai-head">
+        <span class="cw__avatar">
+          <img src="/assets/leviora-logo.svg" alt="" width="26" height="26" />
+        </span>
+        <span class="cw__ai-id">
+          <span class="cw__ai-name">
+            {chat.aiName}
+            <small>{chat.aiTime}</small>
+          </span>
+          <small class="cw__ai-meta">{chat.aiMeta}</small>
+        </span>
+      </div>
+      <p class="cw__ai-text">{chat.aiText}</p>
+      <ul class="cw__ai-bullets">
+        {chat.aiBullets.map((b) => <li>{b}</li>)}
+      </ul>
+    </div>
+
+    <div class="cw__input">
+      <span class="cw__placeholder">{chat.placeholder}</span>
+      <span class="cw__analyze">{chat.analyze}</span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .cw {
+    display: flex;
+    flex-direction: column;
+    border-radius: 16px;
+    background: #f9f7fd;
+    overflow: hidden;
+    width: 100%;
+    box-shadow: 0 8px 40px rgba(29, 31, 44, 0.08);
+  }
+
+  .cw__header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 24px;
+    background: var(--purple);
+  }
+
+  .cw__dots {
+    display: flex;
+    gap: 6px;
+  }
+
+  .cw__dots i {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .cw__brand {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 20px;
+    color: #ffffff;
+  }
+
+  .cw__live {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: auto;
+    font-size: 16px;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .cw__live i {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #05df72;
+  }
+
+  .cw__body {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 20px 24px 24px;
+  }
+
+  .cw__user {
+    align-self: flex-end;
+    padding: 16px 18px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.65);
+    border: 1px solid rgba(29, 31, 44, 0.05);
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--ink-2);
+  }
+
+  .cw__ai {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px 18px;
+    border-radius: 12px;
+    background: #f1ebfa;
+  }
+
+  .cw__ai-head {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .cw__avatar {
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    background: #e9defa;
+    border: 0.8px solid #6a3889;
+  }
+
+  .cw__ai-id {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .cw__ai-name {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.2;
+    color: var(--purple);
+  }
+
+  .cw__ai-name small {
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 1.3;
+    color: #777980;
+  }
+
+  .cw__ai-meta {
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 1.3;
+    color: #777980;
+  }
+
+  .cw__ai-text {
+    margin: 0;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--ink-2);
+  }
+
+  .cw__ai-bullets {
+    margin: 0;
+    padding-left: 24px;
+    display: flex;
+    flex-direction: column;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #a5a5ab;
+  }
+
+  .cw__input {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 6px 6px 6px 18px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.32);
+    border: 1px solid rgba(29, 31, 44, 0.08);
+  }
+
+  .cw__placeholder {
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 1.2;
+    color: #a5a5ab;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .cw__analyze {
+    padding: 12px 16px;
+    border-radius: 8px;
+    background: linear-gradient(11.5deg, #4e2f91 0%, #7d499d 71%);
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 1;
+    color: #e9e9ea;
+    white-space: nowrap;
+  }
+</style>

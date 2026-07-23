@@ -2,12 +2,13 @@
 interface Props {
   text: string;
   align?: 'left' | 'center';
+  tone?: 'dark' | 'light';
 }
 
-const { text, align = 'center' } = Astro.props;
+const { text, align = 'center', tone = 'dark' } = Astro.props;
 ---
 
-<p class:list={['eyebrow', `eyebrow--${align}`]}>
+<p class:list={['eyebrow', `eyebrow--${align}`, `eyebrow--${tone}`]}>
   <svg
     class="eyebrow__wing eyebrow__wing--left"
     width="20"
@@ -63,6 +64,10 @@ const { text, align = 'center' } = Astro.props;
 
   .eyebrow--center {
     justify-content: center;
+  }
+
+  .eyebrow--light {
+    color: #777980;
   }
 
   .eyebrow__wing--left {

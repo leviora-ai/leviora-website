@@ -47,8 +47,10 @@ button {
   outline-offset: 2px;
 }
 
-/* ---- Scroll reveal system (reveal.ts adds .in) ---- */
-[data-reveal] {
+/* ---- Scroll reveal system (reveal.ts adds .in) ----
+   Hidden state only applies when JS is running (html.js) so the
+   site stays fully readable without JavaScript. */
+html.js [data-reveal] {
   opacity: 0;
   transform: translateY(var(--reveal-distance));
   transition:
@@ -56,12 +58,12 @@ button {
     transform var(--reveal-duration) var(--ease-out);
 }
 
-[data-reveal].in {
+html.js [data-reveal].in {
   opacity: 1;
   transform: translateY(0);
 }
 
-[data-reveal-stagger] > * {
+html.js [data-reveal-stagger] > * {
   opacity: 0;
   transform: translateY(var(--reveal-distance));
   transition:
@@ -70,7 +72,7 @@ button {
   transition-delay: calc(var(--i, 0) * var(--reveal-stagger));
 }
 
-[data-reveal-stagger].in > * {
+html.js [data-reveal-stagger].in > * {
   opacity: 1;
   transform: translateY(0);
 }
@@ -80,8 +82,8 @@ button {
     scroll-behavior: auto;
   }
 
-  [data-reveal],
-  [data-reveal-stagger] > * {
+  html.js [data-reveal],
+  html.js [data-reveal-stagger] > * {
     opacity: 1;
     transform: none;
     transition: none;

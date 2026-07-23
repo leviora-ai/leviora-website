@@ -20,9 +20,60 @@ export interface HomeHeroDict {
   tabs: { sees: string; understands: string; takesAction: string };
 }
 
+export interface StatementDict {
+  eyebrow: string;
+  titleLine1: string;
+  titleLine2: string;
+  sub: string;
+  cta: string;
+}
+
+export interface HeadingDict {
+  eyebrow: string;
+  segments: { text: string; accent?: boolean }[];
+}
+
+export interface ChatWindowDict {
+  user: string;
+  aiName: string;
+  aiTime: string;
+  aiMeta: string;
+  aiText: string;
+  aiBullets: string[];
+  placeholder: string;
+  analyze: string;
+  live: string;
+}
+
 export interface Dict {
   home: {
     hero: HomeHeroDict;
+    statement: StatementDict;
+    how: HeadingDict & {
+      cards: { title: string; body: string }[];
+    };
+    why: HeadingDict & {
+      bullets: string[];
+      chat: ChatWindowDict;
+    };
+    setup: HeadingDict & {
+      items: { title: string; tag: string; body: string }[];
+      panel: {
+        title: string;
+        network: string;
+        center: string;
+        other: string;
+        chips: string[];
+      };
+    };
+    faq: HeadingDict & {
+      items: { q: string; a: string }[];
+    };
+  };
+  cta: HeadingDict & {
+    sub: string;
+    primary: string;
+    secondary: string;
   };
   nav: {
     home: string;
