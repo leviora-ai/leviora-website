@@ -1,6 +1,36 @@
 import type { Dict } from './types';
 
 export const en: Dict = {
+  home: {
+    hero: {
+      eyebrow: 'Operational AI · Built For Industry',
+      titleLine1: 'We Taught AI The Language',
+      titleLine2: 'Of Your Operation.',
+      ctaPrimary: 'Request A Demo',
+      ctaSecondary: 'How Does It Work?',
+      chips: {
+        erp: 'ERP',
+        mes: 'MES',
+        scada: 'SCADA',
+        cmms: 'CMMS',
+        other: 'Other Systems',
+      },
+      outputsLabel: 'OUTPUTS',
+      outputs: [
+        { title: 'Root-Cause Analysis', desc: '- Builds The Cause Chain' },
+        { title: 'Real-Time Visibility', desc: '- Reads Live Data' },
+        { title: 'Action', desc: '- Acts Within Granted Authority' },
+      ],
+      chatQuestion: "Why Did Line 3's OEE Drop In Last Night's Shift?",
+      chatPlaceholder: 'Write a topic to be analyzed...',
+      analyze: 'Analyze',
+      tabs: {
+        sees: 'Sees',
+        understands: 'Understands',
+        takesAction: 'Takes Action',
+      },
+    },
+  },
   nav: {
     home: 'Home',
     product: 'Product',

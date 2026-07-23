@@ -1,6 +1,36 @@
 import type { Dict } from './types';
 
 export const tr: Dict = {
+  home: {
+    hero: {
+      eyebrow: 'Operasyonel Yapay Zekâ · Sanayi İçin',
+      titleLine1: 'Yapay zekâya operasyonunuzun',
+      titleLine2: 'dilini öğrettik.',
+      ctaPrimary: 'Demo Talep Et',
+      ctaSecondary: 'Nasıl çalışır?',
+      chips: {
+        erp: 'ERP',
+        mes: 'MES',
+        scada: 'SCADA',
+        cmms: 'CMMS',
+        other: 'Diğer Sistemler',
+      },
+      outputsLabel: 'ÇIKTILAR',
+      outputs: [
+        { title: 'Kök Neden Analizi', desc: '- neden zincirini kurar' },
+        { title: 'Gerçek Zamanlı Görünürlük', desc: '- canlı veriyi okur' },
+        { title: 'Aksiyon', desc: '- verilen yetki içinde hareket eder' },
+      ],
+      chatQuestion: '3. hattın OEE değeri dün gece vardiyasında neden düştü?',
+      chatPlaceholder: 'Analiz edilecek konuyu yazın...',
+      analyze: 'Analiz et',
+      tabs: {
+        sees: 'Görür',
+        understands: 'Anlar',
+        takesAction: 'Harekete Geçer',
+      },
+    },
+  },
   nav: {
     home: 'Ana Sayfa',
     product: 'Ürün',

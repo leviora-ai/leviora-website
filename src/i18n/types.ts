@@ -5,7 +5,25 @@ export interface MetaDict {
   description: string;
 }
 
+export interface HomeHeroDict {
+  eyebrow: string;
+  titleLine1: string;
+  titleLine2: string;
+  ctaPrimary: string;
+  ctaSecondary: string;
+  chips: { erp: string; mes: string; scada: string; cmms: string; other: string };
+  outputsLabel: string;
+  outputs: { title: string; desc: string }[];
+  chatQuestion: string;
+  chatPlaceholder: string;
+  analyze: string;
+  tabs: { sees: string; understands: string; takesAction: string };
+}
+
 export interface Dict {
+  home: {
+    hero: HomeHeroDict;
+  };
   nav: {
     home: string;
     product: string;

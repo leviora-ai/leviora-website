@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import type { Lang } from '../../i18n/types';
 import { useTranslations } from '../../i18n/ui';
+import HomeHero from './sections/HomeHero.astro';
 
 interface Props {
   lang: Lang;
@@ -17,17 +18,6 @@ const t = useTranslations(lang);
   description={t.meta.home.description}
   path="/"
 >
-  {/* Faz 2: HomeHero + HeroGraph, CircuitBg, HowItWorks, WhyLeviora, Setup, FAQ, CtaBanner */}
-  <section class="placeholder">
-    <h1>{t.meta.home.title}</h1>
-  </section>
+  <HomeHero lang={lang} />
+  {/* Faz 2 devam: CircuitBg, HowItWorks, WhyLeviora, Setup, FAQ, CtaBanner */}
 </BaseLayout>
-
-<style>
-  .placeholder {
-    min-height: 60vh;
-    display: grid;
-    place-items: center;
-    padding: var(--section-pad) var(--pad);
-  }
-</style>

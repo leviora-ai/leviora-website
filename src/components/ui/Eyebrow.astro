@@ -1,0 +1,71 @@
+---
+interface Props {
+  text: string;
+  align?: 'left' | 'center';
+}
+
+const { text, align = 'center' } = Astro.props;
+---
+
+<p class:list={['eyebrow', `eyebrow--${align}`]}>
+  <svg
+    class="eyebrow__wing eyebrow__wing--left"
+    width="20"
+    height="20"
+    viewBox="0 0 20 20"
+    fill="none"
+    aria-hidden="true"
+  >
+    <path
+      d="M20 13.3343L16.0065 20L12.0042 13.34L3.99643 13.3343L0 6.6743L8.00773 6.66572L11.9982 0H20L16.0065 6.66572L20 13.3343Z"
+      fill="url(#eyebrow-grad)"></path>
+    <defs>
+      <linearGradient
+        id="eyebrow-grad"
+        x1="0"
+        y1="10"
+        x2="20"
+        y2="10"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop stop-color="#8158A4"></stop>
+        <stop offset="0.99" stop-color="#F0E2EF"></stop>
+      </linearGradient>
+    </defs>
+  </svg>
+  <span>{text}</span>
+  <svg
+    class="eyebrow__wing"
+    width="20"
+    height="20"
+    viewBox="0 0 20 20"
+    fill="none"
+    aria-hidden="true"
+  >
+    <path
+      d="M20 13.3343L16.0065 20L12.0042 13.34L3.99643 13.3343L0 6.6743L8.00773 6.66572L11.9982 0H20L16.0065 6.66572L20 13.3343Z"
+      fill="url(#eyebrow-grad)"></path>
+  </svg>
+</p>
+
+<style>
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0;
+    font-family: var(--sans);
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.1;
+    color: #ffffff;
+  }
+
+  .eyebrow--center {
+    justify-content: center;
+  }
+
+  .eyebrow__wing--left {
+    transform: rotate(180deg) scaleY(-1);
+  }
+</style>
