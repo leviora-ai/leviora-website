@@ -79,6 +79,16 @@ export interface Dict {
         other: string;
         chips: string[];
       };
+      mapView: {
+        title: string;
+        pairs: { from: string; to: string }[];
+      };
+      useView: {
+        title: string;
+        question: string;
+        answer: string;
+        meta: string;
+      };
     };
     faq: HeadingDict & {
       items: { q: string; a: string }[];

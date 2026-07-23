@@ -126,6 +126,21 @@ export const tr: Dict = {
         other: 'Diğer Sistemler',
         chips: ['ERP', 'MES', 'SCADA', 'CMMS'],
       },
+      mapView: {
+        title: 'Tablolar iş kavramlarına dönüşür.',
+        pairs: [
+          { from: 'PRD_ORD_T', to: 'Sipariş' },
+          { from: 'MCH_STA_01', to: 'Makine' },
+          { from: 'SHFT_LOG_V2', to: 'Vardiya' },
+          { from: 'DT_EVNT_RAW', to: 'Duruş' },
+        ],
+      },
+      useView: {
+        title: 'Ekibiniz sadece sorar.',
+        question: 'Bu hafta en çok duruş hangi hatta oldu?',
+        answer: 'Hat 2 — 41 dakika; çoğu vardiya geçişlerinde.',
+        meta: 'Kaynağı ve gerekçesi ekli',
+      },
     },
     faq: {
       eyebrow: 'Sık Sorulan Sorular',

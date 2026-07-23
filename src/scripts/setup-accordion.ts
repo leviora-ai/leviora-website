@@ -8,12 +8,17 @@ for (const list of document.querySelectorAll<HTMLElement>('[data-setup-list]')) 
   let timer: ReturnType<typeof setInterval> | null = null;
   let userTookOver = false;
 
+  const panel = list.closest('section')?.querySelector<HTMLElement>('[data-setup-panel]');
+  const views = panel ? Array.from(panel.querySelectorAll<HTMLElement>('.setup-view')) : [];
+
   const activate = (index: number) => {
     current = index;
     items.forEach((item, i) => {
       item.classList.toggle('setup-item--active', i === index);
       item.setAttribute('aria-expanded', String(i === index));
     });
+    panel?.setAttribute('data-step', String(index));
+    views.forEach((view, i) => view.setAttribute('aria-hidden', String(i !== index)));
   };
 
   const stop = () => {

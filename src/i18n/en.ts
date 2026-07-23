@@ -126,6 +126,21 @@ export const en: Dict = {
         other: 'Other Systems',
         chips: ['ERP', 'MES', 'SCADA', 'CMMS'],
       },
+      mapView: {
+        title: 'Tables become business objects.',
+        pairs: [
+          { from: 'PRD_ORD_T', to: 'Order' },
+          { from: 'MCH_STA_01', to: 'Machine' },
+          { from: 'SHFT_LOG_V2', to: 'Shift' },
+          { from: 'DT_EVNT_RAW', to: 'Downtime' },
+        ],
+      },
+      useView: {
+        title: 'Your team just asks.',
+        question: 'Which line had the most downtime this week?',
+        answer: 'Line 2 — 41 minutes, mostly during shift changeovers.',
+        meta: 'Source and reasoning attached',
+      },
     },
     faq: {
       eyebrow: 'FAQ',
