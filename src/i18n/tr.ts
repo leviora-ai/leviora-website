@@ -3,7 +3,7 @@ import type { Dict } from './types';
 export const tr: Dict = {
   home: {
     hero: {
-      eyebrow: 'Operasyonel Yapay Zekâ · Sanayi İçin',
+      eyebrow: 'Sanayiye Özel Operasyonel Yapay Zekâ',
       titleLine1: 'Yapay zekâya',
       titleLine2: 'operasyonunuzun dilini öğrettik.',
       ctaPrimary: 'Demo Talep Edin',
@@ -28,6 +28,11 @@ export const tr: Dict = {
         sees: 'Görür',
         understands: 'Anlar',
         takesAction: 'Harekete Geçer',
+      },
+      tabAnswers: {
+        sees: 'OEE %72 — son 2 saatte 18 dakika plansız duruş var.',
+        understands: 'Kök neden: B kalıbı değişimi standart sürenin 3 katını aştı.',
+        takesAction: 'Vardiya amirine bildirim gönderildi — onayınız bekleniyor.',
       },
     },
     statement: {
@@ -84,6 +89,8 @@ export const tr: Dict = {
           'Yoğunlaşma güne bağlı (9 Haziran), makineye değil.',
           'Ana neden doğrulanamadı; veri yetersiz. Uydurmuyorum.',
         ],
+        chart: [28, 35, 22, 30, 26, 32, 24, 30, 92, 34, 27, 31, 25, 29],
+        chartCaption: 'Günlere göre hatalar — son 14 gün',
         placeholder: 'Analiz edilecek konuyu yazın...',
         analyze: 'Analiz et',
         live: 'Canlı',
@@ -228,6 +235,8 @@ export const tr: Dict = {
           aiMeta: 'Veri Analisti · 9 adım · 923 ms · Ayrıntılar',
           aiText:
             'Yüzde 72; hedef yüzde 85. Son 2 saatte 18 dakika plansız duruş var. En büyük neden B kalıbının değişimi: standart 10 dakikayken 22 dakika sürmüş.',
+          chart: [82, 79, 76, 71, 68, 72],
+          chartCaption: 'Saatlik OEE — 3. hat',
           source: 'operasyon verinizden',
           sourceLink: 'Kaynağı Gör',
           placeholder: 'Analiz edilecek konuyu yazın...',
@@ -287,7 +296,7 @@ export const tr: Dict = {
   },
   solutions: {
     hero: {
-      eyebrow: 'Operasyonel Yapay Zekâ · Sanayi İçin',
+      eyebrow: 'Sanayiye Özel Operasyonel Yapay Zekâ',
       titleLine1: 'Operasyon olan her yerde',
       titleLine2: 'Leviora var.',
       sub: 'Bir sektör listesi değil; makinelerin, insanların ve kararların buluştuğu her yere uyan bir çalışma biçimi.',
@@ -475,9 +484,9 @@ export const tr: Dict = {
   },
   meta: {
     home: {
-      title: 'Leviora — Sanayi İçin Operasyonel Yapay Zekâ',
+      title: 'Leviora — Sanayiye Özel Operasyonel Yapay Zekâ',
       description:
-        'Leviora, operasyonunuzun tamamındaki canlı veriyi okur; yönetilen cevaplara ve aksiyona dönüştürür. Yapay zekâya operasyonunuzun dilini öğrettik.',
+        'Leviora, operasyonunuzun tamamındaki canlı veriyi okur; güvenilir cevaba ve aksiyona dönüştürür. Yapay zekâya operasyonunuzun dilini öğrettik.',
     },
     product: {
       title: 'Ürün — Leviora',

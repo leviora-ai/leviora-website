@@ -56,6 +56,18 @@ const { chat } = Astro.props;
         )
       }
       {
+        chat.chart && (
+          <div class="cw__chart" data-msg>
+            <div class="cw__chart-bars" aria-hidden="true">
+              {chat.chart.map((v, i) => (
+                <i style={`height:${v}%;--i:${i}`} class:list={[{ 'cw__bar--hot': v >= 80 }]} />
+              ))}
+            </div>
+            {chat.chartCaption && <p class="cw__chart-caption">{chat.chartCaption}</p>}
+          </div>
+        )
+      }
+      {
         chat.source && (
           <p class="cw__source">
             {chat.source}
@@ -65,7 +77,7 @@ const { chat } = Astro.props;
       }
     </div>
 
-    <div class="cw__input" data-msg>
+    <div class="cw__input">
       <span class="cw__placeholder">{chat.placeholder}</span>
       <span class="cw__analyze">{chat.analyze}</span>
     </div>
@@ -294,6 +306,56 @@ const { chat } = Astro.props;
     line-height: 1;
     color: #e9e9ea;
     white-space: nowrap;
+  }
+
+  /* ---- Mini chart inside the AI answer ---- */
+  .cw__chart {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 14px 16px 12px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.75);
+    border: 1px solid rgba(78, 47, 144, 0.14);
+  }
+
+  .cw__chart-bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 6px;
+    height: 72px;
+  }
+
+  .cw__chart-bars i {
+    flex: 1;
+    border-radius: 3px 3px 0 0;
+    background: linear-gradient(to top, rgba(78, 47, 144, 0.35), rgba(149, 130, 189, 0.55));
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 500ms var(--ease-out);
+    transition-delay: calc(var(--i, 0) * 55ms + 150ms);
+  }
+
+  .cw__chart-bars i.cw__bar--hot {
+    background: linear-gradient(to top, #4e2f90, #7d499d);
+  }
+
+  .cw__chart.msg-in .cw__chart-bars i {
+    transform: scaleY(1);
+  }
+
+  .cw__chart-caption {
+    margin: 0;
+    font-weight: 300;
+    font-size: 12px;
+    color: #777980;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cw__chart-bars i {
+      transform: scaleY(1);
+      transition: none;
+    }
   }
 
   /* ---- Typing indicator (shown/hidden by chat-play.ts) ---- */

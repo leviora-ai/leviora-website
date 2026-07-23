@@ -29,6 +29,11 @@ export const en: Dict = {
         understands: 'Understands',
         takesAction: 'Takes Action',
       },
+      tabAnswers: {
+        sees: 'OEE is 72% — 18 minutes of unplanned downtime in the last 2 hours.',
+        understands: 'Root cause: Mold B changeover took 3× the standard time.',
+        takesAction: 'Shift supervisor notified — pending your approval.',
+      },
     },
     statement: {
       eyebrow: 'Operation-Specific Artificial Intelligence',
@@ -84,6 +89,8 @@ export const en: Dict = {
           'Concentration is daily (June 9th), not machine-based.',
           "The main cause could not be confirmed; insufficient data, I'm not making this up.",
         ],
+        chart: [28, 35, 22, 30, 26, 32, 24, 30, 92, 34, 27, 31, 25, 29],
+        chartCaption: 'Errors by day — last 14 days',
         placeholder: 'Write a topic to be analyzed…',
         analyze: 'Analyze',
         live: 'Live',
@@ -228,6 +235,8 @@ export const en: Dict = {
           aiMeta: 'Data Analyst · 9 steps · 923ms · Details',
           aiText:
             '72%. Target 85%. 18 minutes of unplanned downtime in the last 2 hours. Largest cause: Mold B changeover — 22 min against 10 min standard.',
+          chart: [82, 79, 76, 71, 68, 72],
+          chartCaption: 'OEE by hour — Line 3',
           source: 'from your operational data',
           sourceLink: 'View Source',
           placeholder: 'Write a topic to be analyzed…',

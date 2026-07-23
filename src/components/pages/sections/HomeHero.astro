@@ -92,7 +92,20 @@ const leftChips = [
             <span class="chat__dot" aria-hidden="true"><i></i></span>
             <p>{h.chatQuestion}</p>
           </div>
-          <div class="chat__input" data-msg>
+          <div
+            class="chat__answer"
+            data-msg
+            data-tab-answer
+            data-a-0={h.tabAnswers.sees}
+            data-a-1={h.tabAnswers.understands}
+            data-a-2={h.tabAnswers.takesAction}
+          >
+            <span class="chat__avatar" aria-hidden="true">
+              <img src="/assets/leviora-icon.svg" alt="" width="16" height="16" />
+            </span>
+            <p>{h.tabAnswers.sees}</p>
+          </div>
+          <div class="chat__input">
             <span class="chat__placeholder">{h.chatPlaceholder}</span>
             <span class="chat__analyze">
               {h.analyze}
@@ -108,7 +121,7 @@ const leftChips = [
               </span>
             </span>
           </div>
-          <div class="chat__tabs" role="presentation" data-msg>
+          <div class="chat__tabs" role="presentation">
             <span class="chat__tab chat__tab--active">{h.tabs.sees}</span>
             <span class="chat__tab">{h.tabs.understands}</span>
             <span class="chat__tab">{h.tabs.takesAction}</span>
@@ -329,6 +342,40 @@ const leftChips = [
     font-size: 16px;
     line-height: 1.5;
     color: #ffffff;
+  }
+
+  .chat__answer {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: rgba(78, 47, 144, 0.18);
+    border: 1px solid rgba(78, 47, 144, 0.4);
+  }
+
+  .chat__avatar {
+    display: grid;
+    place-items: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 7px;
+    background: rgba(233, 222, 250, 0.12);
+    border: 0.8px solid rgba(149, 130, 189, 0.5);
+    flex-shrink: 0;
+  }
+
+  .chat__answer p {
+    margin: 0;
+    font-weight: 300;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--ink-inverse);
+    transition: opacity 200ms var(--ease-out);
+  }
+
+  .chat__answer.swapping p {
+    opacity: 0;
   }
 
   .chat__input {

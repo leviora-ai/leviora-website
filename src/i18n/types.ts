@@ -18,6 +18,7 @@ export interface HomeHeroDict {
   chatPlaceholder: string;
   analyze: string;
   tabs: { sees: string; understands: string; takesAction: string };
+  tabAnswers: { sees: string; understands: string; takesAction: string };
 }
 
 export interface StatementDict {
@@ -41,6 +42,8 @@ export interface ChatWindowDict {
   aiText: string;
   aiBullets?: string[];
   facts?: { label: string; value: string }[];
+  chart?: number[];
+  chartCaption?: string;
   source?: string;
   sourceLink?: string;
   placeholder: string;

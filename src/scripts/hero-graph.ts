@@ -2,8 +2,12 @@
 const graph = document.querySelector<HTMLElement>('[data-graph]');
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-// Cycle the Sees / Understands / Takes Action tabs for a "live" feel.
+// Cycle the Sees / Understands / Takes Action tabs and swap the AI answer
+// content with them, so the demo shows real output for each capability.
 const tabs = graph ? Array.from(graph.querySelectorAll<HTMLElement>('.chat__tab')) : [];
+const answer = graph?.querySelector<HTMLElement>('[data-tab-answer]') ?? null;
+const answerText = answer?.querySelector<HTMLElement>('p') ?? null;
+
 if (tabs.length > 1 && !reduced) {
   let current = tabs.findIndex((t) => t.classList.contains('chat__tab--active'));
   setInterval(() => {
@@ -11,7 +15,16 @@ if (tabs.length > 1 && !reduced) {
     tabs[current]?.classList.remove('chat__tab--active');
     current = (current + 1) % tabs.length;
     tabs[current]?.classList.add('chat__tab--active');
-  }, 2400);
+
+    const next = answer?.getAttribute(`data-a-${current}`);
+    if (answer && answerText && next) {
+      answer.classList.add('swapping');
+      setTimeout(() => {
+        answerText.textContent = next;
+        answer.classList.remove('swapping');
+      }, 200);
+    }
+  }, 3000);
 }
 
 if (graph) {
