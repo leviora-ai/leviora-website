@@ -87,12 +87,12 @@ const leftChips = [
           height="407"
           fetchpriority="high"
         />
-        <div class="chat" data-reveal>
-          <div class="chat__question">
+        <div class="chat" data-reveal data-chat-seq>
+          <div class="chat__question" data-msg>
             <span class="chat__dot" aria-hidden="true"><i></i></span>
             <p>{h.chatQuestion}</p>
           </div>
-          <div class="chat__input">
+          <div class="chat__input" data-msg>
             <span class="chat__placeholder">{h.chatPlaceholder}</span>
             <span class="chat__analyze">
               {h.analyze}
@@ -108,7 +108,7 @@ const leftChips = [
               </span>
             </span>
           </div>
-          <div class="chat__tabs" role="presentation">
+          <div class="chat__tabs" role="presentation" data-msg>
             <span class="chat__tab chat__tab--active">{h.tabs.sees}</span>
             <span class="chat__tab">{h.tabs.understands}</span>
             <span class="chat__tab">{h.tabs.takesAction}</span>

@@ -77,13 +77,28 @@ html.js [data-reveal-stagger].in > * {
   transform: translateY(0);
 }
 
+/* ---- Chat message sequence (chat-play.ts adds .msg-in in order) ---- */
+html.js [data-msg] {
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity 400ms var(--ease-out),
+    transform 400ms var(--ease-out);
+}
+
+html.js [data-msg].msg-in {
+  opacity: 1;
+  transform: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
 
   html.js [data-reveal],
-  html.js [data-reveal-stagger] > * {
+  html.js [data-reveal-stagger] > *,
+  html.js [data-msg] {
     opacity: 1;
     transform: none;
     transition: none;
