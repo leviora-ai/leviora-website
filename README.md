@@ -23,6 +23,11 @@ cd api && npm install && npm run dev # api  → http://localhost:8080
 docker build -t leviora-website:dev .
 docker build -t leviora-website-api:dev -f api/Dockerfile api/
 docker run --rm -p 8080:8080 leviora-website:dev
+
+# Tam yerel deploy (web + api, form dahil) → http://localhost:8088
+docker build -t leviora-website:local . && docker build -t leviora-website-api:local -f api/Dockerfile api/
+docker compose -f compose.local.yml up -d
+# Gerçek mail testi: RESEND_API_KEY=re_... docker compose -f compose.local.yml up -d
 ```
 
 Kontroller: `npm run check` (astro check), `npm run build`, `kubectl kustomize k8s/`.
