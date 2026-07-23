@@ -42,8 +42,7 @@ const columns = [
   <div class="footer__inner">
     <div class="footer__brand">
       <a href={localizePath('/', lang)} aria-label="Leviora">
-        <img src="/assets/leviora-logo.svg" alt="" width="32" height="32" />
-        <span>LEVIORA</span>
+        <img src="/assets/leviora-wordmark.svg" alt="Leviora" width="207" height="42" />
       </a>
       <p>{t.footer.tagline}</p>
     </div>
@@ -93,12 +92,8 @@ const columns = [
   }
 
   .footer__brand a {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 10px;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-decoration: none;
   }
 
   .footer__brand p {
