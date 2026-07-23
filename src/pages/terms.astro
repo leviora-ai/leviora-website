@@ -1,0 +1,17 @@
+---
+import LegalLayout from '../layouts/LegalLayout.astro';
+import { useTranslations } from '../i18n/ui';
+
+const t = useTranslations('en');
+---
+
+<LegalLayout
+  lang="en"
+  title={t.meta.terms.title}
+  description={t.meta.terms.description}
+  path="/terms/"
+  heading={t.footer.terms}
+>
+  {/* Faz 3: legal icerik i18n sozlugunden gelecek */}
+  <p>{t.meta.terms.description}</p>
+</LegalLayout>

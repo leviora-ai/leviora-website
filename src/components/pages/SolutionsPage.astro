@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import type { Lang } from '../../i18n/types';
+import { useTranslations } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<BaseLayout
+  lang={lang}
+  title={t.meta.solutions.title}
+  description={t.meta.solutions.description}
+  path="/solutions/"
+>
+  {/* Faz 3: SolutionsHero, ScenarioTable, capability rows, Packages, NotForEveryone, CtaBanner */}
+  <section class="placeholder">
+    <h1>{t.meta.solutions.title}</h1>
+  </section>
+</BaseLayout>
+
+<style>
+  .placeholder {
+    min-height: 60vh;
+    display: grid;
+    place-items: center;
+    padding: var(--section-pad) var(--pad);
+  }
+</style>

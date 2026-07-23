@@ -1,0 +1,54 @@
+---
+import type { Lang } from '../../i18n/types';
+import { localizePath, otherLang } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  path: string;
+}
+
+const { lang, path } = Astro.props;
+const other = otherLang(lang);
+const labels: Record<Lang, string> = { en: 'English', tr: 'Türkçe' };
+---
+
+<div class="lang">
+  <span class="lang__current">{labels[lang]}</span>
+  <span class="lang__sep" aria-hidden="true">·</span>
+  <a
+    class="lang__other"
+    href={localizePath(path, other)}
+    lang={other}
+    hreflang={other}
+  >
+    {labels[other]}
+  </a>
+</div>
+
+<style>
+  .lang {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+  }
+
+  .lang__current {
+    color: var(--ink-inverse);
+    font-weight: 600;
+  }
+
+  .lang__sep {
+    color: var(--ink-inverse-3);
+  }
+
+  .lang__other {
+    color: var(--ink-inverse-3);
+    text-decoration: none;
+    transition: color var(--hover-duration) var(--ease-out);
+  }
+
+  .lang__other:hover {
+    color: var(--ink-inverse);
+  }
+</style>

@@ -1,0 +1,50 @@
+/* Leviora marketing site design tokens.
+   Provisional values — verified against Figma variables in Phase 1
+   (file 5JyYz4ob9uX9bvvqBADLSW). Dark cinematic theme, purple accent. */
+:root {
+  /* Surfaces */
+  --bg-deep: #08030f;
+  --bg-dark: #0d0618;
+  --bg-panel: #150b26;
+  --bg-light: #ffffff;
+  --bg-light-2: #f7f5fc;
+
+  /* Ink on dark */
+  --ink-inverse: #ffffff;
+  --ink-inverse-2: #cfc6e4;
+  --ink-inverse-3: #8f84ab;
+
+  /* Ink on light */
+  --ink: #17111f;
+  --ink-2: #4a4258;
+  --ink-3: #7a7290;
+
+  /* Accent */
+  --purple: #7b5cf0;
+  --purple-strong: #5b34d1;
+  --purple-soft: #b9a7f5;
+  --purple-tint: #efeafd;
+
+  /* Lines */
+  --hair-dark: rgba(255, 255, 255, 0.1);
+  --hair-light: rgba(23, 17, 31, 0.12);
+
+  /* Type */
+  --sans: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  /* Layout */
+  --max: 1280px;
+  --pad: clamp(20px, 4vw, 56px);
+  --section-pad: clamp(72px, 10vw, 140px);
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 24px;
+
+  /* Motion (brief §5) */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --reveal-duration: 380ms;
+  --reveal-distance: 20px;
+  --reveal-stagger: 70ms;
+  --hover-duration: 180ms;
+}

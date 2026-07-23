@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import type { Lang } from '../../i18n/types';
+import { useTranslations } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<BaseLayout
+  lang={lang}
+  title={t.meta.product.title}
+  description={t.meta.product.description}
+  path="/product/"
+>
+  {/* Faz 3: ProductHero + DiamondDiagram, ThreeLayers, capability rows, FAQ, CtaBanner */}
+  <section class="placeholder">
+    <h1>{t.meta.product.title}</h1>
+  </section>
+</BaseLayout>
+
+<style>
+  .placeholder {
+    min-height: 60vh;
+    display: grid;
+    place-items: center;
+    padding: var(--section-pad) var(--pad);
+  }
+</style>

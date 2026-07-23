@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import type { Lang } from '../../i18n/types';
+import { useTranslations } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<BaseLayout
+  lang={lang}
+  title={t.meta.contact.title}
+  description={t.meta.contact.description}
+  path="/contact/"
+>
+  {/* Faz 3: ContactHero + ContactForm, ContactSteps, FAQ */}
+  <section class="placeholder">
+    <h1>{t.meta.contact.title}</h1>
+  </section>
+</BaseLayout>
+
+<style>
+  .placeholder {
+    min-height: 60vh;
+    display: grid;
+    place-items: center;
+    padding: var(--section-pad) var(--pad);
+  }
+</style>

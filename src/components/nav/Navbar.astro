@@ -1,0 +1,108 @@
+---
+import type { Lang } from '../../i18n/types';
+import { useTranslations, localizePath } from '../../i18n/ui';
+import LangDropdown from './LangDropdown.astro';
+import Button from '../ui/Button.astro';
+
+interface Props {
+  lang: Lang;
+  /** Language-neutral path of the current page. */
+  path: string;
+}
+
+const { lang, path } = Astro.props;
+const t = useTranslations(lang);
+
+const links = [
+  { href: '/', label: t.nav.home },
+  { href: '/product/', label: t.nav.product },
+  { href: '/solutions/', label: t.nav.solutions },
+  { href: '/about/', label: t.nav.about },
+];
+---
+
+<header class="nav">
+  <div class="nav__inner">
+    <a class="nav__brand" href={localizePath('/', lang)} aria-label="Leviora">
+      <img src="/assets/leviora-logo.svg" alt="" width="28" height="28" />
+      <span>LEVIORA</span>
+    </a>
+
+    <nav class="nav__links" aria-label="Main">
+      {
+        links.map((link) => (
+          <a
+            href={localizePath(link.href, lang)}
+            aria-current={link.href === path ? 'page' : undefined}
+          >
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="nav__actions">
+      <LangDropdown lang={lang} path={path} />
+      <Button href={localizePath('/contact/', lang)}>{t.nav.requestDemo}</Button>
+    </div>
+  </div>
+</header>
+
+<style>
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--bg-deep) 82%, transparent);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--hair-dark);
+  }
+
+  .nav__inner {
+    max-width: var(--max);
+    margin-inline: auto;
+    padding: 14px var(--pad);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .nav__brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-decoration: none;
+  }
+
+  .nav__links {
+    display: flex;
+    gap: 28px;
+  }
+
+  .nav__links a {
+    text-decoration: none;
+    font-size: 15px;
+    color: var(--ink-inverse-2);
+    transition: color var(--hover-duration) var(--ease-out);
+  }
+
+  .nav__links a:hover,
+  .nav__links a[aria-current='page'] {
+    color: var(--ink-inverse);
+  }
+
+  .nav__actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  @media (max-width: 900px) {
+    .nav__links {
+      display: none;
+    }
+  }
+</style>

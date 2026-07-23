@@ -1,0 +1,69 @@
+---
+interface Props {
+  href?: string;
+  variant?: 'primary' | 'secondary' | 'ghost';
+  type?: 'button' | 'submit';
+  id?: string;
+}
+
+const { href, variant = 'primary', type = 'button', id } = Astro.props;
+const Tag = href ? 'a' : 'button';
+---
+
+<Tag
+  class:list={['btn', `btn--${variant}`]}
+  href={href}
+  type={href ? undefined : type}
+  id={id}
+>
+  <slot />
+</Tag>
+
+<style>
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 22px;
+    border-radius: var(--radius-sm);
+    border: 1px solid transparent;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 1;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+      background var(--hover-duration) var(--ease-out),
+      border-color var(--hover-duration) var(--ease-out),
+      transform var(--hover-duration) var(--ease-out);
+  }
+
+  .btn:hover {
+    transform: scale(1.02);
+  }
+
+  .btn--primary {
+    background: var(--purple-strong);
+    color: var(--ink-inverse);
+  }
+
+  .btn--primary:hover {
+    background: var(--purple);
+  }
+
+  .btn--secondary {
+    background: transparent;
+    color: var(--ink-inverse);
+    border-color: var(--hair-dark);
+  }
+
+  .btn--secondary:hover {
+    border-color: var(--purple-soft);
+  }
+
+  .btn--ghost {
+    background: transparent;
+    color: var(--ink-inverse-2);
+    padding-inline: 8px;
+  }
+</style>

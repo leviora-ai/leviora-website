@@ -1,0 +1,17 @@
+---
+import LegalLayout from '../../layouts/LegalLayout.astro';
+import { useTranslations } from '../../i18n/ui';
+
+const t = useTranslations('tr');
+---
+
+<LegalLayout
+  lang="tr"
+  title={t.meta.kvkk.title}
+  description={t.meta.kvkk.description}
+  path="/kvkk/"
+  heading={t.footer.kvkk}
+>
+  {/* Faz 3: legal icerik i18n sozlugunden gelecek */}
+  <p>{t.meta.kvkk.description}</p>
+</LegalLayout>

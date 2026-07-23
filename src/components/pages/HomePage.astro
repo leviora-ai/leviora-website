@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import type { Lang } from '../../i18n/types';
+import { useTranslations } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<BaseLayout
+  lang={lang}
+  title={t.meta.home.title}
+  description={t.meta.home.description}
+  path="/"
+>
+  {/* Faz 2: HomeHero + HeroGraph, CircuitBg, HowItWorks, WhyLeviora, Setup, FAQ, CtaBanner */}
+  <section class="placeholder">
+    <h1>{t.meta.home.title}</h1>
+  </section>
+</BaseLayout>
+
+<style>
+  .placeholder {
+    min-height: 60vh;
+    display: grid;
+    place-items: center;
+    padding: var(--section-pad) var(--pad);
+  }
+</style>
