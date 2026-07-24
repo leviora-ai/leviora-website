@@ -15,7 +15,7 @@ export const tr: Dict = {
         cmms: 'CMMS',
         other: 'Diğer Sistemler',
       },
-      outputsLabel: 'ÇIKTILAR',
+      outputsLabel: 'TAHMİNLER',
       outputs: [
         { title: 'Kök Neden Analizi', desc: 'sebep zincirini kurar', tab: 'understands' },
         { title: 'Anlık Görünürlük', desc: 'canlı veriyi okur', tab: 'sees' },
@@ -42,7 +42,7 @@ export const tr: Dict = {
     statement: {
       eyebrow: 'OPERASYONUN OLDUĞU HER YER',
       titleLine1: 'Üretim hattından enerji santraline,',
-      titleLine2: 'depodan proses tesisine.',
+      titleLine2: 'depodan üretim tesisine.',
       cta: 'Demo Talep Edin',
       industries: [
         'Otomotiv & yan sanayi',

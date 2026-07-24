@@ -51,11 +51,11 @@ const s = t.home.setup;
           </div>
 
           <svg class="setup__lines" viewBox="0 0 726 372" fill="none" aria-hidden="true">
-            <path class="flow" d="M556 22 C 420 30, 320 120, 240 176"></path>
-            <path class="flow" d="M556 94 C 440 100, 340 150, 240 182"></path>
-            <path class="flow" d="M556 186 C 460 186, 330 186, 245 186"></path>
-            <path class="flow" d="M556 282 C 440 270, 340 220, 240 192"></path>
-            <path class="flow" d="M556 354 C 420 340, 320 240, 240 198"></path>
+            <path class="flow" d="M170 22 C 306 30, 406 120, 486 176"></path>
+            <path class="flow" d="M170 94 C 286 100, 386 150, 486 182"></path>
+            <path class="flow" d="M170 186 C 266 186, 396 186, 481 186"></path>
+            <path class="flow" d="M170 282 C 286 270, 386 220, 486 192"></path>
+            <path class="flow" d="M170 354 C 306 340, 406 240, 486 198"></path>
             <circle class="dot dot--1" r="3.5"></circle>
             <circle class="dot dot--2" r="3.5"></circle>
             <circle class="dot dot--3" r="3.5"></circle>
@@ -419,14 +419,14 @@ const s = t.home.setup;
 
   .setup__photo {
     position: absolute;
-    left: 0;
+    right: 0;
     top: 0;
     height: 100%;
     width: 60%;
     object-fit: cover;
     opacity: 0.35;
-    mask-image: linear-gradient(to right, black 40%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to right, black 40%, transparent 100%);
+    mask-image: linear-gradient(to left, black 40%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to left, black 40%, transparent 100%);
   }
 
   .setup__panel-head {
@@ -489,26 +489,26 @@ const s = t.home.setup;
   }
 
   .dot--1 {
-    offset-path: path('M556 22 C 420 30, 320 120, 240 176');
+    offset-path: path('M170 22 C 306 30, 406 120, 486 176');
   }
 
   .dot--2 {
-    offset-path: path('M556 94 C 440 100, 340 150, 240 182');
+    offset-path: path('M170 94 C 286 100, 386 150, 486 182');
     animation-delay: 0.6s;
   }
 
   .dot--3 {
-    offset-path: path('M556 186 C 460 186, 330 186, 245 186');
+    offset-path: path('M170 186 C 266 186, 396 186, 481 186');
     animation-delay: 1.2s;
   }
 
   .dot--4 {
-    offset-path: path('M556 282 C 440 270, 340 220, 240 192');
+    offset-path: path('M170 282 C 286 270, 386 220, 486 192');
     animation-delay: 1.8s;
   }
 
   .dot--5 {
-    offset-path: path('M556 354 C 420 340, 320 240, 240 198');
+    offset-path: path('M170 354 C 306 340, 406 240, 486 198');
     animation-delay: 2.4s;
   }
 
@@ -531,22 +531,24 @@ const s = t.home.setup;
 
   .setup__center {
     position: absolute;
-    left: 26%;
+    left: 74%;
     top: 52%;
     transform: translate(-50%, -50%);
     z-index: 2;
     display: flex;
+    flex-direction: row-reverse;
     align-items: center;
     gap: 14px;
   }
 
+  /* Ring is anchored to the hub itself (hub sits at the right end) */
   .setup__ring {
     position: absolute;
-    left: 50%;
+    right: -20px;
     top: 50%;
     width: 100px;
     height: 100px;
-    transform: translate(-62%, -50%);
+    transform: translateY(-50%);
     border-radius: 50%;
     border: 1px solid rgba(149, 130, 189, 0.25);
     animation: ringpulse 4s var(--ease-out) infinite;
@@ -555,11 +557,11 @@ const s = t.home.setup;
   @keyframes ringpulse {
     0%,
     100% {
-      transform: translate(-62%, -50%) scale(1);
+      transform: translateY(-50%) scale(1);
       opacity: 0.7;
     }
     50% {
-      transform: translate(-62%, -50%) scale(1.12);
+      transform: translateY(-50%) scale(1.12);
       opacity: 1;
     }
   }
@@ -619,7 +621,7 @@ const s = t.home.setup;
 
   .setup__chips {
     position: absolute;
-    right: 32px;
+    left: 32px;
     top: 112px;
     z-index: 2;
     display: flex;
