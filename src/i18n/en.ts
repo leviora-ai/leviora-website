@@ -15,7 +15,7 @@ export const en: Dict = {
         cmms: 'CMMS',
         other: 'Other Systems',
       },
-      outputsLabel: 'OUTPUTS',
+      outputsLabel: 'FORECASTS',
       outputs: [
         { title: 'Root-Cause Analysis', desc: '- Builds The Cause Chain', tab: 'understands' },
         { title: 'Real-Time Visibility', desc: '- Reads Live Data', tab: 'sees' },
