@@ -508,8 +508,8 @@ export const en: Dict = {
     requestDemo: 'Request a Demo',
     faq: 'FAQ',
     privacy: 'Privacy Policy',
-    terms: 'Terms & Conditions',
-    kvkk: 'KVKK',
+    terms: 'Terms of Use',
+    kvkk: 'GDPR',
     rights: '© 2026 Leviora. All rights reserved.',
   },
   meta: {
@@ -538,13 +538,13 @@ export const en: Dict = {
       description: 'How Leviora collects, uses, and protects your information.',
     },
     terms: {
-      title: 'Terms & Conditions — Leviora',
+      title: 'Terms of Use — Leviora',
       description: 'The terms governing your use of the Leviora website.',
     },
     kvkk: {
-      title: 'KVKK — Leviora',
+      title: 'GDPR — Leviora',
       description:
-        'Information notice under the Turkish Personal Data Protection Law (KVKK).',
+        'Data protection notice under the EU General Data Protection Regulation (GDPR).',
     },
     notFound: {
       title: 'Page Not Found — Leviora',
