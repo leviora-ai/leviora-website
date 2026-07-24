@@ -4,7 +4,6 @@ import type { Lang } from '../../i18n/types';
 import { useTranslations } from '../../i18n/ui';
 import SolutionsHero from './sections/SolutionsHero.astro';
 import ScenarioTable from './sections/ScenarioTable.astro';
-import CapabilityRow from './sections/CapabilityRow.astro';
 import Packages from './sections/Packages.astro';
 import NotForEveryone from './sections/NotForEveryone.astro';
 import CtaBanner from '../cta/CtaBanner.astro';
@@ -15,7 +14,6 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = useTranslations(lang);
-const caps = t.product.capabilities;
 ---
 
 <BaseLayout
@@ -26,8 +24,6 @@ const caps = t.product.capabilities;
 >
   <SolutionsHero lang={lang} />
   <ScenarioTable lang={lang} />
-  <CapabilityRow lang={lang} capability={caps.sees} dark />
-  <CapabilityRow lang={lang} capability={caps.understands} reverse />
   <Packages lang={lang} />
   <NotForEveryone lang={lang} />
   <CtaBanner lang={lang} />

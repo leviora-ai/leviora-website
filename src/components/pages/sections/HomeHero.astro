@@ -92,14 +92,22 @@ const leftChips = [
           class="hero__orb"
           src="/assets/diagrams/hero-grid-2x.png"
           alt=""
+          aria-hidden="true"
           width="604"
           height="407"
           fetchpriority="high"
         />
         <div class="chat" data-reveal data-chat-seq>
-          <div class="chat__question" data-msg>
+          <div
+            class="chat__question"
+            data-msg
+            data-tab-question
+            data-q-0={h.tabQuestions.sees}
+            data-q-1={h.tabQuestions.understands}
+            data-q-2={h.tabQuestions.takesAction}
+          >
             <span class="chat__dot" aria-hidden="true"><i></i></span>
-            <p>{h.chatQuestion}</p>
+            <p>{h.tabQuestions.sees}</p>
           </div>
           <div
             class="chat__answer"
@@ -130,10 +138,10 @@ const leftChips = [
               </span>
             </span>
           </div>
-          <div class="chat__tabs" role="presentation">
-            <span class="chat__tab chat__tab--active">{h.tabs.sees}</span>
-            <span class="chat__tab">{h.tabs.understands}</span>
-            <span class="chat__tab">{h.tabs.takesAction}</span>
+          <div class="chat__tabs">
+            <span class="chat__tab chat__tab--active" role="button" tabindex="0">{h.tabs.sees}</span>
+            <span class="chat__tab" role="button" tabindex="0">{h.tabs.understands}</span>
+            <span class="chat__tab" role="button" tabindex="0">{h.tabs.takesAction}</span>
           </div>
         </div>
       </div>
@@ -144,7 +152,10 @@ const leftChips = [
         <div class="chip chip--dashed chip--label">{h.outputsLabel}</div>
         {
           h.outputs.map((card) => (
-            <div class="out-card">
+            <div
+              class:list={['out-card', { 'out-card--hi': card.tab === 'sees' }]}
+              data-out-tab={card.tab}
+            >
               <p class="out-card__title">{card.title}</p>
               <p class="out-card__desc">{card.desc}</p>
             </div>
@@ -388,6 +399,30 @@ const leftChips = [
     font-size: 16px;
     line-height: 1.5;
     color: #ffffff;
+    min-height: 1.5em;
+    transition: opacity 150ms var(--ease-out);
+  }
+
+  .chat__question.q-fade p {
+    opacity: 0;
+  }
+
+  /* Blinking caret while the question is being typed */
+  .chat__question.typing p::after {
+    content: '';
+    display: inline-block;
+    width: 1.5px;
+    height: 1em;
+    margin-left: 2px;
+    vertical-align: text-bottom;
+    background: var(--purple-heading);
+    animation: caret-blink 900ms steps(1) infinite;
+  }
+
+  @keyframes caret-blink {
+    50% {
+      opacity: 0;
+    }
   }
 
   .chat__answer {
@@ -479,6 +514,8 @@ const leftChips = [
     line-height: 1.2;
     color: var(--ink-inverse-2);
     white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
   }
 
   .chat__tab--active {
@@ -489,6 +526,7 @@ const leftChips = [
 
   /* ---- Right column ---- */
   .out-card {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -496,6 +534,23 @@ const leftChips = [
     border-radius: 8px;
     background: #120c26;
     border: 2px solid rgba(39, 24, 75, 0.6);
+    transition: border-color 300ms var(--ease-out);
+  }
+
+  /* Active output card: border highlight + small dot (tab-synced) */
+  .out-card--hi {
+    border-color: rgba(149, 130, 189, 0.75);
+  }
+
+  .out-card--hi::after {
+    content: '';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--purple-heading);
   }
 
   .out-card__title {

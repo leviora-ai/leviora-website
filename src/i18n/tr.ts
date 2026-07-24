@@ -17,17 +17,21 @@ export const tr: Dict = {
       },
       outputsLabel: 'ÇIKTILAR',
       outputs: [
-        { title: 'Kök Neden Analizi', desc: 'neden zincirini kurar' },
-        { title: 'Anlık Görünürlük', desc: 'canlı veriyi okur' },
-        { title: 'Aksiyon', desc: 'verdiğiniz yetkiyle hareket eder' },
+        { title: 'Kök Neden Analizi', desc: 'sebep zincirini kurar', tab: 'understands' },
+        { title: 'Anlık Görünürlük', desc: 'canlı veriyi okur', tab: 'sees' },
+        { title: 'Aksiyon', desc: 'verilen yetki dahilinde aksiyon alır', tab: 'takesAction' },
       ],
-      chatQuestion: "3. hattın OEE'si dün geceki vardiyada neden düştü?",
       chatPlaceholder: 'Analiz edilecek konuyu yazın...',
       analyze: 'Analiz et',
       tabs: {
         sees: 'Görür',
         understands: 'Anlar',
-        takesAction: 'Harekete Geçer',
+        takesAction: 'Aksiyon Alır',
+      },
+      tabQuestions: {
+        sees: 'Şu an 3. hatta OEE kaç, son 2 saatte kaç dakika duruş oldu?',
+        understands: '3. hattaki OEE düşüşünün kök nedeni ne, hangi olaylar tetikledi?',
+        takesAction: 'Plansız duruş 10 dakikayı aşarsa vardiya şefine bildirim gönder.',
       },
       tabAnswers: {
         sees: 'OEE %72 — son 2 saatte 18 dakika plansız duruş var.',
@@ -36,18 +40,30 @@ export const tr: Dict = {
       },
     },
     statement: {
-      eyebrow: 'Operasyona Özgü Yapay Zekâ',
-      titleLine1: 'Sizin dilinizle düşünen,',
-      titleLine2: 'sizin kurallarınızla karar veren bir sistem',
-      sub: 'Kavramlarınızla düşünür, kurallarınıza göre karar verir, çizdiğiniz sınırların dışına çıkmaz.',
+      eyebrow: 'OPERASYONUN OLDUĞU HER YER',
+      titleLine1: 'Üretim hattından enerji santraline,',
+      titleLine2: 'depodan proses tesisine.',
       cta: 'Demo Talep Edin',
+      industries: [
+        'Otomotiv & yan sanayi',
+        'Metal & makine imalatı',
+        'Gıda & içecek',
+        'İlaç',
+        'Kimya',
+        'Tekstil',
+        'Çimento & yapı malzemeleri',
+        'Maden',
+        'Enerji üretimi',
+      ],
+      collageAlt:
+        "Leviora'nın çalıştığı dokuz sektörden oluşan kolaj: otomotiv, metal ve makine imalatı, gıda ve içecek, ilaç, kimya, tekstil, çimento, maden ve enerji üretimi.",
     },
     how: {
       eyebrow: 'Nasıl Çalışır',
       segments: [
         { text: 'Görür ·' },
         { text: 'Anlar', accent: true },
-        { text: '· Harekete Geçer' },
+        { text: '· Aksiyon Alır' },
       ],
       cards: [
         {
@@ -59,7 +75,7 @@ export const tr: Dict = {
           body: 'Olayları bir neden zincirine bağlar. Belirtiyi değil kök nedeni bulur. Bulguları kaynağıyla birlikte açıklar; uydurmaz.',
         },
         {
-          title: 'Harekete Geçer',
+          title: 'Aksiyon Alır',
           body: 'Yalnızca izin verdiğiniz sınırlar içinde hareket eder: bakım talebi açar, vardiya amirine haber verir, kalite kontrolü işaretler. Her adım yetkili, kayıtlı ve geri alınabilir.',
         },
       ],
@@ -81,7 +97,7 @@ export const tr: Dict = {
         user: 'Son 14 günde hatalar nerede kümeleniyor?',
         aiName: 'LEVIORA AI',
         aiTime: '· 09.37',
-        aiMeta: 'Veri Analisti · 9 adım · 923 ms · Ayrıntılar',
+        aiMeta: 'operasyon verinizden · 923 ms · Kaynağı Gör',
         aiText:
           "Belirgin kümelenme 9 Haziran'da; makineye özgü bir yoğunlaşma yok. Tek bir makineyi güvenle işaret edemem.",
         aiBullets: [
@@ -105,17 +121,14 @@ export const tr: Dict = {
       items: [
         {
           title: 'Bağlanın',
-          tag: '1–2. Gün',
           body: 'ERP, MES ve SCADA bağlantısı kurulur. Veriniz ağınızdan çıkmaz: Leviora ham veriyi dışarı taşımadan, sistemlerinizden okur.',
         },
         {
           title: 'Eşleyin',
-          tag: 'İlk Hafta',
           body: 'Tablolarınız ve alanlarınız, zaten kullandığınız iş kavramlarıyla eşlenir: hatlar, vardiyalar, makineler, siparişler. Kod yazmadan, arayüz üzerinden.',
         },
         {
           title: 'Kullanın',
-          tag: '2. Haftadan İtibaren',
           body: 'Ekibiniz sorularını günlük dille sorar. Her cevap kaynağı ve gerekçesiyle gelir; yetkili aksiyonlar adım adım devreye alınır.',
         },
       ],
@@ -147,7 +160,7 @@ export const tr: Dict = {
       segments: [{ text: 'Dürüst' }, { text: 'cevaplar.', accent: true }],
       items: [
         {
-          q: 'Verim güvende mi? KVKK uyumlu musunuz?',
+          q: 'Verilerim güvende mi? KVKK uyumlu musunuz?',
           a: 'Veriniz ağınızdan hiç çıkmaz. Leviora sistemlerinizi gerçek zamanlı okur; ham veriyi dışarı kopyalamaz, dışarıda saklamaz. Veri dışarı çıkmadığı için KVKK açısından da en güvenli konumdasınız. Demoda mimariyi bütün ayrıntısıyla anlatmaktan memnuniyet duyarız.',
         },
         {
@@ -164,23 +177,22 @@ export const tr: Dict = {
         },
         {
           q: 'Ne kadar sürede kullanmaya başlarız?',
-          a: 'Bağlantı 1–2 gün sürer, eşleme ilk hafta tamamlanır; ekibiniz ikinci haftadan itibaren kullanmaya başlar. Dilerseniz 30 günlük pilot kendi verinizde çalışır — karar tamamen sizin.',
+          a: 'İlk günden operasyonunuzun dilini konuşur. Alışma süreci, eğitim ya da kullanıcı kılavuzu gerektirmez.',
         },
       ],
     },
   },
   product: {
     hero: {
-      eyebrow: 'Merkezî Kurumsal Zekâ',
-      titleLine1: 'Üç katman,',
-      titleLine2: 'tek bir kurumsal akıl.',
-      sub: 'Operasyonu anlayan yapay zekâ tek parçadan oluşmaz. Üç katman birlikte çalışır; ne olduğunu, neden olduğunu ve ne yapılması gerektiğini birbirine bağlar.',
-      ctaPrimary: 'Demo Talep Edin',
-      ctaSecondary: 'Mimariyi İnceleyin',
+      eyebrow: 'ÜRÜN MİMARİSİ',
+      titleLine1: 'Operasyonunuzu yöneten sistemlerin',
+      titleLine2: 'üstüne kurulu tek bir zekâ.',
+      sub: 'Üç katmanlı mimari, üç temel yetenek — operasyonunuza özel öğrenen tek bir sistem.',
+      ctaPrimary: 'Demo talep et',
+      ctaSecondary: 'Mimariyi incele',
       conclusion: {
-        tag: 'SONUÇ',
-        title: 'Merkezî Kurumsal Zekâ',
-        body: 'Üç katman birleşir; ortaya operasyonu anlayan tek bir akıl çıkar: Leviora.',
+        title: 'Merkezi Kurumsal Zekâ',
+        body: "Üçü birleştiğinde Merkezi Kurumsal Zekâ'nız oluşur — operasyonunuzun gerçekte nasıl çalıştığına dair tek ve yapılandırılmış bir anlayış.",
       },
       layers: [
         {
@@ -199,16 +211,18 @@ export const tr: Dict = {
           body: 'Eşikleriniz, limitleriniz ve istisnalarınız operasyonel kurala dönüşür.',
         },
       ],
+      diagramAlt:
+        'Üç ürün katmanının — Ortak Veri Dili, İlişki Haritası ve İş Kuralları Motoru — tek bir merkezi zekâda birleştiğini gösteren izometrik diyagram.',
     },
     three: {
-      eyebrow: 'Merkezî Kurumsal Zekâ',
+      eyebrow: 'Merkezi Kurumsal Zekâ',
       segments: [
         { text: 'Üç katman,' },
-        { text: 'tek bir kurumsal akıl.', accent: true },
+        { text: 'bir Merkezi Kurumsal Zekâ.', accent: true },
       ],
       sub: 'Operasyonu anlayan yapay zekâ tek parçadan oluşmaz. Üç katman birlikte çalışır; ne olduğunu, neden olduğunu ve ne yapılacağını birbirine bağlar.',
       closing:
-        'Üçü birleştiğinde ortaya tek ve bütünlüklü bir kavrayış çıkar: operasyonunuzun gerçekte nasıl işlediğini bilen bir akıl.',
+        "Üçü birleştiğinde Merkezi Kurumsal Zekâ'nız oluşur — operasyonunuzun gerçekte nasıl çalıştığına dair tek ve yapılandırılmış bir anlayış.",
       cards: [
         {
           title: 'Ortak Veri Dili',
@@ -228,7 +242,7 @@ export const tr: Dict = {
       ],
       aiName: 'LEVIORA AI',
       aiTime: '· 09.37',
-      aiMeta: 'Veri Analisti · 9 adım · 923 ms · Ayrıntılar',
+      aiMeta: 'operasyon verinizden · 923 ms · Kaynağı Gör',
       placeholder: 'Analiz edilecek konuyu yazın...',
       analyze: 'Analiz et',
       live: 'Canlı',
@@ -247,7 +261,7 @@ export const tr: Dict = {
           user: "3. hattın OEE'si şu an kaç?",
           aiName: 'LEVIORA AI',
           aiTime: '· 09.37',
-          aiMeta: 'Veri Analisti · 9 adım · 923 ms · Ayrıntılar',
+          aiMeta: 'operasyon verinizden · 923 ms · Kaynağı Gör',
           aiText:
             'Yüzde 72; hedef yüzde 85. Son 2 saatte 18 dakika plansız duruş var. En büyük neden B kalıbının değişimi: standart 10 dakikayken 22 dakika sürmüş.',
           chart: [82, 79, 76, 71, 68, 72],
@@ -272,7 +286,7 @@ export const tr: Dict = {
           user: "3. hattın OEE'si neden düştü?",
           aiName: 'LEVIORA AI',
           aiTime: '· 09.37',
-          aiMeta: 'Plansız Duruş Uyarısı',
+          aiMeta: 'kök neden · etki · örüntü',
           aiText:
             'Kök neden: B ürününün kalıp değişimi, üst üste üçüncü haftadır standart sürenin 3 katını aşıyor.',
           source: 'operasyon verinizden',
@@ -283,7 +297,7 @@ export const tr: Dict = {
         },
       },
       takesAction: {
-        title: 'Harekete Geçer',
+        title: 'Aksiyon Alır',
         body: 'Leviora, izin verdiğiniz sınırlar içinde harekete geçer: bakım talebi açar, vardiya amirine haber verir, kalite kontrolü işaretler. Her aksiyon yetkili, kayıtlı ve geri alınabilir. Öneride bırakan bir sohbet robotu değil; sınırlarınız içinde iş yapan bir sistem.',
         bullets: [
           'Yalnızca izin verdiğiniz sınırlar içinde',
@@ -292,10 +306,10 @@ export const tr: Dict = {
           'Eşik aşıldığında kendiliğinden harekete geçer',
         ],
         chat: {
-          user: "3. hattın OEE'si şu an kaç?",
+          user: 'Plansız duruş 10 dakikayı aşarsa vardiya şefine bildirim gönder.',
           aiName: 'LEVIORA AI',
           aiTime: '· 09.37',
-          aiMeta: 'Operasyon Analisti · 4 adım · 512 ms · Ayrıntılar',
+          aiMeta: 'operasyon verinizden · 512 ms · Kaynağı Gör',
           aiText: '',
           facts: [
             { label: 'KOŞUL', value: 'Duruş 10 dakikayı aşarsa' },
@@ -335,12 +349,12 @@ export const tr: Dict = {
       ],
     },
     packages: {
-      eyebrow: 'Bize Ulaşın',
+      eyebrow: 'PAKETLER & ÖLÇEK',
       segments: [
-        { text: "Leviora'yı kendi operasyonunuzda" },
-        { text: 'çalışırken görmek ister misiniz?', accent: true },
+        { text: 'Tek senaryodan' },
+        { text: 'tüm operasyona.', accent: true },
       ],
-      sub: '30 dakikalık demo, 30 günlük pilot. Karar tamamen sizin.',
+      sub: 'Hayal değil, somut çıktı üzerinden ilerleyen bir keşif.',
       tiers: [
         {
           name: 'Başlangıç',
@@ -350,7 +364,7 @@ export const tr: Dict = {
             'Hızlı değer kanıtı',
             'Canlı veride gerçek soru-cevap',
           ],
-          cta: 'Konuşalım.',
+          cta: 'Görüşelim',
         },
         {
           name: 'Yaygınlaştırma',
@@ -361,7 +375,7 @@ export const tr: Dict = {
             'MES, SCADA ve CMMS entegrasyonu',
             'Çoklu kullanıcı',
           ],
-          cta: 'Konuşalım.',
+          cta: 'Görüşelim',
         },
         {
           name: 'Kurumsal',
@@ -375,7 +389,7 @@ export const tr: Dict = {
             'Tesisler arası raporlama',
             'Öncelikli destek',
           ],
-          cta: 'Demo Talep Edin',
+          cta: 'Görüşelim',
           highlighted: true,
         },
       ],
@@ -399,6 +413,7 @@ export const tr: Dict = {
     },
     form: {
       title: 'Ücretsiz 30 dakikalık görüşmenizi planlayın',
+      note: 'Genellikle birkaç saat içinde WhatsApp veya e-posta ile dönüş yapıyoruz.',
       name: 'Adınız',
       namePlaceholder: 'Adınızı yazın',
       phone: 'Telefon numaranız',
@@ -452,7 +467,7 @@ export const tr: Dict = {
           a: 'Hayır. 30 günlük pilot kendi verinizde çalışır ve sizin kararınızla biter. Devam etmezseniz bağlantıyı keseriz; veriniz zaten ağınızdan çıkmadığı için geride hiçbir şey kalmaz.',
         },
         {
-          q: 'Verim güvende mi? KVKK uyumlu mu?',
+          q: 'Verilerim güvende mi? KVKK uyumlu mu?',
           a: 'Veriniz ağınızdan hiç çıkmaz. Leviora sistemlerinizi gerçek zamanlı okur; ham veriyi dışarı kopyalamaz, dışarıda saklamaz. Veri dışarı çıkmadığı için KVKK açısından da en güvenli konumdasınız.',
         },
         {
@@ -485,7 +500,7 @@ export const tr: Dict = {
       'Sizin dilinizle düşünen, sizin kurallarınızla karar veren, sizin sınırlarınız içinde hareket eden operasyonel yapay zekâ.',
     company: 'Şirket',
     platform: 'Platform',
-    others: 'Diğer',
+    others: 'Yasal',
     home: 'Ana Sayfa',
     contact: 'İletişim',
     product: 'Ürün',
@@ -506,7 +521,7 @@ export const tr: Dict = {
     product: {
       title: 'Ürün — Leviora',
       description:
-        'Üç katman, tek bir kurumsal akıl: ortak veri dili, ilişki haritası ve iş kuralları motoru birlikte çalışır.',
+        'Üç katman, bir Merkezi Kurumsal Zekâ: ortak veri dili, ilişki haritası ve iş kuralları motoru birlikte çalışır.',
     },
     solutions: {
       title: 'Çözümler — Leviora',

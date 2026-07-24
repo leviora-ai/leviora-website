@@ -27,7 +27,6 @@ const s = t.home.setup;
             >
               <span class="setup-item__row">
                 <span class="setup-item__title">{item.title}</span>
-                <span class="setup-item__tag">{item.tag}</span>
               </span>
               <span class="setup-item__body">{item.body}</span>
             </button>
@@ -40,6 +39,7 @@ const s = t.home.setup;
           class="setup__photo"
           src="/assets/diagrams/stars-grid.webp"
           alt=""
+          aria-hidden="true"
           loading="lazy"
         />
 
@@ -65,7 +65,7 @@ const s = t.home.setup;
 
           <div class="setup__center">
             <span class="setup__ring" aria-hidden="true"></span>
-            <span class="setup__hub">
+            <span class="setup__hub" aria-hidden="true">
               <img src="/assets/leviora-icon.svg" alt="" width="28" height="28" />
             </span>
             <span class="setup__center-label">{s.panel.center}</span>
@@ -179,17 +179,6 @@ const s = t.home.setup;
     color: #ffffff;
   }
 
-  .setup-item__tag {
-    padding: 6px 12px;
-    border-radius: 50px;
-    background: rgba(42, 39, 46, 0.5);
-    font-weight: 300;
-    font-size: 16px;
-    line-height: 1.1;
-    color: #ffffff;
-    white-space: nowrap;
-  }
-
   .setup-item__body {
     max-height: 0;
     opacity: 0;
@@ -212,11 +201,6 @@ const s = t.home.setup;
 
   .setup-item--active .setup-item__title {
     font-weight: 400;
-  }
-
-  .setup-item--active .setup-item__tag {
-    background: linear-gradient(to bottom, rgba(106, 56, 137, 0.2), rgba(98, 42, 133, 0.2));
-    border: 1px solid #6a3889;
   }
 
   .setup-item--active .setup-item__body {

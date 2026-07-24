@@ -31,7 +31,6 @@ const h = t.product.hero;
 
     <div class="phero__diagram" data-reveal>
       <div class="phero__conclusion layer-card layer-card--conclusion">
-        <span class="layer-card__pill">{h.conclusion.tag}</span>
         <div class="layer-card__text">
           <p class="layer-card__title">{h.conclusion.title}</p>
           <p class="layer-card__body">{h.conclusion.body}</p>
@@ -41,7 +40,7 @@ const h = t.product.hero;
       <img
         class="phero__diamond"
         src="/assets/diagrams/product-diamond.webp"
-        alt=""
+        alt={h.diagramAlt}
         width="240"
         height="412"
         loading="lazy"
