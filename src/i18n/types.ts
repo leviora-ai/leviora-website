@@ -1,5 +1,7 @@
 export type Lang = 'en' | 'tr';
 
+export type TabKey = 'sees' | 'understands' | 'takesAction';
+
 export interface MetaDict {
   title: string;
   description: string;
@@ -13,11 +15,11 @@ export interface HomeHeroDict {
   ctaSecondary: string;
   chips: { erp: string; mes: string; scada: string; cmms: string; other: string };
   outputsLabel: string;
-  outputs: { title: string; desc: string }[];
-  chatQuestion: string;
+  outputs: { title: string; desc: string; tab: TabKey }[];
   chatPlaceholder: string;
   analyze: string;
   tabs: { sees: string; understands: string; takesAction: string };
+  tabQuestions: { sees: string; understands: string; takesAction: string };
   tabAnswers: { sees: string; understands: string; takesAction: string };
 }
 
@@ -25,8 +27,9 @@ export interface StatementDict {
   eyebrow: string;
   titleLine1: string;
   titleLine2: string;
-  sub: string;
   cta: string;
+  industries: string[];
+  collageAlt: string;
 }
 
 export interface HeadingDict {
@@ -71,7 +74,7 @@ export interface Dict {
       chat: ChatWindowDict;
     };
     setup: HeadingDict & {
-      items: { title: string; tag: string; body: string }[];
+      items: { title: string; body: string }[];
       panel: {
         title: string;
         network: string;
@@ -102,8 +105,9 @@ export interface Dict {
       sub: string;
       ctaPrimary: string;
       ctaSecondary: string;
-      conclusion: { tag: string; title: string; body: string };
+      conclusion: { title: string; body: string };
       layers: { title: string; q: string; body: string }[];
+      diagramAlt: string;
     };
     three: HeadingDict & {
       sub: string;
@@ -158,6 +162,7 @@ export interface Dict {
     };
     form: {
       title: string;
+      note: string;
       name: string;
       namePlaceholder: string;
       phone: string;

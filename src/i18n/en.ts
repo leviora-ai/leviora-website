@@ -17,17 +17,21 @@ export const en: Dict = {
       },
       outputsLabel: 'OUTPUTS',
       outputs: [
-        { title: 'Root-Cause Analysis', desc: '- Builds The Cause Chain' },
-        { title: 'Real-Time Visibility', desc: '- Reads Live Data' },
-        { title: 'Action', desc: '- Acts Within Granted Authority' },
+        { title: 'Root-Cause Analysis', desc: '- Builds The Cause Chain', tab: 'understands' },
+        { title: 'Real-Time Visibility', desc: '- Reads Live Data', tab: 'sees' },
+        { title: 'Action', desc: '- Acts Within Granted Authority', tab: 'takesAction' },
       ],
-      chatQuestion: "Why Did Line 3's OEE Drop In Last Night's Shift?",
       chatPlaceholder: 'Write a topic to be analyzed...',
       analyze: 'Analyze',
       tabs: {
         sees: 'Sees',
         understands: 'Understands',
         takesAction: 'Takes Action',
+      },
+      tabQuestions: {
+        sees: "What's Line 3's OEE right now, and how many minutes of downtime in the last 2 hours?",
+        understands: "What's the root cause of Line 3's OEE drop, and which events triggered it?",
+        takesAction: 'When unplanned downtime exceeds 10 minutes, notify the shift supervisor.',
       },
       tabAnswers: {
         sees: 'OEE is 72% — 18 minutes of unplanned downtime in the last 2 hours.',
@@ -36,11 +40,23 @@ export const en: Dict = {
       },
     },
     statement: {
-      eyebrow: 'Operation-Specific Artificial Intelligence',
-      titleLine1: 'A System That Thinks In Your Terms,',
-      titleLine2: 'Decides By Your Rules, Acts Within Your Limits',
-      sub: 'A system that thinks in your terms, makes decisions according to your rules, and acts within your boundaries.',
+      eyebrow: 'Wherever There Is Operation',
+      titleLine1: 'From the production line to the power plant,',
+      titleLine2: 'from the warehouse to the process facility.',
       cta: 'Request A Demo',
+      industries: [
+        'Automotive & Suppliers',
+        'Metal & Machinery',
+        'Food & Beverage',
+        'Pharma',
+        'Chemicals',
+        'Textile',
+        'Cement & Building Materials',
+        'Mining',
+        'Power Generation',
+      ],
+      collageAlt:
+        'Collage of nine industries where Leviora operates: automotive, metal and machinery, food and beverage, pharma, chemicals, textile, cement, mining and power generation.',
     },
     how: {
       eyebrow: 'How It Works',
@@ -52,7 +68,7 @@ export const en: Dict = {
       cards: [
         {
           title: 'Sees',
-          body: 'Reads live data across your entire operation MES, ERP, SCADA, CMMS. No manual exports, no waiting for reports. You ask, and the answer comes from data flowing right now.',
+          body: 'Reads live data across your entire operation — MES, ERP, SCADA, CMMS. No manual exports, no waiting for reports. You ask, and the answer comes from data flowing right now.',
         },
         {
           title: 'Understands',
@@ -81,7 +97,7 @@ export const en: Dict = {
         user: 'Where are the errors clustered in the last 14 days?',
         aiName: 'LEVIORA AI',
         aiTime: '· 09:37',
-        aiMeta: 'Data Analyst · 9 steps · 923ms · Details',
+        aiMeta: 'from your operational data · 923ms · View Source',
         aiText:
           'A noticeable clustering occurred on June 9th — no machine-specific leader. I cannot confidently blame any single machine.',
         aiBullets: [
@@ -105,17 +121,14 @@ export const en: Dict = {
       items: [
         {
           title: 'Connect',
-          tag: 'Day 1–2',
-          body: 'ERP, MES, SCADA connection. Your data never leaves your network Leviora reads from your systems without extracting or storing raw data externally.',
+          body: 'ERP, MES, SCADA connection. Your data never leaves your network. Leviora reads from your systems without extracting or storing raw data externally.',
         },
         {
           title: 'Map',
-          tag: 'First Week',
           body: 'Your tables and fields are mapped to the business objects you already use — lines, shifts, machines, orders. Defined through the interface, without writing code.',
         },
         {
           title: 'Use',
-          tag: 'From Week 2',
           body: 'Your team starts asking questions in everyday language. Every answer arrives with its source and reasoning; authorized actions go live step by step.',
         },
       ],
@@ -164,23 +177,22 @@ export const en: Dict = {
         },
         {
           q: 'How quickly can we start using it?',
-          a: 'Connection takes 1–2 days, mapping happens in the first week, and your team starts using it from week two. An optional 30-day pilot runs on your own data — the decision is entirely yours.',
+          a: "It speaks your operation's language from day one. No onboarding period, training, or user manual required.",
         },
       ],
     },
   },
   product: {
     hero: {
-      eyebrow: 'Central Corporate Intelligence',
-      titleLine1: 'Three Layers,',
-      titleLine2: 'A Central Corporate Intelligence.',
-      sub: 'The artificial intelligence that understands the operation is not made up of a single part. Three layers work together: connecting what happened, why it happened, and what needs to be done.',
-      ctaPrimary: 'Request A Demo',
+      eyebrow: 'Product Architecture',
+      titleLine1: 'A Single Intelligence Built On Top Of',
+      titleLine2: 'The Systems That Run Your Operation.',
+      sub: 'Three-layer architecture, three core capabilities — one system that learns your operation.',
+      ctaPrimary: 'Request a Demo',
       ctaSecondary: 'Explore The Architecture',
       conclusion: {
-        tag: 'CONCLUSION',
-        title: 'Central Corporate Intelligence',
-        body: 'The three layers merge; there becomes a single intelligence that understands the operation and that is Leviora.',
+        title: 'Central Enterprise Intelligence',
+        body: 'When the three combine, your Central Enterprise Intelligence forms — one structured understanding of how your operation truly works.',
       },
       layers: [
         {
@@ -199,6 +211,8 @@ export const en: Dict = {
           body: 'Your thresholds, limits and exceptions become operational rules.',
         },
       ],
+      diagramAlt:
+        'Isometric diagram of the three product layers — Common Data Language, Relationship Map and Business Rules Engine — stacked into one central intelligence.',
     },
     three: {
       eyebrow: 'Central Enterprise Intelligence',
@@ -208,7 +222,7 @@ export const en: Dict = {
       ],
       sub: "AI that understands an operation isn't made of a single piece. Three layers work together — linking what happened, why it happened, and what to do.",
       closing:
-        'When the three combine, your Central Enterprise Intelligence forms one structured understanding of how your operation truly works.',
+        'When the three combine, your Central Enterprise Intelligence forms — one structured understanding of how your operation truly works.',
       cards: [
         {
           title: 'Common Data Language',
@@ -228,7 +242,7 @@ export const en: Dict = {
       ],
       aiName: 'LEVIORA AI',
       aiTime: '· 09:37',
-      aiMeta: 'Data Analyst · 9 steps · 923ms · Details',
+      aiMeta: 'from your operational data · 923ms · View Source',
       placeholder: 'Write a topic to be analyzed…',
       analyze: 'Analyze',
       live: 'Live',
@@ -236,7 +250,7 @@ export const en: Dict = {
     capabilities: {
       sees: {
         title: 'Sees',
-        body: 'Leviora reads live data across your entire operation MES, ERP, SCADA, CMMS. No manual exports, no waiting for reports. You ask, and the answer comes from data flowing right now.',
+        body: 'Leviora reads live data across your entire operation — MES, ERP, SCADA, CMMS. No manual exports, no waiting for reports. You ask, and the answer comes from data flowing right now.',
         bullets: [
           'Instant visibility across all connected systems',
           'Natural-language queries — no SQL, no dashboard building',
@@ -247,7 +261,7 @@ export const en: Dict = {
           user: "What's Line 3's OEE right now?",
           aiName: 'LEVIORA AI',
           aiTime: '· 09:37',
-          aiMeta: 'Data Analyst · 9 steps · 923ms · Details',
+          aiMeta: 'from your operational data · 923ms · View Source',
           aiText:
             '72%. Target 85%. 18 minutes of unplanned downtime in the last 2 hours. Largest cause: Mold B changeover — 22 min against 10 min standard.',
           chart: [82, 79, 76, 71, 68, 72],
@@ -272,7 +286,7 @@ export const en: Dict = {
           user: "Why did Line 3's OEE drop?",
           aiName: 'LEVIORA AI',
           aiTime: '· 09:37',
-          aiMeta: 'Unplanned Downtime Alert',
+          aiMeta: 'root cause · impact · pattern',
           aiText:
             'Root cause: mold change on Product B exceeded standard time by 3× for the third consecutive week.',
           source: 'from your operational data',
@@ -292,10 +306,10 @@ export const en: Dict = {
           'Acts on its own when a threshold is crossed',
         ],
         chat: {
-          user: "What's Line 3's OEE right now?",
+          user: 'When unplanned downtime exceeds 10 minutes, notify the shift supervisor.',
           aiName: 'LEVIORA AI',
           aiTime: '· 09:37',
-          aiMeta: 'Ops Analyst · 4 steps · 512ms · Details',
+          aiMeta: 'from your operational data · 512ms · View Source',
           aiText: '',
           facts: [
             { label: 'CONDITION', value: 'If downtime exceeds 10 minutes' },
@@ -335,12 +349,12 @@ export const en: Dict = {
       ],
     },
     packages: {
-      eyebrow: 'Contact Us',
+      eyebrow: 'Packages & Scale',
       segments: [
-        { text: 'Would You Like To See Leviora' },
-        { text: 'Running On Your Own Operation?', accent: true },
+        { text: 'From a single scenario' },
+        { text: 'to the whole operation.', accent: true },
       ],
-      sub: 'A 30-minute demo. A 30-day pilot. The decision is entirely yours.',
+      sub: 'Not a vision — a discovery that moves on concrete output.',
       tiers: [
         {
           name: 'Starter',
@@ -350,7 +364,7 @@ export const en: Dict = {
             'Fast proof of value',
             'Real Q&A on live data',
           ],
-          cta: "Let's talk.",
+          cta: "Let's talk",
         },
         {
           name: 'Expansion',
@@ -361,7 +375,7 @@ export const en: Dict = {
             'MES/SCADA/CMMS integration',
             'Multiple users',
           ],
-          cta: "Let's talk.",
+          cta: "Let's talk",
         },
         {
           name: 'Enterprise',
@@ -375,7 +389,7 @@ export const en: Dict = {
             'Cross-facility reporting',
             'Priority support',
           ],
-          cta: 'Request A Demo',
+          cta: "Let's talk",
           highlighted: true,
         },
       ],
@@ -399,6 +413,7 @@ export const en: Dict = {
     },
     form: {
       title: 'Book your free 30-minute call',
+      note: 'We typically respond within a few hours via WhatsApp or email.',
       name: 'Your name',
       namePlaceholder: 'Enter your name',
       phone: 'Phone number',
@@ -485,7 +500,7 @@ export const en: Dict = {
       'Operational AI that thinks in your terms, decides by your rules, and acts within your limits.',
     company: 'Company',
     platform: 'Platform',
-    others: 'Others',
+    others: 'Legal',
     home: 'Home',
     contact: 'Contact',
     product: 'Product',
@@ -506,7 +521,7 @@ export const en: Dict = {
     product: {
       title: 'Product — Leviora',
       description:
-        'Three layers, one central corporate intelligence: a common data language, a relationship map, and a business rules engine working together.',
+        'Three layers, one central Enterprise Intelligence: a common data language, a relationship map, and a business rules engine working together.',
     },
     solutions: {
       title: 'Solutions — Leviora',

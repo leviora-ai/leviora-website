@@ -2,7 +2,6 @@
 import type { Lang } from '../../../i18n/types';
 import { useTranslations, localizePath } from '../../../i18n/ui';
 import SectionHeading from '../../ui/SectionHeading.astro';
-import Button from '../../ui/Button.astro';
 
 interface Props {
   lang: Lang;
@@ -50,13 +49,9 @@ const p = t.solutions.packages;
                   </li>
                 ))}
               </ul>
-              {tier.highlighted ? (
-                <Button href={localizePath('/contact/', lang)}>{tier.cta}</Button>
-              ) : (
-                <a class="tier__cta" href={localizePath('/contact/', lang)}>
-                  {tier.cta}
-                </a>
-              )}
+              <a class="tier__cta" href={localizePath('/contact/', lang)}>
+                {tier.cta}
+              </a>
             </div>
           </div>
         ))

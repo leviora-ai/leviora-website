@@ -14,10 +14,10 @@ const s = t.home.statement;
 ---
 
 <section class="statement" data-statement>
-  <div class="statement__bg" aria-hidden="true">
+  <div class="statement__bg">
     <img
       src="/assets/diagrams/industry-collage.webp"
-      alt=""
+      alt={s.collageAlt}
       width="1920"
       height="1080"
       loading="lazy"
@@ -30,7 +30,9 @@ const s = t.home.statement;
       <span>{s.titleLine1}</span>
       <span class="statement__title-accent">{s.titleLine2}</span>
     </h2>
-    <p class="statement__sub">{s.sub}</p>
+    <ul class="statement__industries">
+      {s.industries.map((name) => <li>{name}</li>)}
+    </ul>
     <Button href={localizePath('/contact/', lang)}>{s.cta}</Button>
   </div>
 </section>
@@ -105,13 +107,26 @@ const s = t.home.statement;
     color: var(--purple-heading);
   }
 
-  .statement__sub {
+  .statement__industries {
+    list-style: none;
     margin: 0 0 14px;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    max-width: 760px;
+  }
+
+  .statement__industries li {
+    padding: 8px 16px;
+    border-radius: 50px;
+    border: 1px solid rgba(129, 88, 164, 0.55);
+    background: rgba(18, 12, 38, 0.55);
     font-weight: 300;
-    font-size: 16px;
-    line-height: 1.6;
+    font-size: 14px;
+    line-height: 1.3;
     color: #e9e9ea;
-    max-width: 640px;
   }
 </style>
 
