@@ -4,6 +4,12 @@ on:
   push:
     branches: [main]
   pull_request:
+    # `ready_for_review` şart: aşağıdaki draft koşulu olmadan taslak→hazır
+    # geçişinde yeni koşu tetiklenmez, check hiç raporlamaz.
+    types: [opened, synchronize, reopened, ready_for_review]
+    paths-ignore:
+      - "**.md"
+      - "docs/**"
     branches: [main]
   workflow_dispatch:
 
@@ -14,8 +20,17 @@ permissions:
 env:
   REGISTRY: ghcr.io
 
+# CI-COST (2026-07-26): PR'da üst üste push'ta eski koşu iptal edilir.
+# main'de İPTAL YOK — her main commit'i kendi imajını üretmek zorunda
+# (yarıda kesilen build = eksik imaj).
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
   verify:
+    # Taslak PR'da atla; push her zaman koşar (CI-COST 2026-07-26).
+    if: github.event_name != 'pull_request' || github.event.pull_request.draft == false
     name: Verify (site + api + manifests)
     runs-on: ubuntu-latest
     steps:
@@ -56,6 +71,10 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
+    # `needs: [verify]` taslak koşulunu zaten devralır: verify taslak PR'da
+    # skipped olunca bu job da skipped olur. Buraya AYRI bir `if:` YAZILMAZ —
+    # job'a açık `if:` eklemek üstü kapalı `success()` şartını kaldırır ve
+    # verify KIRMIZI olduğunda bile imaj build'i koşardı (CI-COST 2026-07-26).
     needs: [verify]
     strategy:
       matrix:
