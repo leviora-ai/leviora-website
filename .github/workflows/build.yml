@@ -15,7 +15,8 @@ env:
   REGISTRY: ghcr.io
 
 jobs:
-  verify-site:
+  verify:
+    name: Verify (site + api + manifests)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -23,6 +24,10 @@ jobs:
         with:
           node-version: 20
           cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            api/package-lock.json
+
       - name: Install
         run: npm ci
       - name: Type check
@@ -30,25 +35,28 @@ jobs:
       - name: Build
         run: npx astro build
 
-  verify-api:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
-          cache-dependency-path: api/package-lock.json
-      - name: Install
+      - name: Install (api)
         working-directory: api
         run: npm ci
-      - name: Build
+      - name: Build (api)
         working-directory: api
         run: npm run build
 
+      - name: Install kustomize
+        run: |
+          curl -sLo kustomize.tar.gz https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/v5.4.3/kustomize_v5.4.3_linux_amd64.tar.gz
+          tar -xzf kustomize.tar.gz
+          chmod +x kustomize
+      - name: Render manifests
+        run: ./kustomize build k8s/ > /tmp/rendered.yaml
+      - name: Show rendered output summary
+        run: |
+          echo "Rendered $(grep -c '^kind:' /tmp/rendered.yaml) resources"
+          grep '^kind:' /tmp/rendered.yaml | sort | uniq -c
+
   build:
     runs-on: ubuntu-latest
-    needs: [verify-site, verify-api]
+    needs: [verify]
     strategy:
       matrix:
         include:
@@ -95,19 +103,3 @@ jobs:
           cache-from: type=gha,scope=${{ matrix.image }}
           cache-to: type=gha,mode=max,scope=${{ matrix.image }}
           platforms: linux/amd64
-
-  validate-manifests:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Install kustomize
-        run: |
-          curl -sLo kustomize.tar.gz https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/v5.4.3/kustomize_v5.4.3_linux_amd64.tar.gz
-          tar -xzf kustomize.tar.gz
-          chmod +x kustomize
-      - name: Render manifests
-        run: ./kustomize build k8s/ > /tmp/rendered.yaml
-      - name: Show rendered output summary
-        run: |
-          echo "Rendered $(grep -c '^kind:' /tmp/rendered.yaml) resources"
-          grep '^kind:' /tmp/rendered.yaml | sort | uniq -c
