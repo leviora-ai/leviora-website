@@ -1,7 +1,8 @@
 // Hero tab sequencer: cycles Sees / Understands / Takes Action. Each step
-// types the tab's question, swaps the AI answer and highlights the matching
-// output card. Clicking a tab (or Enter/Space) jumps to it and stops the
-// auto loop for good. Paused while offscreen or the document is hidden.
+// highlights the matching output card the moment the tab switches, then
+// types the tab's question and swaps the AI answer. Clicking a tab (or
+// Enter/Space) jumps to it and stops the auto loop for good. Paused while
+// offscreen or the document is hidden.
 const graph = document.querySelector<HTMLElement>('[data-graph]');
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -15,8 +16,7 @@ const cards = graph ? Array.from(graph.querySelectorAll<HTMLElement>('[data-out-
 const TAB_KEYS = ['sees', 'understands', 'takesAction'];
 const TYPE_MS = 45;
 const FADE_MS = 150;
-const HILITE_DELAY_MS = 300;
-const HOLD_MS = 3500;
+const HOLD_MS = 3800;
 
 const paused = () => document.hidden || !!graph?.classList.contains('paused');
 
@@ -64,15 +64,17 @@ function activate(index: number) {
   tabs[current]?.classList.remove('chat__tab--active');
   current = index;
   tabs[current]?.classList.add('chat__tab--active');
+  // Card highlight tracks the active tab instantly — a lingering old
+  // highlight while the question types reads as the wrong card being lit.
+  highlight(index);
 
   const text = question?.getAttribute(`data-q-${index}`) ?? '';
   if (!question || !questionText || !text) return;
 
   if (reduced) {
-    // No animation: question, answer and card switch at once.
+    // No animation: question and answer switch at once.
     questionText.textContent = text;
     swapAnswer(index);
-    highlight(index);
     return;
   }
 
@@ -93,10 +95,7 @@ function activate(index: number) {
       }
       question.classList.remove('typing');
       swapAnswer(index);
-      later(() => {
-        if (gen === run) highlight(index);
-      }, HILITE_DELAY_MS);
-      later(advance, HILITE_DELAY_MS + HOLD_MS);
+      later(advance, HOLD_MS);
     };
     type();
   }, FADE_MS);

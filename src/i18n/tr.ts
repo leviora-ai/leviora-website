@@ -15,10 +15,9 @@ export const tr: Dict = {
         cmms: 'CMMS',
         other: 'Diğer Sistemler',
       },
-      outputsLabel: 'TAHMİNLER',
       outputs: [
-        { title: 'Kök Neden Analizi', desc: 'sebep zincirini kurar', tab: 'understands' },
         { title: 'Anlık Görünürlük', desc: 'canlı veriyi okur', tab: 'sees' },
+        { title: 'Kök Neden Analizi', desc: 'sebep zincirini kurar', tab: 'understands' },
         { title: 'Aksiyon', desc: 'verilen yetki dahilinde aksiyon alır', tab: 'takesAction' },
       ],
       chatPlaceholder: 'Analiz edilecek konuyu yazın...',
