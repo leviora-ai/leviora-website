@@ -35,32 +35,52 @@ const icons: Record<string, string> = {
 
 const sysIcons = [icons.database, icons.activity, icons.cpu, icons.wrench];
 
-/* Ontology graph geometry: card widths follow the label so both locales fit. */
-const on = h.stages.ontology.nodes;
+/* Ontology graph geometry: card widths follow the label so both locales fit.
+   Slots are fixed; each scenario fills them with its own labels and icons.
+   topRight/right are right-aligned and alert is centered so long labels can't
+   run past the 380px viewBox. */
+import type { ScenarioNode } from '../../../i18n/types';
+
 const nodeW = (label: string) => Math.round(50 + label.length * 6.5);
-const mkNode = (x: number, y: number, label: string, icon: string, alert = false) => {
-  const w = nodeW(label);
-  return { x, y, w, cx: x + w / 2, cy: y + 18, label, icon, alert };
+const mkNode = (slot: string, node: ScenarioNode, alert = false) => {
+  const w = nodeW(node.label);
+  const pos: Record<string, [number, number]> = {
+    topLeft: [20, 34],
+    topRight: [366 - w, 44],
+    center: [135, 112],
+    bottomLeft: [28, 176],
+    right: [366 - w, 182],
+    alert: [Math.round(190 - w / 2), 222],
+  };
+  const [x, y] = pos[slot];
+  return { x, y, w, cx: x + w / 2, cy: y + 18, icon: icons[node.icon] ?? icons.box, label: node.label, alert };
 };
-const nodes = {
-  operator: mkNode(20, 34, on.operator, icons.hardHat),
-  machine: mkNode(218, 44, on.machine, icons.cog),
-  line: mkNode(135, 112, on.line, icons.factory),
-  order: mkNode(28, 176, on.order, icons.pkg),
-  mold: mkNode(262, 182, on.mold, icons.box),
-  downtime: mkNode(Math.round(190 - nodeW(on.downtime) / 2), 222, on.downtime, icons.alert, true),
-};
-const graphNodes = Object.values(nodes);
-const edges = [
-  { a: nodes.operator, b: nodes.line },
-  { a: nodes.order, b: nodes.line },
-  { a: nodes.operator, b: nodes.order },
-];
-const chain = [
-  { a: nodes.mold, b: nodes.machine },
-  { a: nodes.machine, b: nodes.line },
-  { a: nodes.line, b: nodes.downtime },
-];
+const scenarios = h.scenarios.map((s) => {
+  const n = {
+    topLeft: mkNode('topLeft', s.nodes.topLeft),
+    topRight: mkNode('topRight', s.nodes.topRight),
+    center: mkNode('center', s.nodes.center),
+    bottomLeft: mkNode('bottomLeft', s.nodes.bottomLeft),
+    right: mkNode('right', s.nodes.right),
+    alert: mkNode('alert', s.nodes.alert, true),
+  };
+  return {
+    title: s.title,
+    caption: s.caption,
+    actions: s.actions,
+    nodes: Object.values(n),
+    edges: [
+      { a: n.topLeft, b: n.center },
+      { a: n.bottomLeft, b: n.center },
+      { a: n.topLeft, b: n.bottomLeft },
+    ],
+    chain: [
+      { a: n.right, b: n.topRight },
+      { a: n.topRight, b: n.center },
+      { a: n.center, b: n.alert },
+    ],
+  };
+});
 ---
 
 <section class="phero">
@@ -78,7 +98,7 @@ const chain = [
       </div>
     </div>
 
-    <div class="phero__flow" data-reveal>
+    <div class="phero__flow" data-reveal data-pflow>
       <!-- Stage 1: semantic layer -->
       <div class="stage stage--semantic">
         <p class="stage__label">{h.stages.semantic.label}</p>
@@ -125,40 +145,77 @@ const chain = [
         </svg>
       </div>
 
-      <!-- Stage 2: ontology -->
+      <!-- Stage 2: ontology (scenarios cross-fade) -->
       <div class="stage stage--ontology">
-        <p class="stage__label">{h.stages.ontology.label}</p>
+        <div class="stage__head">
+          <p class="stage__label">{h.stages.ontology.label}</p>
+          <span class="scn-titles" aria-hidden="true">
+            {
+              scenarios.map((s, i) => (
+                <span class:list={['scn-title', { on: i === 0 }]} data-scn-title={i}>
+                  {s.title}
+                </span>
+              ))
+            }
+          </span>
+        </div>
         <svg class="graph" viewBox="0 0 380 260" fill="none" aria-hidden="true">
-          {edges.map((e) => <line class="edge" x1={e.a.cx} y1={e.a.cy} x2={e.b.cx} y2={e.b.cy} />)}
           {
-            chain.map((e) => (
-              <line class="edge edge--chain" x1={e.a.cx} y1={e.a.cy} x2={e.b.cx} y2={e.b.cy} />
-            ))
-          }
-          {
-            graphNodes.map((n) => (
-              <g class:list={['gnode', { 'gnode--alert': n.alert }]}>
-                <rect class="gnode__card" x={n.x} y={n.y} width={n.w} height="36" rx="8" />
-                <rect class="gnode__tile" x={n.x + 6} y={n.y + 6} width="24" height="24" rx="6" />
-                <g
-                  transform={`translate(${n.x + 9.5}, ${n.y + 9.5}) scale(0.7)`}
-                  stroke="#b9a7f5"
-                  stroke-width="2"
-                  fill="none"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <Fragment set:html={n.icon} />
-                </g>
-                <text class="gnode__label" x={n.x + 38} y={n.y + 23}>
-                  {n.label}
-                </text>
-                {n.alert && <circle class="pulse-dot" cx={n.x + n.w - 12} cy={n.y + 10} r="3.5" />}
+            scenarios.map((s, i) => (
+              <g class:list={['scn', { on: i === 0 }]} data-scn={i}>
+                {s.edges.map((e) => (
+                  <line class="edge" x1={e.a.cx} y1={e.a.cy} x2={e.b.cx} y2={e.b.cy} />
+                ))}
+                {s.chain.map((e) => (
+                  <line class="edge edge--chain" x1={e.a.cx} y1={e.a.cy} x2={e.b.cx} y2={e.b.cy} />
+                ))}
+                {s.nodes.map((n) => (
+                  <g class:list={['gnode', { 'gnode--alert': n.alert }]}>
+                    <rect class="gnode__card" x={n.x} y={n.y} width={n.w} height="36" rx="8" />
+                    <rect class="gnode__tile" x={n.x + 6} y={n.y + 6} width="24" height="24" rx="6" />
+                    <g
+                      transform={`translate(${n.x + 9.5}, ${n.y + 9.5}) scale(0.7)`}
+                      stroke="#b9a7f5"
+                      stroke-width="2"
+                      fill="none"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <Fragment set:html={n.icon} />
+                    </g>
+                    <text class="gnode__label" x={n.x + 38} y={n.y + 23}>
+                      {n.label}
+                    </text>
+                    {n.alert && (
+                      <circle class="pulse-dot" cx={n.x + n.w - 12} cy={n.y + 10} r="3.5" />
+                    )}
+                  </g>
+                ))}
               </g>
             ))
           }
         </svg>
-        <p class="stage__caption">{h.stages.ontology.caption}</p>
+        <span class="scn-caps">
+          {
+            scenarios.map((s, i) => (
+              <span class:list={['stage__caption', 'scn-cap', { on: i === 0 }]} data-scn-cap={i}>
+                {s.caption}
+              </span>
+            ))
+          }
+        </span>
+        <div class="scn-dots">
+          {
+            scenarios.map((s, i) => (
+              <button
+                class:list={['scn-dot', { on: i === 0 }]}
+                data-scn-dot={i}
+                type="button"
+                aria-label={s.title}
+                aria-pressed={i === 0 ? 'true' : 'false'}></button>
+            ))
+          }
+        </div>
       </div>
 
       <div class="fconn fconn--2" aria-hidden="true">
@@ -169,20 +226,24 @@ const chain = [
         </svg>
       </div>
 
-      <!-- Stage 3: business actions -->
+      <!-- Stage 3: business actions (follows the active scenario) -->
       <div class="stage stage--actions">
         <p class="stage__label">{h.stages.actions.label}</p>
-        <div class="acts">
+        <div class="acts-stack">
           {
-            h.stages.actions.items.map((a, i) => (
-              <div class:list={['act', { 'act--live': i === 0 }]}>
-                <span class="act__avatar">
-                  <img src="/assets/leviora-icon.svg" alt="" width="16" height="16" />
-                </span>
-                <div class="act__text">
-                  <p class="act__title">{a.text}</p>
-                  <p class="act__status">{a.status}</p>
-                </div>
+            scenarios.map((s, i) => (
+              <div class:list={['acts', { on: i === 0 }]} data-scn-acts={i}>
+                {s.actions.map((a, j) => (
+                  <div class:list={['act', { 'act--live': j === 0 }]}>
+                    <span class="act__avatar">
+                      <img src="/assets/leviora-icon.svg" alt="" width="16" height="16" />
+                    </span>
+                    <div class="act__text">
+                      <p class="act__title">{a.text}</p>
+                      <p class="act__status">{a.status}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
             ))
           }
@@ -315,12 +376,98 @@ const chain = [
     color: var(--purple-heading);
   }
 
+  .stage__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
   .stage__caption {
     margin: 0;
     text-align: center;
     font-family: 'Exo', var(--sans);
     font-size: 11px;
     color: var(--purple-heading);
+  }
+
+  /* ---- Scenario rotation (product-flow.ts toggles .on) ---- */
+  .scn-titles {
+    display: grid;
+    text-align: right;
+  }
+
+  .scn-title {
+    grid-area: 1 / 1;
+    font-family: 'Exo', var(--sans);
+    font-size: 12px;
+    color: var(--purple-soft);
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 450ms var(--ease-out);
+  }
+
+  .scn {
+    opacity: 0;
+    transition: opacity 450ms var(--ease-out);
+  }
+
+  .scn:not(.on) .edge--chain,
+  .scn:not(.on) .pulse-dot {
+    animation-play-state: paused;
+  }
+
+  .scn-caps {
+    display: grid;
+  }
+
+  .scn-cap {
+    grid-area: 1 / 1;
+    opacity: 0;
+    transition: opacity 450ms var(--ease-out);
+  }
+
+  .scn-title.on,
+  .scn.on,
+  .scn-cap.on {
+    opacity: 1;
+  }
+
+  .scn-dots {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .scn-dot {
+    display: grid;
+    place-items: center;
+    width: 18px;
+    height: 18px;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
+
+  .scn-dot::after {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 1px solid rgba(149, 130, 189, 0.6);
+    transition:
+      background 180ms var(--ease-out),
+      border-color 180ms var(--ease-out);
+  }
+
+  .scn-dot:hover::after {
+    border-color: var(--purple-soft);
+  }
+
+  .scn-dot.on::after {
+    background: var(--purple-heading);
+    border-color: var(--purple-heading);
   }
 
   /* Stage 1 */
@@ -429,12 +576,25 @@ const chain = [
   }
 
   /* Stage 3: actions */
+  .acts-stack {
+    display: grid;
+    flex-grow: 1;
+    align-items: center;
+  }
+
   .acts {
+    grid-area: 1 / 1;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    justify-content: center;
-    flex-grow: 1;
+    opacity: 0;
+    transition: opacity 450ms var(--ease-out);
+    pointer-events: none;
+  }
+
+  .acts.on {
+    opacity: 1;
+    pointer-events: auto;
   }
 
   .act {
@@ -742,5 +902,16 @@ const chain = [
     .fconn__dot {
       display: none;
     }
+
+    .scn,
+    .scn-title,
+    .scn-cap,
+    .acts {
+      transition: none;
+    }
   }
 </style>
+
+<script>
+  import '../../../scripts/product-flow';
+</script>

@@ -200,27 +200,62 @@ export const tr: Dict = {
           vocabLabel: 'Tek ortak sözlük',
           vocabTerms: ['OEE', 'Duruş', 'Kalıp Değişimi', 'İş Emri'],
         },
-        ontology: {
-          label: 'Ontoloji',
-          caption: 'Tek bir olayın neden zinciri, hat boyunca izlenir',
+        ontology: { label: 'Ontoloji' },
+        actions: { label: 'İş Aksiyonları' },
+      },
+      scenarios: [
+        {
+          title: 'Plansız duruş',
+          caption: 'B kalıbının değişimi uzadı — 3. Hat durdu.',
           nodes: {
-            operator: 'Operatör · A Vardiyası',
-            machine: 'Makine M-041',
-            line: '3. Hat',
-            order: 'Sipariş #8842',
-            mold: 'B Kalıbı',
-            downtime: 'Duruş 18 dk',
+            topLeft: { icon: 'hardHat', label: 'Operatör · A Vardiyası' },
+            topRight: { icon: 'cog', label: 'Makine M-041' },
+            center: { icon: 'factory', label: '3. Hat' },
+            bottomLeft: { icon: 'pkg', label: 'Sipariş #8842' },
+            right: { icon: 'box', label: 'B Kalıbı' },
+            alert: { icon: 'alert', label: 'Duruş 18 dk' },
           },
-        },
-        actions: {
-          label: 'İş Aksiyonları',
-          items: [
+          actions: [
             { text: 'Vardiya amirine bildirim gönder', status: 'Gönderildi — onayınız bekleniyor' },
             { text: 'B kalıbı için CMMS iş emri aç', status: 'Taslak hazır' },
             { text: 'Sonraki kalıp değişimini yeniden planla', status: 'Verilen yetki dahilinde' },
           ],
         },
-      },
+        {
+          title: 'Kalite kayması',
+          caption: 'Reçete değişikliği 2. Fırın’ı kaydırıyor — fire tırmanıyor.',
+          nodes: {
+            topLeft: { icon: 'activity', label: 'Sensör T-12' },
+            topRight: { icon: 'cog', label: '2. Fırın' },
+            center: { icon: 'factory', label: '1. Hat' },
+            bottomLeft: { icon: 'pkg', label: 'Parti #A17' },
+            right: { icon: 'database', label: 'Reçete v4.2' },
+            alert: { icon: 'alert', label: 'Fire artıyor %3,8' },
+          },
+          actions: [
+            { text: 'A17 partisini incelemeye al', status: 'Gönderildi — onayınız bekleniyor' },
+            { text: '2. Fırın ayar değerini geri al', status: 'Taslak hazır' },
+            { text: 'Kalite mühendisine bildir', status: 'Verilen yetki dahilinde' },
+          ],
+        },
+        {
+          title: 'Geciken malzeme',
+          caption: 'L-77 partisi gecikti — Sipariş #9012 risk altında.',
+          nodes: {
+            topLeft: { icon: 'cpu', label: 'Planlama · MRP' },
+            topRight: { icon: 'box', label: 'L-77 gecikti' },
+            center: { icon: 'factory', label: '2. Hat' },
+            bottomLeft: { icon: 'pkg', label: 'Sipariş #9012' },
+            right: { icon: 'database', label: 'Tedarikçi ACME' },
+            alert: { icon: 'alert', label: 'Sipariş riskte · 6 sa' },
+          },
+          actions: [
+            { text: '2. Hat kuyruğunu yeniden sırala', status: 'Gönderildi — onayınız bekleniyor' },
+            { text: 'PO-4471’i ACME ile hızlandır', status: 'Taslak hazır' },
+            { text: 'Üretim planlamaya bildir', status: 'Verilen yetki dahilinde' },
+          ],
+        },
+      ],
       layers: [
         {
           title: 'Semantik Katman',
