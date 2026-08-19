@@ -15,10 +15,9 @@ export const en: Dict = {
         cmms: 'CMMS',
         other: 'Other Systems',
       },
-      outputsLabel: 'FORECASTS',
       outputs: [
-        { title: 'Root-Cause Analysis', desc: '- Builds The Cause Chain', tab: 'understands' },
         { title: 'Real-Time Visibility', desc: '- Reads Live Data', tab: 'sees' },
+        { title: 'Root-Cause Analysis', desc: '- Builds The Cause Chain', tab: 'understands' },
         { title: 'Action', desc: '- Acts Within Granted Authority', tab: 'takesAction' },
       ],
       chatPlaceholder: 'Write a topic to be analyzed...',

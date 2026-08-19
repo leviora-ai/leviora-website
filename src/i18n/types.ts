@@ -14,7 +14,6 @@ export interface HomeHeroDict {
   ctaPrimary: string;
   ctaSecondary: string;
   chips: { erp: string; mes: string; scada: string; cmms: string; other: string };
-  outputsLabel: string;
   outputs: { title: string; desc: string; tab: TabKey }[];
   chatPlaceholder: string;
   analyze: string;
