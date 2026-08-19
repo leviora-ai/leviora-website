@@ -12,6 +12,55 @@ interface Props {
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 const h = t.product.hero;
+
+/* Lucide icons (ISC license) — inline so no runtime fetch is needed. */
+const icons: Record<string, string> = {
+  hardHat:
+    '<path d="M10 10V5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5"></path> <path d="M14 6a6 6 0 0 1 6 6v3"></path> <path d="M4 15v-3a6 6 0 0 1 6-6"></path> <rect x="2" y="15" width="20" height="4" rx="1"></rect>',
+  factory:
+    '<path d="M12 16h.01"></path> <path d="M16 16h.01"></path> <path d="M3 19a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.5a.5.5 0 0 0-.769-.422l-4.462 2.844A.5.5 0 0 1 15 10.5v-2a.5.5 0 0 0-.769-.422L9.77 10.922A.5.5 0 0 1 9 10.5V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2z"></path> <path d="M8 16h.01"></path>',
+  pkg: '<path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"></path> <path d="M12 22V12"></path> <polyline points="3.29 7 12 12 20.71 7"></polyline> <path d="m7.5 4.27 9 5.15"></path>',
+  cog: '<path d="M11 10.27 7 3.34"></path> <path d="m11 13.73-4 6.93"></path> <path d="M12 22v-2"></path> <path d="M12 2v2"></path> <path d="M14 12h8"></path> <path d="m17 20.66-1-1.73"></path> <path d="m17 3.34-1 1.73"></path> <path d="M2 12h2"></path> <path d="m20.66 17-1.73-1"></path> <path d="m20.66 7-1.73 1"></path> <path d="m3.34 17 1.73-1"></path> <path d="m3.34 7 1.73 1"></path> <circle cx="12" cy="12" r="2"></circle> <circle cx="12" cy="12" r="8"></circle>',
+  alert:
+    '<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"></path> <path d="M12 9v4"></path> <path d="M12 17h.01"></path>',
+  database:
+    '<ellipse cx="12" cy="5" rx="9" ry="3"></ellipse> <path d="M3 5V19A9 3 0 0 0 21 19V5"></path> <path d="M3 12A9 3 0 0 0 21 12"></path>',
+  cpu: '<path d="M12 20v2"></path> <path d="M12 2v2"></path> <path d="M17 20v2"></path> <path d="M17 2v2"></path> <path d="M2 12h2"></path> <path d="M2 17h2"></path> <path d="M2 7h2"></path> <path d="M20 12h2"></path> <path d="M20 17h2"></path> <path d="M20 7h2"></path> <path d="M7 20v2"></path> <path d="M7 2v2"></path> <rect x="4" y="4" width="16" height="16" rx="2"></rect> <rect x="8" y="8" width="8" height="8" rx="1"></rect>',
+  activity:
+    '<path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"></path>',
+  wrench:
+    '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z"></path>',
+  box: '<path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path> <path d="m3.3 7 8.7 5 8.7-5"></path> <path d="M12 22V12"></path>',
+};
+
+const sysIcons = [icons.database, icons.activity, icons.cpu, icons.wrench];
+
+/* Ontology graph geometry: card widths follow the label so both locales fit. */
+const on = h.stages.ontology.nodes;
+const nodeW = (label: string) => Math.round(50 + label.length * 6.5);
+const mkNode = (x: number, y: number, label: string, icon: string, alert = false) => {
+  const w = nodeW(label);
+  return { x, y, w, cx: x + w / 2, cy: y + 18, label, icon, alert };
+};
+const nodes = {
+  operator: mkNode(20, 34, on.operator, icons.hardHat),
+  machine: mkNode(218, 44, on.machine, icons.cog),
+  line: mkNode(135, 112, on.line, icons.factory),
+  order: mkNode(28, 176, on.order, icons.pkg),
+  mold: mkNode(262, 182, on.mold, icons.box),
+  downtime: mkNode(Math.round(190 - nodeW(on.downtime) / 2), 222, on.downtime, icons.alert, true),
+};
+const graphNodes = Object.values(nodes);
+const edges = [
+  { a: nodes.operator, b: nodes.line },
+  { a: nodes.order, b: nodes.line },
+  { a: nodes.operator, b: nodes.order },
+];
+const chain = [
+  { a: nodes.mold, b: nodes.machine },
+  { a: nodes.machine, b: nodes.line },
+  { a: nodes.line, b: nodes.downtime },
+];
 ---
 
 <section class="phero">
@@ -29,41 +78,140 @@ const h = t.product.hero;
       </div>
     </div>
 
-    <div class="phero__diagram" data-reveal>
-      <div class="phero__conclusion layer-card layer-card--conclusion">
-        <div class="layer-card__text">
-          <p class="layer-card__title">{h.conclusion.title}</p>
-          <p class="layer-card__body">{h.conclusion.body}</p>
+    <div class="phero__flow" data-reveal>
+      <!-- Stage 1: semantic layer -->
+      <div class="stage stage--semantic">
+        <p class="stage__label">{h.stages.semantic.label}</p>
+        <div class="sys-grid">
+          {
+            h.stages.semantic.systems.map((s, i) => (
+              <div class="sys-chip">
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#9582bd"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <Fragment set:html={sysIcons[i]} />
+                </svg>
+                <span>{s}</span>
+              </div>
+            ))
+          }
+        </div>
+        <svg class="converge" viewBox="0 0 320 56" fill="none" aria-hidden="true">
+          <path class="pflow" d="M64 4 C 64 30, 148 34, 158 52"></path>
+          <path class="pflow" d="M240 4 C 240 30, 172 34, 162 52"></path>
+          <circle class="pulse-dot" cx="160" cy="52" r="3"></circle>
+        </svg>
+        <div class="vocab">
+          <p class="vocab__label">{h.stages.semantic.vocabLabel}</p>
+          <div class="vocab__terms">
+            {h.stages.semantic.vocabTerms.map((term) => <span class="vocab__term">{term}</span>)}
+          </div>
         </div>
       </div>
 
-      <img
-        class="phero__diamond"
-        src="/assets/diagrams/product-diamond.webp"
-        alt={h.diagramAlt}
-        width="240"
-        height="412"
-        loading="lazy"
-      />
+      <div class="fconn fconn--1" aria-hidden="true">
+        <svg viewBox="0 0 56 12" fill="none">
+          <path class="pflow" d="M0 6 H 48"></path>
+          <path class="fconn__arrow" d="M44 1.5 L 52 6 L 44 10.5"></path>
+          <circle class="fconn__dot" r="3"></circle>
+        </svg>
+      </div>
 
-      <div class="phero__layers">
-        {
-          h.layers.map((layer, i) => (
-            <div class="layer-card">
-              <span class="layer-card__pill">
-                <b>{String(i + 1).padStart(2, '0')}</b>
-                <i>/03</i>
-              </span>
-              <div class="layer-card__text">
-                <p class="layer-card__title">
-                  {layer.title}
-                  <span class="layer-card__q">{layer.q}</span>
-                </p>
-                <p class="layer-card__body">{layer.body}</p>
+      <!-- Stage 2: ontology -->
+      <div class="stage stage--ontology">
+        <p class="stage__label">{h.stages.ontology.label}</p>
+        <svg class="graph" viewBox="0 0 380 260" fill="none" aria-hidden="true">
+          {edges.map((e) => <line class="edge" x1={e.a.cx} y1={e.a.cy} x2={e.b.cx} y2={e.b.cy} />)}
+          {
+            chain.map((e) => (
+              <line class="edge edge--chain" x1={e.a.cx} y1={e.a.cy} x2={e.b.cx} y2={e.b.cy} />
+            ))
+          }
+          {
+            graphNodes.map((n) => (
+              <g class:list={['gnode', { 'gnode--alert': n.alert }]}>
+                <rect class="gnode__card" x={n.x} y={n.y} width={n.w} height="36" rx="8" />
+                <rect class="gnode__tile" x={n.x + 6} y={n.y + 6} width="24" height="24" rx="6" />
+                <g
+                  transform={`translate(${n.x + 9.5}, ${n.y + 9.5}) scale(0.7)`}
+                  stroke="#b9a7f5"
+                  stroke-width="2"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <Fragment set:html={n.icon} />
+                </g>
+                <text class="gnode__label" x={n.x + 38} y={n.y + 23}>
+                  {n.label}
+                </text>
+                {n.alert && <circle class="pulse-dot" cx={n.x + n.w - 12} cy={n.y + 10} r="3.5" />}
+              </g>
+            ))
+          }
+        </svg>
+        <p class="stage__caption">{h.stages.ontology.caption}</p>
+      </div>
+
+      <div class="fconn fconn--2" aria-hidden="true">
+        <svg viewBox="0 0 56 12" fill="none">
+          <path class="pflow" d="M0 6 H 48"></path>
+          <path class="fconn__arrow" d="M44 1.5 L 52 6 L 44 10.5"></path>
+          <circle class="fconn__dot" r="3"></circle>
+        </svg>
+      </div>
+
+      <!-- Stage 3: business actions -->
+      <div class="stage stage--actions">
+        <p class="stage__label">{h.stages.actions.label}</p>
+        <div class="acts">
+          {
+            h.stages.actions.items.map((a, i) => (
+              <div class:list={['act', { 'act--live': i === 0 }]}>
+                <span class="act__avatar">
+                  <img src="/assets/leviora-icon.svg" alt="" width="16" height="16" />
+                </span>
+                <div class="act__text">
+                  <p class="act__title">{a.text}</p>
+                  <p class="act__status">{a.status}</p>
+                </div>
               </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- Explainer cards -->
+      {
+        h.layers.map((layer, i) => (
+          <div class:list={['layer-card', `pcard--${i + 1}`]}>
+            <span class="layer-card__pill">
+              <b>{String(i + 1).padStart(2, '0')}</b>
+              <i>/03</i>
+            </span>
+            <div class="layer-card__text">
+              <p class="layer-card__title">
+                {layer.title}
+                <span class="layer-card__q">{layer.q}</span>
+              </p>
+              <p class="layer-card__body">{layer.body}</p>
             </div>
-          ))
-        }
+          </div>
+        ))
+      }
+
+      <!-- Conclusion -->
+      <div class="phero__conclusion">
+        <p class="phero__conclusion-title">{h.conclusion.title}</p>
+        <p class="phero__conclusion-body">{h.conclusion.body}</p>
       </div>
     </div>
   </div>
@@ -123,52 +271,333 @@ const h = t.product.hero;
     justify-content: center;
   }
 
-  /* ---- Diagram ---- */
-  .phero__diagram {
+  /* ---- Flow: semantic layer → ontology → business actions ---- */
+  .phero__flow {
     display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    gap: clamp(24px, 4vw, 72px);
-    align-items: center;
+    grid-template-columns: 1fr 56px 1.1fr 56px 1fr;
+    row-gap: 26px;
+    align-items: stretch;
     margin-top: clamp(48px, 6vw, 96px);
   }
 
-  .phero__diamond {
-    width: 240px;
-    height: auto;
-    justify-self: center;
-    animation: diamondfloat 9s var(--ease-out) infinite;
-  }
-
-  @keyframes diamondfloat {
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-12px);
-    }
-  }
-
-  .phero__layers {
+  .stage {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 15px;
+    padding: 20px;
+    border-radius: 16px;
+    background: rgba(18, 12, 34, 0.55);
+    border: 1px solid rgba(78, 47, 144, 0.35);
+  }
+
+  .stage--semantic {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .stage--ontology {
+    grid-column: 3;
+    grid-row: 1;
+  }
+
+  .stage--actions {
+    grid-column: 5;
+    grid-row: 1;
+  }
+
+  .stage__label {
+    margin: 0;
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--purple-heading);
+  }
+
+  .stage__caption {
+    margin: 0;
+    text-align: center;
+    font-family: 'Exo', var(--sans);
+    font-size: 11px;
+    color: var(--purple-heading);
+  }
+
+  /* Stage 1 */
+  .sys-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .sys-chip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 11px;
+    border-radius: 8px;
+    background: #120c26;
+    border: 2px solid rgba(39, 24, 75, 0.6);
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 1;
+    color: #ffffff;
+  }
+
+  .converge {
+    width: 100%;
+    height: 56px;
+  }
+
+  .vocab {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 12px;
+    border-radius: 10px;
+    background: linear-gradient(to bottom, rgba(129, 88, 164, 0.22), rgba(78, 47, 144, 0.1));
+    border: 1px solid rgba(129, 88, 164, 0.5);
+  }
+
+  .vocab__label {
+    margin: 0;
+    text-align: center;
+    font-family: 'Exo', var(--sans);
+    font-size: 12px;
+    color: rgba(225, 219, 242, 0.85);
+  }
+
+  .vocab__terms {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .vocab__term {
+    padding: 4px 8px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    font-family: 'Exo', var(--sans);
+    font-size: 11px;
+    color: var(--ink-inverse-2);
+  }
+
+  /* Stage 2: ontology graph */
+  .graph {
+    width: 100%;
+    flex-grow: 1;
+  }
+
+  .edge {
+    stroke: rgba(210, 200, 235, 0.28);
+    stroke-width: 1.2;
+  }
+
+  .edge--chain {
+    stroke: #b9a7f5;
+    stroke-width: 1.8;
+    stroke-dasharray: 4 6;
+    animation: pflowdash 1.8s linear infinite;
+    filter: drop-shadow(0 0 4px rgba(185, 167, 245, 0.7));
+  }
+
+  .gnode__card {
+    fill: #120c26;
+    stroke: rgba(129, 88, 164, 0.55);
+  }
+
+  .gnode--alert .gnode__card {
+    stroke: #b9a7f5;
+  }
+
+  .gnode__tile {
+    fill: rgba(233, 222, 250, 0.1);
+    stroke: rgba(149, 130, 189, 0.5);
+  }
+
+  .gnode__label {
+    font-family: 'Exo', var(--sans);
+    font-size: 12px;
+    fill: #eceaf2;
+  }
+
+  .gnode--alert .gnode__label {
+    fill: #ffffff;
+  }
+
+  /* Stage 3: actions */
+  .acts {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    flex-grow: 1;
+  }
+
+  .act {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: rgba(78, 47, 144, 0.18);
+    border: 1px solid rgba(78, 47, 144, 0.4);
+  }
+
+  .act--live {
+    border-color: rgba(149, 130, 189, 0.6);
+    animation: pglow 3.2s ease-in-out infinite;
+  }
+
+  .act__avatar {
+    display: grid;
+    place-items: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 7px;
+    background: rgba(233, 222, 250, 0.12);
+    border: 1px solid rgba(149, 130, 189, 0.5);
+    flex-shrink: 0;
+  }
+
+  .act__text {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .act__title {
+    margin: 0;
+    font-family: 'Exo', var(--sans);
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--ink-inverse);
+  }
+
+  .act__status {
+    margin: 0;
+    font-family: 'Exo', var(--sans);
+    font-size: 11px;
+    color: var(--purple-heading);
+  }
+
+  /* Connectors */
+  .fconn {
+    display: flex;
+    align-items: center;
+  }
+
+  .fconn--1 {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .fconn--2 {
+    grid-column: 4;
+    grid-row: 1;
+  }
+
+  .fconn svg {
+    width: 100%;
+    height: 12px;
+    overflow: visible;
+  }
+
+  .fconn__arrow {
+    stroke: rgba(185, 167, 245, 0.8);
+    stroke-width: 1.5;
+    fill: none;
+  }
+
+  .fconn__dot {
+    fill: #b9a7f5;
+    offset-path: path('M0 6 H 48');
+    animation: pdot 2.2s linear infinite;
+    filter: drop-shadow(0 0 5px rgba(185, 167, 245, 0.9));
+  }
+
+  .pflow {
+    stroke: rgba(210, 200, 235, 0.4);
+    stroke-width: 1.5;
+    stroke-dasharray: 6 7;
+    animation: pflowdash 2.6s linear infinite;
+  }
+
+  .pulse-dot {
+    fill: #b9a7f5;
+    animation: ppulse 2.2s ease-in-out infinite;
+  }
+
+  @keyframes pflowdash {
+    to {
+      stroke-dashoffset: -26;
+    }
+  }
+
+  @keyframes ppulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.3;
+    }
+  }
+
+  @keyframes pdot {
+    0% {
+      offset-distance: 0%;
+      opacity: 0;
+    }
+    15% {
+      opacity: 1;
+    }
+    85% {
+      opacity: 1;
+    }
+    100% {
+      offset-distance: 100%;
+      opacity: 0;
+    }
+  }
+
+  @keyframes pglow {
+    0%,
+    100% {
+      box-shadow: 0 0 0 rgba(185, 167, 245, 0);
+    }
+    50% {
+      box-shadow: 0 0 16px rgba(185, 167, 245, 0.28);
+    }
+  }
+
+  /* Explainer cards */
+  .pcard--1 {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .pcard--2 {
+    grid-column: 3;
+    grid-row: 2;
+  }
+
+  .pcard--3 {
+    grid-column: 5;
+    grid-row: 2;
   }
 
   .layer-card {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 16px;
     padding: 18px;
     border-radius: 16px;
     border-left: 1px solid #8158a4;
     background: linear-gradient(to bottom, rgba(40, 28, 78, 0.5), #120c22);
-    max-width: 516px;
-  }
-
-  .layer-card--conclusion {
-    background: linear-gradient(to bottom, rgba(40, 28, 78, 0.6), rgba(18, 12, 34, 0.8));
-    justify-self: end;
   }
 
   .layer-card__pill {
@@ -231,31 +660,87 @@ const h = t.product.hero;
     color: rgba(225, 219, 242, 0.72);
   }
 
-  .layer-card--conclusion .layer-card__title {
-    font-weight: 500;
+  /* Conclusion */
+  .phero__conclusion {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    margin-top: 6px;
   }
 
-  .layer-card--conclusion .layer-card__body {
+  .phero__conclusion-title {
+    margin: 0;
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: 20px;
+    color: #ffffff;
+  }
+
+  .phero__conclusion-body {
+    margin: 0;
+    max-width: 760px;
+    text-align: center;
+    font-family: 'Exo', var(--sans);
     font-size: 16px;
     line-height: 1.4;
+    color: rgba(225, 219, 242, 0.72);
   }
 
   @media (max-width: 1000px) {
-    .phero__diagram {
-      grid-template-columns: 1fr;
-      justify-items: center;
+    /* Narrative order on one column: each stage followed by its card. */
+    .phero__flow {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
     }
 
-    .layer-card,
-    .layer-card--conclusion {
-      justify-self: stretch;
-      max-width: none;
+    .fconn {
+      display: none;
+    }
+
+    .stage--semantic {
+      order: 1;
+    }
+
+    .pcard--1 {
+      order: 2;
+    }
+
+    .stage--ontology {
+      order: 3;
+    }
+
+    .pcard--2 {
+      order: 4;
+    }
+
+    .stage--actions {
+      order: 5;
+    }
+
+    .pcard--3 {
+      order: 6;
+    }
+
+    .phero__conclusion {
+      order: 7;
+      margin-top: 8px;
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .phero__diamond {
+    .pflow,
+    .edge--chain,
+    .pulse-dot,
+    .act--live {
       animation: none;
+    }
+
+    .fconn__dot {
+      display: none;
     }
   }
 </style>
