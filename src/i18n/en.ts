@@ -200,27 +200,62 @@ export const en: Dict = {
           vocabLabel: 'One shared vocabulary',
           vocabTerms: ['OEE', 'Downtime', 'Changeover', 'Work Order'],
         },
-        ontology: {
-          label: 'Ontology',
-          caption: 'The cause chain of one event, traced across the line',
+        ontology: { label: 'Ontology' },
+        actions: { label: 'Business Actions' },
+      },
+      scenarios: [
+        {
+          title: 'Unplanned downtime',
+          caption: 'Mold B’s changeover ran long — Line 3 stopped.',
           nodes: {
-            operator: 'Operator · Shift A',
-            machine: 'Machine M-041',
-            line: 'Line 3',
-            order: 'Order #8842',
-            mold: 'Mold B',
-            downtime: 'Downtime 18m',
+            topLeft: { icon: 'hardHat', label: 'Operator · Shift A' },
+            topRight: { icon: 'cog', label: 'Machine M-041' },
+            center: { icon: 'factory', label: 'Line 3' },
+            bottomLeft: { icon: 'pkg', label: 'Order #8842' },
+            right: { icon: 'box', label: 'Mold B' },
+            alert: { icon: 'alert', label: 'Downtime 18m' },
           },
-        },
-        actions: {
-          label: 'Business Actions',
-          items: [
+          actions: [
             { text: 'Notify the shift supervisor', status: 'Sent — pending your approval' },
             { text: 'Open a CMMS work order for Mold B', status: 'Draft ready' },
             { text: 'Reschedule the next changeover', status: 'Within granted authority' },
           ],
         },
-      },
+        {
+          title: 'Quality drift',
+          caption: 'A recipe change drifts Oven 2 — scrap starts to climb.',
+          nodes: {
+            topLeft: { icon: 'activity', label: 'Sensor T-12' },
+            topRight: { icon: 'cog', label: 'Oven 2' },
+            center: { icon: 'factory', label: 'Line 1' },
+            bottomLeft: { icon: 'pkg', label: 'Batch #A17' },
+            right: { icon: 'database', label: 'Recipe v4.2' },
+            alert: { icon: 'alert', label: 'Scrap rising 3.8%' },
+          },
+          actions: [
+            { text: 'Hold Batch #A17 for inspection', status: 'Sent — pending your approval' },
+            { text: 'Restore the Oven 2 setpoint', status: 'Draft ready' },
+            { text: 'Notify the quality engineer', status: 'Within granted authority' },
+          ],
+        },
+        {
+          title: 'Late material',
+          caption: 'Lot L-77 is late — Order #9012 is now at risk.',
+          nodes: {
+            topLeft: { icon: 'cpu', label: 'Planner · MRP' },
+            topRight: { icon: 'box', label: 'Lot L-77 late' },
+            center: { icon: 'factory', label: 'Line 2' },
+            bottomLeft: { icon: 'pkg', label: 'Order #9012' },
+            right: { icon: 'database', label: 'Supplier ACME' },
+            alert: { icon: 'alert', label: 'Order at risk · 6h' },
+          },
+          actions: [
+            { text: 'Resequence the Line 2 queue', status: 'Sent — pending your approval' },
+            { text: 'Expedite PO-4471 with ACME', status: 'Draft ready' },
+            { text: 'Notify production planning', status: 'Within granted authority' },
+          ],
+        },
+      ],
       layers: [
         {
           title: 'Semantic Layer',

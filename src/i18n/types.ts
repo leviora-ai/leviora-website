@@ -2,6 +2,28 @@ export type Lang = 'en' | 'tr';
 
 export type TabKey = 'sees' | 'understands' | 'takesAction';
 
+/* One rotating use case on the product hero: six ontology-graph nodes on
+   fixed slots (alert = the pulsing incident node) plus the action list the
+   scenario produces. `icon` is a key into the hero's inline Lucide set. */
+export interface ScenarioNode {
+  icon: string;
+  label: string;
+}
+
+export interface ProductScenario {
+  title: string;
+  caption: string;
+  nodes: {
+    topLeft: ScenarioNode;
+    topRight: ScenarioNode;
+    center: ScenarioNode;
+    bottomLeft: ScenarioNode;
+    right: ScenarioNode;
+    alert: ScenarioNode;
+  };
+  actions: { text: string; status: string }[];
+}
+
 export interface MetaDict {
   title: string;
   description: string;
@@ -112,23 +134,10 @@ export interface Dict {
           vocabLabel: string;
           vocabTerms: string[];
         };
-        ontology: {
-          label: string;
-          caption: string;
-          nodes: {
-            operator: string;
-            machine: string;
-            line: string;
-            order: string;
-            mold: string;
-            downtime: string;
-          };
-        };
-        actions: {
-          label: string;
-          items: { text: string; status: string }[];
-        };
+        ontology: { label: string };
+        actions: { label: string };
       };
+      scenarios: ProductScenario[];
       layers: { title: string; q: string; body: string }[];
     };
     three: HeadingDict & {
