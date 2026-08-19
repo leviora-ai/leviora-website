@@ -105,8 +105,31 @@ export interface Dict {
       ctaPrimary: string;
       ctaSecondary: string;
       conclusion: { title: string; body: string };
+      stages: {
+        semantic: {
+          label: string;
+          systems: string[];
+          vocabLabel: string;
+          vocabTerms: string[];
+        };
+        ontology: {
+          label: string;
+          caption: string;
+          nodes: {
+            operator: string;
+            machine: string;
+            line: string;
+            order: string;
+            mold: string;
+            downtime: string;
+          };
+        };
+        actions: {
+          label: string;
+          items: { text: string; status: string }[];
+        };
+      };
       layers: { title: string; q: string; body: string }[];
-      diagramAlt: string;
     };
     three: HeadingDict & {
       sub: string;

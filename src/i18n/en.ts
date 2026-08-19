@@ -191,27 +191,53 @@ export const en: Dict = {
       ctaSecondary: 'Explore The Architecture',
       conclusion: {
         title: 'Central Enterprise Intelligence',
-        body: 'When the three combine, your Central Enterprise Intelligence forms — one structured understanding of how your operation truly works.',
+        body: 'When the semantic layer and the ontology work as one, understanding turns into action.',
+      },
+      stages: {
+        semantic: {
+          label: 'Semantic Layer',
+          systems: ['ERP', 'MES', 'SCADA', 'CMMS'],
+          vocabLabel: 'One shared vocabulary',
+          vocabTerms: ['OEE', 'Downtime', 'Changeover', 'Work Order'],
+        },
+        ontology: {
+          label: 'Ontology',
+          caption: 'The cause chain of one event, traced across the line',
+          nodes: {
+            operator: 'Operator · Shift A',
+            machine: 'Machine M-041',
+            line: 'Line 3',
+            order: 'Order #8842',
+            mold: 'Mold B',
+            downtime: 'Downtime 18m',
+          },
+        },
+        actions: {
+          label: 'Business Actions',
+          items: [
+            { text: 'Notify the shift supervisor', status: 'Sent — pending your approval' },
+            { text: 'Open a CMMS work order for Mold B', status: 'Draft ready' },
+            { text: 'Reschedule the next changeover', status: 'Within granted authority' },
+          ],
+        },
       },
       layers: [
         {
-          title: 'Common Data Language',
+          title: 'Semantic Layer',
           q: 'What happened?',
-          body: 'Every system speaks differently. Leviora unifies them under one language.',
+          body: 'ERP, MES, SCADA and CMMS each speak their own dialect. The semantic layer translates them into one shared vocabulary.',
         },
         {
-          title: 'Relationship Map',
+          title: 'Ontology',
           q: 'Why did it happen?',
-          body: 'Learns how lines, shifts, machines & orders relate; traces the chain of an event.',
+          body: 'A living model of your operation — how machines, orders, shifts and lines relate, and the chain behind every event.',
         },
         {
-          title: 'Business Rules Engine',
+          title: 'Business Actions',
           q: 'What should be done?',
-          body: 'Your thresholds, limits and exceptions become operational rules.',
+          body: 'Understanding becomes action: rules, thresholds and approvals turn the answer into an operational move.',
         },
       ],
-      diagramAlt:
-        'Isometric diagram of the three product layers — Common Data Language, Relationship Map and Business Rules Engine — stacked into one central intelligence.',
     },
     three: {
       eyebrow: 'Central Enterprise Intelligence',
@@ -224,19 +250,19 @@ export const en: Dict = {
         'When the three combine, your Central Enterprise Intelligence forms — one structured understanding of how your operation truly works.',
       cards: [
         {
-          title: 'Common Data Language',
+          title: 'Semantic Layer',
           q: 'What happened?',
-          body: 'Every system speaks differently. It unifies them under one language.',
+          body: 'Every system speaks its own dialect. The semantic layer unifies them under one shared vocabulary.',
         },
         {
-          title: 'Relationship Map',
+          title: 'Ontology',
           q: 'Why did it happen?',
-          body: 'Learns how lines, shifts, machines and orders relate; traces the chain of an event.',
+          body: 'Learns how machines, orders, shifts and lines relate; traces the chain behind every event.',
         },
         {
-          title: 'Business Rules Engine',
+          title: 'Business Actions',
           q: 'What should be done?',
-          body: 'Your thresholds, limits and exceptions become operational rules.',
+          body: 'Your thresholds, limits and approvals turn understanding into operational action.',
         },
       ],
       aiName: 'LEVIORA AI',

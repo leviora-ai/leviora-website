@@ -191,27 +191,53 @@ export const tr: Dict = {
       ctaSecondary: 'Mimariyi incele',
       conclusion: {
         title: 'Merkezi Kurumsal Zekâ',
-        body: "Üçü birleştiğinde Merkezi Kurumsal Zekâ'nız oluşur — operasyonunuzun gerçekte nasıl çalıştığına dair tek ve yapılandırılmış bir anlayış.",
+        body: 'Semantik katman ve ontoloji birlikte çalıştığında anlayış aksiyona dönüşür.',
+      },
+      stages: {
+        semantic: {
+          label: 'Semantik Katman',
+          systems: ['ERP', 'MES', 'SCADA', 'CMMS'],
+          vocabLabel: 'Tek ortak sözlük',
+          vocabTerms: ['OEE', 'Duruş', 'Kalıp Değişimi', 'İş Emri'],
+        },
+        ontology: {
+          label: 'Ontoloji',
+          caption: 'Tek bir olayın neden zinciri, hat boyunca izlenir',
+          nodes: {
+            operator: 'Operatör · A Vardiyası',
+            machine: 'Makine M-041',
+            line: '3. Hat',
+            order: 'Sipariş #8842',
+            mold: 'B Kalıbı',
+            downtime: 'Duruş 18 dk',
+          },
+        },
+        actions: {
+          label: 'İş Aksiyonları',
+          items: [
+            { text: 'Vardiya amirine bildirim gönder', status: 'Gönderildi — onayınız bekleniyor' },
+            { text: 'B kalıbı için CMMS iş emri aç', status: 'Taslak hazır' },
+            { text: 'Sonraki kalıp değişimini yeniden planla', status: 'Verilen yetki dahilinde' },
+          ],
+        },
       },
       layers: [
         {
-          title: 'Ortak Veri Dili',
+          title: 'Semantik Katman',
           q: 'Ne oldu?',
-          body: 'Her sistem farklı konuşur. Leviora hepsini tek dilde birleştirir.',
+          body: "ERP, MES, SCADA ve CMMS'in her biri kendi dilini konuşur. Semantik katman hepsini tek ortak sözlüğe çevirir.",
         },
         {
-          title: 'İlişki Haritası',
+          title: 'Ontoloji',
           q: 'Neden oldu?',
-          body: 'Hatların, vardiyaların, makinelerin ve siparişlerin birbiriyle ilişkisini öğrenir; olayın zincirini takip eder.',
+          body: 'Operasyonunuzun yaşayan modeli — makineler, siparişler, vardiyalar ve hatlar birbirine nasıl bağlı, her olayın arkasındaki zincir ne.',
         },
         {
-          title: 'İş Kuralları Motoru',
+          title: 'İş Aksiyonları',
           q: 'Ne yapılmalı?',
-          body: 'Eşikleriniz, limitleriniz ve istisnalarınız operasyonel kurala dönüşür.',
+          body: 'Anlayış aksiyona dönüşür: kurallar, eşikler ve onaylar cevabı operasyonel bir hamleye çevirir.',
         },
       ],
-      diagramAlt:
-        'Üç ürün katmanının — Ortak Veri Dili, İlişki Haritası ve İş Kuralları Motoru — tek bir merkezi zekâda birleştiğini gösteren izometrik diyagram.',
     },
     three: {
       eyebrow: 'Merkezi Kurumsal Zekâ',
@@ -224,19 +250,19 @@ export const tr: Dict = {
         "Üçü birleştiğinde Merkezi Kurumsal Zekâ'nız oluşur — operasyonunuzun gerçekte nasıl çalıştığına dair tek ve yapılandırılmış bir anlayış.",
       cards: [
         {
-          title: 'Ortak Veri Dili',
+          title: 'Semantik Katman',
           q: 'Ne oldu?',
-          body: 'Her sistem farklı konuşur. Hepsini tek dilde birleştirir.',
+          body: 'Her sistem kendi dilini konuşur. Semantik katman hepsini tek ortak sözlükte birleştirir.',
         },
         {
-          title: 'İlişki Haritası',
+          title: 'Ontoloji',
           q: 'Neden oldu?',
-          body: 'Hatların, vardiyaların, makinelerin ve siparişlerin ilişkisini öğrenir; olayın zincirini takip eder.',
+          body: 'Makinelerin, siparişlerin, vardiyaların ve hatların ilişkisini öğrenir; her olayın arkasındaki zinciri izler.',
         },
         {
-          title: 'İş Kuralları Motoru',
+          title: 'İş Aksiyonları',
           q: 'Ne yapılmalı?',
-          body: 'Eşikleriniz, limitleriniz ve istisnalarınız operasyonel kurala dönüşür.',
+          body: 'Eşikleriniz, limitleriniz ve onaylarınız anlayışı operasyonel aksiyona dönüştürür.',
         },
       ],
       aiName: 'LEVIORA AI',
