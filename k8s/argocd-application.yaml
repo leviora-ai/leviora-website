@@ -50,3 +50,32 @@ spec:
       # yaptırır ⇒ varsayılanlar iki tarafta da dolu olur, fark kalmaz.
       # Emsal: pandora-prod app'i bu bayrağı taşıyor ve bu sorunu yaşamıyor.
       - ServerSideDiff=true
+  # ⛔ CRD VARSAYILANLARI — ÖLÇÜLDÜ (01.09.2026, canlı prod).
+  # ExternalSecret CRD'si dört alanı KENDİ dolduruyor; git'te yazmıyor
+  # çünkü YAZILMAMALI. ArgoCD bunları sapma sanıyordu ve app aylardır
+  # "OutOfSync / Healthy" görünüyordu.
+  #   canlı: remoteRef{conversionStrategy:"Default", decodingStrategy:"None",
+  #                    metadataPolicy:"None"} · target{deletionPolicy:"Retain"}
+  #   git  : remoteRef{key, property}          · target{name, creationPolicy}
+  #
+  # ⛔ NEDEN `ServerSideDiff=true` TEK BAŞINA YETMEDİ (ölçüldü): bayrak
+  # kontrolcü düzeyinde HİÇ ayarlanmamış — `argocd-cmd-params-cm` içinde
+  # `controller.diff.server.side` anahtarı YOK ve StatefulSet'teki
+  # `ARGOCD_APPLICATION_CONTROLLER_SERVER_SIDE_DIFF` env'i o anahtara
+  # `optional: true` ile bağlı ⇒ boş kalıyor. App'e bayrak yazmak yetmiyor.
+  # Bayrak yine de bırakıldı: kontrolcü düzeyinde açıldığı gün çalışır.
+  #
+  # ⭐ ZARAR DOLAYLIYDI: `automated.selfHeal` açık olduğu için app sürekli
+  # senkronluyor, API sunucusu varsayılanları geri ekliyor, app tekrar
+  # OutOfSync oluyordu. Sonuç, gürültünün bekçiyi kör etmesi — GERÇEK bir
+  # sapma doğduğunda kimse fark etmeyecekti.
+  #
+  # Emsal: `pandora-prod` app'i 13 ignoreDifferences girdisi taşıyor.
+  ignoreDifferences:
+    - group: external-secrets.io
+      kind: ExternalSecret
+      jsonPointers:
+        - /spec/data/0/remoteRef/conversionStrategy
+        - /spec/data/0/remoteRef/decodingStrategy
+        - /spec/data/0/remoteRef/metadataPolicy
+        - /spec/target/deletionPolicy
