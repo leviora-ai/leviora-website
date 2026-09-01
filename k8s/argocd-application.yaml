@@ -34,3 +34,19 @@ spec:
     syncOptions:
       - CreateNamespace=true
       - ServerSideApply=true
+      # ⛔ SONSUZ OutOfSync DÖNGÜSÜ — ölçüldü (01.09.2026, canlı prod).
+      # Bu bayrak OLMADAN ArgoCD, git'i API sunucusunun DOLDURDUĞU CRD
+      # varsayılanlarıyla karşılaştırıyor ve farkı SAPMA sanıyor. Ölçülen
+      # sahte fark (ExternalSecret/leviora-api-secrets):
+      #   spec.data[].remoteRef.conversionStrategy = "Default"
+      #   spec.data[].remoteRef.decodingStrategy   = "None"
+      #   spec.target.deletionPolicy               = "Retain"
+      # Üçü de git'te YAZMIYOR çünkü YAZILMAMALI — CRD'nin kendi
+      # varsayılanları. `automated.selfHeal` açık olduğu için app sürekli
+      # senkronlayıp sürekli tekrar OutOfSync'e düşüyordu: app aylardır
+      # "OutOfSync / Healthy" görünüyor ve gerçek bir sapma doğduğunda
+      # kimse fark etmeyecekti — gürültü, bekçiyi kör ediyor.
+      # ServerSideDiff, karşılaştırmayı API sunucusunun kuru-koşumu üzerinden
+      # yaptırır ⇒ varsayılanlar iki tarafta da dolu olur, fark kalmaz.
+      # Emsal: pandora-prod app'i bu bayrağı taşıyor ve bu sorunu yaşamıyor.
+      - ServerSideDiff=true
