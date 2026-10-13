@@ -14,11 +14,11 @@ resources:
 # hand-edit them except to roll back (set both to an earlier sha- tag and its digest).
 images:
   - name: ghcr.io/leviora-ai/leviora-website
-    newTag: sha-d817c1d
-    digest: sha256:26f68ef349a32e4a03f81fac1b04e1e654a89b95caf89a41633fd2e4ec2d038d
+    newTag: sha-c131ad3
+    digest: sha256:5a5b2babb6f3469537b4d53295ae9218d87fa8ba221c1552f1cd6f5935161507
   - name: ghcr.io/leviora-ai/leviora-website-api
-    newTag: sha-d817c1d
-    digest: sha256:b86efefd5d97272c93e3f76112305f8fdf9ca82d47adbf4a5fb161e4fd4a29ee
+    newTag: sha-c131ad3
+    digest: sha256:013b569a028ba6ab3dea2e508ada6ddd9ad0208e651b9e90e6e63d3a727f07fd
 labels:
   - includeSelectors: false
     pairs:
