@@ -20,6 +20,11 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: leviora-website-api
+      annotations:
+        # VictoriaMetrics (pandora) scrapes /metrics here: leviora_website_contact_requests_total
+        # by outcome. /metrics is not routed by the Ingress (it forwards /api only).
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8080"
     spec:
       automountServiceAccountToken: false
       securityContext:
@@ -31,8 +36,9 @@ spec:
           type: RuntimeDefault
       containers:
         - name: api
-          image: ghcr.io/leviora-ai/leviora-website-api:latest
-          imagePullPolicy: Always
+          # tag@digest is set by kustomization.yaml `images:` (written by the build workflow)
+          image: ghcr.io/leviora-ai/leviora-website-api
+          imagePullPolicy: IfNotPresent
           ports:
             - name: http
               containerPort: 8080

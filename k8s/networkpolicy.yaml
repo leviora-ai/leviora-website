@@ -1,0 +1,104 @@
+# NetworkPolicies of the website namespace: deny by default, then open exactly what is used.
+#
+# Who reaches the pods: the ingress controller (ingress-nginx runs on the HOST network on the single
+# Hetzner node, so its traffic does not come from the pod network and a namespace selector alone
+# does not match it; the source is the node address). The same peers as pandora-infra's prod
+# values (overlays/hetzner/prod-chart/values.yaml networkPolicy.ingressNamespace + ingressCIDR),
+# which also cover the kubelet's probes from the node. If the node address changes, change it in
+# both places.
+#
+# What the pods reach: the static site nothing; the API DNS and HTTPS on the internet (Resend).
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny
+  namespace: leviora-website
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+    - Egress
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: leviora-website
+  namespace: leviora-website
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: leviora-website
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: ingress-nginx
+        - ipBlock:
+            cidr: 49.12.116.238/32
+      ports:
+        - protocol: TCP
+          port: 8080
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: leviora-website-api
+  namespace: leviora-website
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: leviora-website-api
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: ingress-nginx
+        - ipBlock:
+            cidr: 49.12.116.238/32
+      ports:
+        - protocol: TCP
+          port: 8080
+    # VictoriaMetrics scrapes /metrics (pandora's own egress target `scrape` allows 10.42.0.0/16:8080)
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: pandora
+          podSelector:
+            matchLabels:
+              leviora/workload: victoria-metrics
+      ports:
+        - protocol: TCP
+          port: 8080
+  egress:
+    # DNS first: without it every name lookup fails once a policy selects the pod
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+          podSelector:
+            matchLabels:
+              k8s-app: kube-dns
+      ports:
+        - protocol: UDP
+          port: 53
+        - protocol: TCP
+          port: 53
+    # Resend's HTTPS API (api.resend.com): the internet on 443, never the private ranges
+    - to:
+        - ipBlock:
+            cidr: 0.0.0.0/0
+            except:
+              - 10.0.0.0/8
+              - 172.16.0.0/12
+              - 192.168.0.0/16
+              - 100.64.0.0/10
+              - 169.254.0.0/16
+      ports:
+        - protocol: TCP
+          port: 443

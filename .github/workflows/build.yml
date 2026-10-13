@@ -1,11 +1,18 @@
 name: build-and-push
 
+# Deploy flow (k8s/argocd-application.yaml has the same description):
+#   push to main → verify → build: both images pushed ONCE under the immutable tag sha-<7>
+#   (refused if the tag already exists) → pin: the tag and the pushed manifest digest are written
+#   into k8s/kustomization.yaml and committed to main → ArgoCD auto-sync rolls the Deployments.
+# The pin commit is pushed with GITHUB_TOKEN, which does not trigger workflows (no loop).
+# Third-party actions are pinned to full commit SHAs (version in the comment).
+
 on:
   push:
     branches: [main]
   pull_request:
-    # `ready_for_review` şart: aşağıdaki draft koşulu olmadan taslak→hazır
-    # geçişinde yeni koşu tetiklenmez, check hiç raporlamaz.
+    # `ready_for_review` is required: without the draft condition below a draft→ready transition
+    # would trigger no new run and the check would never report.
     types: [opened, synchronize, reopened, ready_for_review]
     paths-ignore:
       - "**.md"
@@ -13,31 +20,33 @@ on:
     branches: [main]
   workflow_dispatch:
 
-permissions:
-  contents: read
-  packages: write
+permissions: {}
 
 env:
   REGISTRY: ghcr.io
+  KUSTOMIZE_VERSION: v5.4.3
+  # sha256 of kustomize_v5.4.3_linux_amd64.tar.gz from the release's checksums.txt
+  KUSTOMIZE_SHA256: 3669470b454d865c8184d6bce78df05e977c9aea31c30df3c669317d43bcc7a7
 
-# CI-COST (2026-07-26): PR'da üst üste push'ta eski koşu iptal edilir.
-# main'de İPTAL YOK — her main commit'i kendi imajını üretmek zorunda
-# (yarıda kesilen build = eksik imaj).
+# CI-COST (2026-07-26): on a PR a newer push cancels the older run. No cancelling on main:
+# every main commit must produce its own image (an interrupted build = a missing image).
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   verify:
-    # Taslak PR'da atla; push her zaman koşar (CI-COST 2026-07-26).
+    # Skipped on draft PRs; push always runs (CI-COST 2026-07-26).
     if: github.event_name != 'pull_request' || github.event.pull_request.draft == false
     name: Verify (site + api + manifests)
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
-          node-version: 20
+          node-version-file: .nvmrc
           cache: npm
           cache-dependency-path: |
             package-lock.json
@@ -57,9 +66,10 @@ jobs:
         working-directory: api
         run: npm run build
 
-      - name: Install kustomize
+      - name: Install kustomize (checksum verified)
         run: |
-          curl -sLo kustomize.tar.gz https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/v5.4.3/kustomize_v5.4.3_linux_amd64.tar.gz
+          curl -sSfLo kustomize.tar.gz "https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/${KUSTOMIZE_VERSION}/kustomize_${KUSTOMIZE_VERSION}_linux_amd64.tar.gz"
+          echo "${KUSTOMIZE_SHA256}  kustomize.tar.gz" | sha256sum -c -
           tar -xzf kustomize.tar.gz
           chmod +x kustomize
       - name: Render manifests
@@ -71,11 +81,13 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
-    # `needs: [verify]` taslak koşulunu zaten devralır: verify taslak PR'da
-    # skipped olunca bu job da skipped olur. Buraya AYRI bir `if:` YAZILMAZ —
-    # job'a açık `if:` eklemek üstü kapalı `success()` şartını kaldırır ve
-    # verify KIRMIZI olduğunda bile imaj build'i koşardı (CI-COST 2026-07-26).
+    # `needs: [verify]` inherits the draft condition: when verify is skipped on a draft PR this job
+    # is skipped too. Do NOT add a separate `if:` here — an explicit `if:` drops the implicit
+    # `success()` and the image build would run even with verify RED (CI-COST 2026-07-26).
     needs: [verify]
+    permissions:
+      contents: read
+      packages: write
     strategy:
       matrix:
         include:
@@ -87,14 +99,14 @@ jobs:
             dockerfile: api/Dockerfile
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+        uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3.12.0
 
       - name: Login to GHCR
         if: github.event_name != 'pull_request'
-        uses: docker/login-action@v3
+        uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3.7.0
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
@@ -102,17 +114,28 @@ jobs:
 
       - name: Compute metadata
         id: meta
-        uses: docker/metadata-action@v5
+        uses: docker/metadata-action@c299e40c65443455700f0fdfc63efafe5b349051 # v5.10.0
         with:
           images: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ matrix.image }}
+          # One immutable tag per commit; no moving tags (`latest`, branch names): what runs is
+          # the digest k8s/kustomization.yaml names, never whatever a tag points to today.
           tags: |
-            type=ref,event=branch
-            type=ref,event=pr
             type=sha,prefix=sha-,format=short
-            type=raw,value=latest,enable={{is_default_branch}}
+
+      - name: Refuse to overwrite an existing tag
+        if: github.event_name != 'pull_request'
+        env:
+          TAGS: ${{ steps.meta.outputs.tags }}
+        run: |
+          for ref in $TAGS; do
+            if docker buildx imagetools inspect "$ref" >/dev/null 2>&1; then
+              echo "::error::$ref already exists in the registry; tags are immutable. Push a new commit instead of rebuilding this one."
+              exit 1
+            fi
+          done
 
       - name: Build and push
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8 # v6.19.2
         with:
           context: ${{ matrix.context }}
           file: ${{ matrix.dockerfile }}
@@ -122,3 +145,73 @@ jobs:
           cache-from: type=gha,scope=${{ matrix.image }}
           cache-to: type=gha,mode=max,scope=${{ matrix.image }}
           platforms: linux/amd64
+          provenance: mode=max
+          sbom: true
+
+  pin:
+    name: Pin images in k8s/kustomization.yaml
+    needs: [build]
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: read
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Login to GHCR
+        uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3.7.0
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Write tag and digest, commit to main
+        env:
+          OWNER: ${{ github.repository_owner }}
+        run: |
+          set -euo pipefail
+          tag="sha-${GITHUB_SHA::7}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          # Pin only when main's tree still equals the built commit (apart from the pin file):
+          # if main moved on, the newer commit's own run pins its images, and an older run must
+          # never overwrite a newer pin.
+          main_is_built_commit() {
+            git fetch --quiet origin main
+            git diff --quiet "$GITHUB_SHA" origin/main -- . ':(exclude)k8s/kustomization.yaml'
+          }
+
+          for _ in 1 2 3; do
+            if ! main_is_built_commit; then
+              echo "::notice::main moved past ${GITHUB_SHA::7}; its newer run pins the images"
+              exit 0
+            fi
+            git reset --quiet --hard origin/main
+            for image in leviora-website leviora-website-api; do
+              ref="${REGISTRY}/${OWNER}/${image}"
+              digest="$(docker buildx imagetools inspect "${ref}:${tag}" --format '{{json .Manifest}}' | jq -r '.digest')"
+              case "$digest" in sha256:*) ;; *) echo "::error::no digest for ${ref}:${tag}"; exit 1 ;; esac
+              NAME="$ref" TAG="$tag" DIGEST="$digest" \
+                yq -i '(.images[] | select(.name == strenv(NAME))) |= (.newTag = strenv(TAG) | .digest = strenv(DIGEST))' k8s/kustomization.yaml
+              NAME="$ref" DIGEST="$digest" \
+                yq -e '.images[] | select(.name == strenv(NAME)) | .digest == strenv(DIGEST)' k8s/kustomization.yaml >/dev/null
+              echo "${ref}:${tag}@${digest}"
+            done
+            if git diff --quiet -- k8s/kustomization.yaml; then
+              echo "kustomization.yaml already pins ${tag}"
+              exit 0
+            fi
+            git commit --quiet -m "chore(k8s): pin images to ${tag}" -- k8s/kustomization.yaml
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            echo "push rejected (main moved); retrying"
+          done
+          echo "::error::could not push the pin commit"
+          exit 1
