@@ -12,6 +12,13 @@ export default defineConfig({
       prefixDefaultLocale: false,
     },
   },
+  vite: {
+    build: {
+      // Never inline scripts into the HTML: the CSP is script-src 'self' (nginx.conf). Every
+      // other asset keeps Vite's default limit (a function returning undefined falls back to it).
+      assetsInlineLimit: (filePath) => (filePath.endsWith('.js') ? false : undefined),
+    },
+  },
   integrations: [
     sitemap({
       i18n: {

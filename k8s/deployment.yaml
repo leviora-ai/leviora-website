@@ -31,8 +31,9 @@ spec:
           type: RuntimeDefault
       containers:
         - name: nginx
-          image: ghcr.io/leviora-ai/leviora-website:latest
-          imagePullPolicy: Always
+          # tag@digest is set by kustomization.yaml `images:` (written by the build workflow)
+          image: ghcr.io/leviora-ai/leviora-website
+          imagePullPolicy: IfNotPresent
           ports:
             - name: http
               containerPort: 8080

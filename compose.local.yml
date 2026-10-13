@@ -16,3 +16,5 @@ services:
     environment:
       RESEND_API_KEY: ${RESEND_API_KEY:-}
       CONTACT_TO: ${CONTACT_TO:-info@leviora.ai}
+      # the API refuses posts from other origins (default https://leviora.ai)
+      CONTACT_ALLOWED_ORIGINS: http://localhost:8088

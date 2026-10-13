@@ -1,7 +1,6 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: leviora-website
-
 resources:
   - namespace.yaml
   - deployment.yaml
@@ -9,13 +8,17 @@ resources:
   - api-deployment.yaml
   - api-service.yaml
   - ingress.yaml
-
+  - networkpolicy.yaml
+# Immutable image references. The build workflow (.github/workflows/build.yml, job `pin`) rewrites
+# newTag + digest after every main build with yq, which keeps this file's layout; do not
+# hand-edit them except to roll back (set both to an earlier sha- tag and its digest).
 images:
   - name: ghcr.io/leviora-ai/leviora-website
-    newTag: latest
+    newTag: sha-d817c1d
+    digest: sha256:26f68ef349a32e4a03f81fac1b04e1e654a89b95caf89a41633fd2e4ec2d038d
   - name: ghcr.io/leviora-ai/leviora-website-api
-    newTag: latest
-
+    newTag: sha-d817c1d
+    digest: sha256:b86efefd5d97272c93e3f76112305f8fdf9ca82d47adbf4a5fb161e4fd4a29ee
 labels:
   - includeSelectors: false
     pairs:

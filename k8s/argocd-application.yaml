@@ -1,25 +1,26 @@
-# Standalone ArgoCD Application — separate pipeline from pandora-* platform stack.
+# Standalone ArgoCD Application — separate pipeline from the pandora-* platform stack.
 #
-# One-time bootstrap (against the Hetzner cluster kubeconfig):
+# One-time bootstrap (against the Hetzner cluster kubeconfig), and again whenever this file
+# changes (it is not part of k8s/kustomization.yaml, so ArgoCD does not sync it):
 #   kubectl apply -f k8s/argocd-application.yaml
 #
-# After that, every push to main triggers GHA build → GHCR `:latest` (+ `:sha-<7>`).
-# Because `imagePullPolicy: Always` is set on the Deployment and the image tag is
-# pinned to `:latest`, the pod re-pulls the new image at the next pod restart.
-# ArgoCD auto-sync handles repo manifest drift; for image-only updates run:
-#   argocd app sync leviora-website
-#   # or
-#   kubectl rollout restart deploy/leviora-website -n leviora-website
+# Project: `leviora-website`, an AppProject defined in pandora-infra (argocd/) that allows only
+# this repository as source and only the leviora-website namespace as destination, with the
+# resource kinds k8s/ uses (Namespace; Deployment, Service, Ingress, NetworkPolicy). The AppProject
+# must exist before this file is applied, or the Application stops syncing.
 #
-# (argocd-image-updater is NOT installed on the Hetzner cluster — once it is,
-#  swap to digest-based annotations here.)
+# Deploy flow: a push to main → GHA build.yml builds both images and pushes the immutable tag
+# `sha-<7>` → its `pin` job writes that tag and the pushed manifest digest into
+# k8s/kustomization.yaml (`images:` newTag + digest) and commits it to main → ArgoCD auto-sync
+# rolls the Deployments to `image:sha-<7>@sha256:…`. Git therefore records exactly which image is
+# live; a rollback is a revert of the pin commit (or setting an earlier tag + digest).
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: leviora-website
   namespace: argocd
 spec:
-  project: default
+  project: leviora-website
   source:
     repoURL: https://github.com/leviora-ai/leviora-website
     targetRevision: main

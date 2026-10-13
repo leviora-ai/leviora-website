@@ -38,9 +38,9 @@ const og = ogImage ?? '/assets/og/default.png';
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script is:inline>
-      document.documentElement.classList.add('js');
-    </script>
+    <!-- Synchronous, before first paint (as the inline script it replaces): the CSP allows no
+         inline scripts (script-src 'self'). -->
+    <script is:inline src="/js-flag.js"></script>
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
